@@ -22,6 +22,7 @@ public class BoardController {
 		return "addBoard";
 	}
 	
+	// 게시글 입력 staffId 세션에서 가져오는걸로 변경해야함
 	@PostMapping("/addBoard")
 	public String addBoard(Board board) { // 커맨드객체
 		boardService.addBoard(board);
