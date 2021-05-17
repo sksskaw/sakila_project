@@ -43,9 +43,9 @@ public class BoardController {
 								@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 								@RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage,
 								@RequestParam(value="searchWord", required = false ) String searchWord) {
-			System.out.println(currentPage+"<--currentPage");
-			System.out.println(rowPerPage+"<--rowPerPage");
-			System.out.println(searchWord+"<--searchWord");
+		System.out.println(currentPage+"<--currentPage");
+		System.out.println(rowPerPage+"<--rowPerPage");
+		System.out.println(searchWord+"<--searchWord");
 
 		Map<String, Object> map = boardService.getBoardList(currentPage, rowPerPage, searchWord);	
 
