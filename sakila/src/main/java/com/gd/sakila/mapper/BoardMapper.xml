@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.BoardMapper">
+	
+	<select id="selectBoardList" resultType="com.gd.sakila.vo.Board" parameterType="com.gd.sakila.vo.PageParam">
+		SELECT
+			board_id boardId,
+			board_title boardTitle,
+			insert_date insertDate
+		FROM
+			board
+		<where>
+			<if test="searchWord != null">
+				board_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		ORDER BY insert_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectBoardTotal" resultType="Integer" parameterType="String">
+		SELECT COUNT(*) FROM board
+		<where>
+			<if test="searchWord != null">
+				board_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectBoardOne" parameterType="Integer" resultType="java.util.Map">
+		SELECT
+			b.board_id boardId,
+			b.board_title boardTitle,
+			b.board_content boardContent,
+			insert_date insertDate,
+			s.username username
+		FROM
+			board b INNER JOIN staff s ON b.staff_id = s.staff_id
+		WHERE board_id = #{boardId}
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.gd.sakila.vo.Board">
+		INSERT INTO board(
+			board_pw,
+			board_title,
+			board_content,
+			staff_id,
+			insert_date
+		) VALUES (
+			PASSWORD(#{boardPw}),
+			#{boardTitle},
+			#{boardContent},
+			#{staffId},
+			NOW() 
+		)
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="com.gd.sakila.vo.Board">
+		DELETE FROM board
+		WHERE board_id = #{boardId}
+		AND board_pw = PASSWORD(#{boardPw})
+	</delete>
+	
+	<update id="updateBoard" parameterType="com.gd.sakila.vo.Board">
+		UPDATE board
+		SET board_title = #{boardTitle},
+			board_content = #{boardContent}
+		WHERE board_id = #{boardId}
+		AND board_pw = PASSWORD(#{boardPw})
+	</update>
+</mapper>
