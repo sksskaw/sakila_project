@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.CommentMapper">
+
+	<!-- transaction 처리  게시글 삭제할때 댓글도 같이 삭제(board delete 호출과 함께 호출)-->
+	<delete id="deleteCommentByBoardId" parameterType="Integer">
+		DELETE FROM comment WHERE board_id = #{boardId}
+	</delete>
+	
+	<delete id="deleteCommentByCommentId" parameterType="Integer">
+		DELETE FROM comment
+		WHERE comment_id = #{commentId}
+	</delete>
+	<!-- 관리자 게시판 코멘트 입력 -->
+	<insert id="insertComment" parameterType="com.gd.sakila.vo.Comment">
+		INSERT INTO comment(
+			board_id,
+			username,
+			comment_content,
+			insert_date
+		) VALUES (
+			#{boardId},
+			#{username},
+			#{commentContent},
+			NOW()
+		)
+	</insert>
+	
+	<select id="selectCommentListByBoard" parameterType="Integer" resultType="com.gd.sakila.vo.Comment">
+		SELECT
+			comment_id commentId,
+			board_id boardId,
+			username username,
+			comment_content commentContent,
+			insert_date insertDate
+		FROM comment
+		WHERE board_id = #{boardId}
+		ORDER BY insert_date ASC
+	</select>
+</mapper>

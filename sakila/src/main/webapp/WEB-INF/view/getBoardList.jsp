@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
- 
+ <style>
+ th {
+   text-align:center
+}
+ </style>
 </head>
 <body>
 <div class="container">
@@ -28,20 +32,16 @@
         <tbody>
             <c:forEach var="b" items="${boardList}">
                 <tr>
-                	<td>${b.boardId}</td>
-                    <td><a href="${pageContext.request.contextPath}/getBoardOne?boardId=${b.boardId}">${b.boardTitle}</a></td>
-                    <td>${b.insertDate}</td>
+                    <td class="col-sm-1 text-center">${b.boardId}</td>
+                    <td class="col-sm-8"> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                    	<a href="${pageContext.request.contextPath}/getBoardOne?boardId=${b.boardId}">${b.boardTitle}</a>
+                    </td>
+                    <td class="col-sm-4 text-center">${b.insertDate.substring(0,10)}</td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
     
-    <!-- 검색어 입력창 -->
-    <form action="/getBoardList" method="get">
-        <label for="searchWord">검색어(제목) :</label> 
-        <input name="searchWord" type="text">
-        <button type="submit">검색</button>
-    </form>
     
     <ul class="pager">
         <c:if test="${currentPage > 1}">
@@ -51,6 +51,18 @@
             <li class="next"><a href="${pageContext.request.contextPath}/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
         </c:if>
     </ul>
+    
+    <!-- 검색어 입력창 -->
+    <div class="text-center">
+	    <form action="/getBoardList" method="get">
+	        <label for="searchWord">검색어(제목) :</label> 
+	        <input name="searchWord" type="text">
+	        <button type="submit">검색</button>
+	    </form>
+    </div>
+    
+    
+
     <div>
         <a class="btn btn-default" href="${pageContext.request.contextPath}/addBoard">게시글 입력</a>
     </div>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.sakila.mapper.BoardMapper">
+<mapper namespace="com.gd.sakila.mapper.BoardMapper"><!-- resultType = List의 제네릭 타입 -->
 	
-	<select id="selectBoardList" resultType="com.gd.sakila.vo.Board" parameterType="com.gd.sakila.vo.PageParam">
+	
+	<select id="selectBoardList" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.Board">
 		SELECT
 			board_id boardId,
 			board_title boardTitle,
-			insert_date insertDate
+			insert_date insertDate		
 		FROM
 			board
 		<where>
@@ -18,13 +19,13 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectBoardTotal" resultType="Integer" parameterType="String">
+	<select id="selectBoardTotal" parameterType="String" resultType="Integer" ><!-- myBatis동적쿼리 -->
 		SELECT COUNT(*) FROM board
 		<where>
 			<if test="searchWord != null">
 				board_title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
-		</where>
+		</where>			
 	</select>
 	
 	<select id="selectBoardOne" parameterType="Integer" resultType="java.util.Map">
@@ -32,13 +33,13 @@
 			b.board_id boardId,
 			b.board_title boardTitle,
 			b.board_content boardContent,
-			insert_date insertDate,
+			b.insert_date insertDate,
 			s.username username
 		FROM
-			board b INNER JOIN staff s ON b.staff_id = s.staff_id
+			board b INNER JOIN staff s
+			ON b.staff_id = s.staff_id
 		WHERE board_id = #{boardId}
 	</select>
-	
 	<insert id="insertBoard" parameterType="com.gd.sakila.vo.Board">
 		INSERT INTO board(
 			board_pw,
@@ -47,20 +48,20 @@
 			staff_id,
 			insert_date
 		) VALUES (
+			<!-- PASSWORD(board.getBoardPw() -->
 			PASSWORD(#{boardPw}),
 			#{boardTitle},
 			#{boardContent},
 			#{staffId},
-			NOW() 
+			NOW()
 		)
 	</insert>
-	
 	<delete id="deleteBoard" parameterType="com.gd.sakila.vo.Board">
 		DELETE FROM board
 		WHERE board_id = #{boardId}
 		AND board_pw = PASSWORD(#{boardPw})
 	</delete>
-	
+
 	<update id="updateBoard" parameterType="com.gd.sakila.vo.Board">
 		UPDATE board
 		SET board_title = #{boardTitle},
