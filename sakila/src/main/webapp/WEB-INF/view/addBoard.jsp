@@ -42,8 +42,7 @@
 <body>
     <div class="container">
         <h1>BOARD ADD(spring mvc 방식)</h1>
-        <form id="addForm"
-            action="${pageContext.request.contextPath}/addBoard" method="post">
+        <form id="addForm" action="${pageContext.request.contextPath}/admin/addBoard" method="post">
             <div class="form-group">
                 <label for="boardPw">boardPw :</label>
                 <input class="form-control"name="boardPw" id="boardPw" type="password" />
@@ -62,7 +61,7 @@
             <div>
                 <input class="btn btn-default" id="addButton" type="button" value="글입력" />
                 <input class="btn btn-default" type="reset" value="초기화" /> 
-                <a class="btn btn-default" href="${pageContext.request.contextPath}/getBoardList">글목록</a>
+                <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getBoardList">글목록</a>
             </div>
         </form>
     </div>

@@ -21,7 +21,7 @@ public class BoardController {
 	@Autowired
 	BoardService boardServcie;
 	//게시물 수정
-	@GetMapping("/modifyBoard")
+	@GetMapping("admin/modifyBoard")
 	public String modifyBoard(Model model, @RequestParam(value = "boardId", required = true)int boardId) {
 		log.debug("▶▶▶▶▶ modifyBoard() param: "+boardId);
 		
@@ -31,28 +31,28 @@ public class BoardController {
 		return"modifyBoard";
 	}
 	
-	@PostMapping("/modifyBoard")
+	@PostMapping("admin/modifyBoard")
 	public String modifyBoard(Board board) {
 		log.debug("▶▶▶▶▶ modifyBoard() param: " +board.toString());
 		int row = boardServcie.modifyBoard(board);
 		log.debug("▶▶▶▶▶ update row:"+ row);
-		return"redirect:/getBoardOne?boardId="+board.getBoardId();
+		return"redirect:admin/getBoardOne?boardId="+board.getBoardId();
 	}
 	
 	//C -> M -> redirect
-	@PostMapping("/removeBoard")
+	@PostMapping("admin/removeBoard")
 	public String removeBoard(Board board) {
 		
 		int row = boardServcie.removeBoard(board);
 		log.debug("▶▶▶▶▶ removeBoard() param: "+row);
 		if(row == 0) {//실패
-			return "redirect:/getBoardOne?boardId="+board.getBoardId();
+			return "redirect:admin/getBoardOne?boardId="+board.getBoardId();
 		}
-		return"redirect:/getBoardList";
+		return"redirect:admin/getBoardList";
 	}
 	
 	//게시물 삭제 c-> v
-	@GetMapping("/removeBoard")
+	@GetMapping("admin/removeBoard")
 	public String removeBoard(Model model, @RequestParam(value = "boardId", required = true)int boardId) {
 		log.debug("▶▶▶▶▶ param: "+boardId);
 		model.addAttribute("boardId", boardId);
@@ -60,20 +60,20 @@ public class BoardController {
 	}
 	
 	//게시물 입력창
-	@GetMapping("/addBoard")
+	@GetMapping("admin/addBoard")
 	public String addBoard() {
 		return"addBoard";
 	}
 	
 	//게시물 입력 후 올리기
-	@PostMapping("/addBoard")//request 값들을 spring 받아서 묶어줌(커맨드객체): input type의 명의 board의 필드 명과 같아야함...
+	@PostMapping("admin/addBoard")//request 값들을 spring 받아서 묶어줌(커맨드객체): input type의 명의 board의 필드 명과 같아야함...
 	public String addBoard(Board board) {
 		boardServcie.addBoard(board);
-		return "redirect:/getBoardList"; //forward가 아닌 redirect
+		return "redirect:admin/getBoardList"; //forward가 아닌 redirect
 		//context명이 있음 redirect:/이름/getBoardList
 	}
 	//관리자 게시판 상세보기
-	@GetMapping("/getBoardOne")
+	@GetMapping("admin/getBoardOne")
 	public String getBoardOne(Model model, @RequestParam(value="boardId", required = true)int boardId) {
 		
 		//model servlet의 request.getattribute와 비슷한 역할
@@ -93,7 +93,7 @@ public class BoardController {
 	}
 	
 	//관리자 게시판
-	@GetMapping("/getBoardList")
+	@GetMapping("admin/getBoardList")
 	public String getBoardList(Model model,
 								@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 								@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,

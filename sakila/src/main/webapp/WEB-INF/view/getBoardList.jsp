@@ -34,7 +34,7 @@
                 <tr>
                     <td class="col-sm-1 text-center">${b.boardId}</td>
                     <td class="col-sm-8"> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    	<a href="${pageContext.request.contextPath}/getBoardOne?boardId=${b.boardId}">${b.boardTitle}</a>
+                    	<a href="${pageContext.request.contextPath}/admin/getBoardOne?boardId=${b.boardId}">${b.boardTitle}</a>
                     </td>
                     <td class="col-sm-4 text-center">${b.insertDate.substring(0,10)}</td>
                 </tr>
@@ -45,26 +45,24 @@
     
     <ul class="pager">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/getBoardList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
+            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
+            <li class="next"><a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
         </c:if>
     </ul>
     
     <!-- 검색어 입력창 -->
     <div class="text-center">
-	    <form action="/getBoardList" method="get">
+	    <form action="${pageContext.request.contextPath}/admin/getBoardList" method="get">
 	        <label for="searchWord">검색어(제목) :</label> 
 	        <input name="searchWord" type="text">
 	        <button type="submit">검색</button>
 	    </form>
     </div>
-    
-    
 
     <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/addBoard">게시글 입력</a>
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addBoard">게시글 입력</a>
     </div>
 </div>
 </body>

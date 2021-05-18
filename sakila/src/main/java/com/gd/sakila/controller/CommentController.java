@@ -16,7 +16,7 @@ public class CommentController {
 	@Autowired // 의존 객체 주입(DI)
 	CommentService commentService;
 	
-	@GetMapping("/removeComment")
+	@GetMapping("admin/removeComment")
 	public String removeComment(@RequestParam(value = "commentId", required = true)int commentId,
 								@RequestParam(value = "boardId", required = true)int boardId) {
 		//required = true --> 필수 입력 사항
@@ -27,16 +27,16 @@ public class CommentController {
 		int row = commentService.removeCommet(commentId);
 		log.debug("▶▶▶▶▶▶ removeComment row: "+row);
 		
-		return "redirect:/getBoardOne?boardId="+boardId;
+		return "redirect:admin/getBoardOne?boardId="+boardId;
 	}
 	
-	@PostMapping("/addComment")
+	@PostMapping("admin/addComment")
 	public String addComment(Comment comment) {
 		log.debug("▶▶▶▶▶▶ addComment() param: "+comment.toString());
 		//댓글 입력 서비스 호출
 		int row = commentService.addComment(comment);
 		log.debug("▶▶▶▶▶▶ addComment() row: "+row);
 		
-		return "redirect:/getBoardOne?boardId="+comment.getBoardId();
+		return "redirect:admin/getBoardOne?boardId="+comment.getBoardId();
 	}
 }

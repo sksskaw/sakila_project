@@ -60,9 +60,9 @@ $(document).ready(function() {
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/modifyBoard?boardId=${boardMap.boardId}">수정</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/removeBoard?boardId=${boardMap.boardId}">삭제</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/getBoardList">글목록</a>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyBoard?boardId=${boardMap.boardId}">수정</a>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeBoard?boardId=${boardMap.boardId}">삭제</a>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getBoardList">글목록</a>
     <!-- 댓글 목록 -->
     <br>
     <br>
@@ -70,7 +70,7 @@ $(document).ready(function() {
 	   	전체 댓글수 : ${commentList.size()}
 	   	<div>
 	   		<div><!-- 댓글 남기기 -->
-	   			<form id="addCommentForm" action="${pageContext.request.contextPath}/addComment" method="post">
+	   			<form id="addCommentForm" action="${pageContext.request.contextPath}/admin/addComment" method="post">
 	   				<input name="boardId" type="hidden" value="${boardMap.boardId}">
 	   				<input id="username" type="text" name="username" placeholder="username">
 	   				<div>
@@ -86,7 +86,7 @@ $(document).ready(function() {
 		   				<td class="col-sm-9">${c.commentContent}</td>
 		   				<td class="col-sm-1">${c.username}</td>
 		   				<td>${c.insertDate.substring(0,10)}</td>
-		   				<td><a href="${pageContext.request.contextPath}/removeComment?commentId=${c.commentId}&boardId=${boardMap.boardId}">삭제</a></td>
+		   				<td><a href="${pageContext.request.contextPath}/admin/removeComment?commentId=${c.commentId}&boardId=${boardMap.boardId}">삭제</a></td>
 		   			</tr>
 	   			</c:forEach>
 	   		</table>

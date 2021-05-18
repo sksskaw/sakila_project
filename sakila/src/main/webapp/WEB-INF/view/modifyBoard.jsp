@@ -29,7 +29,7 @@
 	<body>
 	<div class="container">
 		 <h1>modifyBoard</h1>
-		 <form id="modifyForm" action="${pageContext.request.contextPath}/modifyBoard" method="post">
+		 <form id="modifyForm" action="${pageContext.request.contextPath}/admin/modifyBoard" method="post">
 			 <table class="table">
 			      <tbody>
 			         <tr>

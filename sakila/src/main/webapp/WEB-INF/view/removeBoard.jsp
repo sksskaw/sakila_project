@@ -27,7 +27,7 @@ $(document).ready(function() {
 		<br>
 		<h3>removeBoard</h3>
 		<br>
-		<form id="removeForm" action="${pageContext.request.contextPath}/removeBoard" method="post">
+		<form id="removeForm" action="${pageContext.request.contextPath}/admin/removeBoard" method="post">
 			<input type = "hidden" name="boardId" value="${boardId}">
 			<div class="row">
 				<label class="col-sm-1"> boardPw: </label>
