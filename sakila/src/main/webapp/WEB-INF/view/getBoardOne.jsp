@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>BOARD VIEW(spring mvc ¹æ½Ä)</title>
-<!-- bootstrapÀ» »ç¿ëÇÏ±â À§ÇÑ CDNÁÖ¼Ò -->
+<title>BOARD VIEW(spring mvc ë°©ì‹)</title>
+<!-- bootstrapì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ CDNì£¼ì†Œ -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
@@ -19,10 +19,10 @@ $(document).ready(function() {
 	$('#btn').click(function() {
 		console.log('btn.click!');
 		if ($('#username').val() == '') {
-			 alert('usernameÀ» ÀÔ·ÂÇÏ¼¼¿ä');
+			 alert('usernameì„ ì…ë ¥í•˜ì„¸ìš”');
 			 $('#username').focus();
 		} else if ($('#commentContent').val() == ''){
-			 alert('commentContent¸¦ ÀÔ·ÂÇÏ¼¼¿ä');
+			 alert('commentContentë¥¼ ì…ë ¥í•˜ì„¸ìš”');
 			 $('#commentContent').focus();
 		} else{
 			$('#addCommentForm').submit();
@@ -60,23 +60,23 @@ $(document).ready(function() {
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyBoard?boardId=${boardMap.boardId}">¼öÁ¤</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeBoard?boardId=${boardMap.boardId}">»èÁ¦</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getBoardList">±Û¸ñ·Ï</a>
-    <!-- ´ñ±Û ¸ñ·Ï -->
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/modifyBoard?boardId=${boardMap.boardId}">ìˆ˜ì •</a>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/removeBoard?boardId=${boardMap.boardId}">ì‚­ì œ</a>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getBoardList">ê¸€ëª©ë¡</a>
+    <!-- ëŒ“ê¸€ ëª©ë¡ -->
     <br>
     <br>
     <div>
-	   	ÀüÃ¼ ´ñ±Û¼ö : ${commentList.size()}
+	   	ì „ì²´ ëŒ“ê¸€ìˆ˜ : ${commentList.size()}
 	   	<div>
-	   		<div><!-- ´ñ±Û ³²±â±â -->
+	   		<div><!-- ëŒ“ê¸€ ë‚¨ê¸°ê¸° -->
 	   			<form id="addCommentForm" action="${pageContext.request.contextPath}/admin/addComment" method="post">
 	   				<input name="boardId" type="hidden" value="${boardMap.boardId}">
 	   				<input id="username" type="text" name="username" placeholder="username">
 	   				<div>
 	   					<textarea id="commentContent" name="commentContent" rows="5" cols="80" placeholder="commentContent"></textarea>
 	   				</div>
-	   				<button id="btn" type="submit">´ñ±Û ³²±â±â</button>
+	   				<button id="btn" type="submit">ëŒ“ê¸€ ë‚¨ê¸°ê¸°</button>
 	   			</form>
 	   		</div>
 	   		<br>
@@ -86,7 +86,7 @@ $(document).ready(function() {
 		   				<td class="col-sm-9">${c.commentContent}</td>
 		   				<td class="col-sm-1">${c.username}</td>
 		   				<td>${c.insertDate.substring(0,10)}</td>
-		   				<td><a href="${pageContext.request.contextPath}/admin/removeComment?commentId=${c.commentId}&boardId=${boardMap.boardId}">»èÁ¦</a></td>
+		   				<td><a href="${pageContext.request.contextPath}/admin/removeComment?commentId=${c.commentId}&boardId=${boardMap.boardId}">ì‚­ì œ</a></td>
 		   			</tr>
 	   			</c:forEach>
 	   		</table>

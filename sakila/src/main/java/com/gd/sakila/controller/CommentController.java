@@ -27,7 +27,7 @@ public class CommentController {
 		int row = commentService.removeCommet(commentId);
 		log.debug("▶▶▶▶▶▶ removeComment row: "+row);
 		
-		return "redirect:admin/getBoardOne?boardId="+boardId;
+		return "redirect:/admin/getBoardOne?boardId="+boardId;
 	}
 	
 	@PostMapping("admin/addComment")
@@ -37,6 +37,6 @@ public class CommentController {
 		int row = commentService.addComment(comment);
 		log.debug("▶▶▶▶▶▶ addComment() row: "+row);
 		
-		return "redirect:admin/getBoardOne?boardId="+comment.getBoardId();
+		return "redirect:/admin/getBoardOne?boardId="+comment.getBoardId();
 	}
 }

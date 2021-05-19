@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>BOARD VIEW(spring mvc ¹æ½Ä)</title>
-<!-- bootstrapÀ» »ç¿ëÇÏ±â À§ÇÑ CDNÁÖ¼Ò -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>BOARD VIEW(spring mvc ë°©ì‹)</title>
+<!-- bootstrapì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ CDNì£¼ì†Œ -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
@@ -17,7 +17,7 @@
 		console.log('ready');
 		$('#btn').click(function(){
 			if($('#boardPw').val().length < 4){
-				 alert('boardPw´Â 4ÀÚÀÌ»ó ÀÌ¾î¾ß ÇÕ´Ï´Ù');
+				 alert('boardPwëŠ” 4ìì´ìƒ ì´ì–´ì•¼ í•©ë‹ˆë‹¤');
 				 $('#boardPw').focus();
 			} else {
 				$('#modifyForm').submit();	
@@ -62,10 +62,10 @@
 			               <td>insert_date :</td>
 			               <td>${map.insertDate}</td>
 			          </tr>
-			      </tbody>   
+			      </tbody>
 			</table>
 			<div class="row text-right">
-				<button type="button" id="btn" class="btn">¼öÁ¤</button>
+				<button type="submit" id="btn" class="btn">ìˆ˜ì •</button>
 			</div>
 			
 		</form>

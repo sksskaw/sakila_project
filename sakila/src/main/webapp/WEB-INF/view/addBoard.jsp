@@ -30,7 +30,7 @@
                 $('#boardContent').focus();
             } else if ($('#staffId').val() == '') {
                 alert('staffId을 입력하세요');
-                $('#boardUser').focus();
+                $('#staffId').focus();
             } else {
                 $('#addForm').submit();
             }
@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>BOARD ADD(spring mvc 방식)</h1>
+        <h1>BOARD ADD</h1>
         <form id="addForm" action="${pageContext.request.contextPath}/admin/addBoard" method="post">
             <div class="form-group">
                 <label for="boardPw">boardPw :</label>

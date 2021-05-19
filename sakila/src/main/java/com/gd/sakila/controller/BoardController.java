@@ -36,7 +36,7 @@ public class BoardController {
 		log.debug("▶▶▶▶▶ modifyBoard() param: " +board.toString());
 		int row = boardServcie.modifyBoard(board);
 		log.debug("▶▶▶▶▶ update row:"+ row);
-		return"redirect:admin/getBoardOne?boardId="+board.getBoardId();
+		return"redirect:/admin/getBoardOne?boardId="+board.getBoardId();
 	}
 	
 	//C -> M -> redirect
@@ -48,7 +48,7 @@ public class BoardController {
 		if(row == 0) {//실패
 			return "redirect:admin/getBoardOne?boardId="+board.getBoardId();
 		}
-		return"redirect:admin/getBoardList";
+		return"redirect:/admin/getBoardList";
 	}
 	
 	//게시물 삭제 c-> v
@@ -69,7 +69,7 @@ public class BoardController {
 	@PostMapping("admin/addBoard")//request 값들을 spring 받아서 묶어줌(커맨드객체): input type의 명의 board의 필드 명과 같아야함...
 	public String addBoard(Board board) {
 		boardServcie.addBoard(board);
-		return "redirect:admin/getBoardList"; //forward가 아닌 redirect
+		return "redirect:/admin/getBoardList"; //forward가 아닌 redirect
 		//context명이 있음 redirect:/이름/getBoardList
 	}
 	//관리자 게시판 상세보기
