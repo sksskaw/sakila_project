@@ -41,6 +41,9 @@
 		WHERE board_id = #{boardId}
 	</select>
 	<insert id="insertBoard" parameterType="com.gd.sakila.vo.Board">
+		<selectKey resultType="int" keyProperty="boardId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO board(
 			board_pw,
 			board_title,

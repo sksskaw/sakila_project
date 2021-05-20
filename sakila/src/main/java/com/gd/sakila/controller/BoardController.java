@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
+import com.gd.sakila.vo.BoardForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,12 +67,13 @@ public class BoardController {
 	}
 	
 	//게시물 입력 후 올리기
-	@PostMapping("admin/addBoard")//request 값들을 spring 받아서 묶어줌(커맨드객체): input type의 명의 board의 필드 명과 같아야함...
-	public String addBoard(Board board) {
-		boardServcie.addBoard(board);
+	@PostMapping("admin/addBoard")
+	public String addBoard(BoardForm boardForm) {
+		boardServcie.addBoard(boardForm);
 		return "redirect:/admin/getBoardList"; //forward가 아닌 redirect
 		//context명이 있음 redirect:/이름/getBoardList
 	}
+
 	//관리자 게시판 상세보기
 	@GetMapping("admin/getBoardOne")
 	public String getBoardOne(Model model, @RequestParam(value="boardId", required = true)int boardId) {
