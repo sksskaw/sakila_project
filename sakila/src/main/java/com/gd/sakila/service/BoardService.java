@@ -35,26 +35,34 @@ public class BoardService {
 		return boardMapper.updateBoard(board);
 	}
 	
-
 	//게시물 삭제
 	public int removeBoard(Board board) {
-		log.debug("▶▶▶▶▶ removeBoard() param:"+ board.toString());	
+		log.debug("▶▶▶▶▶▶ removeBoard() param: "+ board);
 		
-		//2) 게시글 삭제 -- FK(외래키)를 지정하지 않거나, FK를 delete no action..
+		// 1) 댓글삭제
+		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
+		
+		// 2) 물리적 파일 삭제(/resource/안에 파일)
+		List<Boardfile> boardfileList = boardfileMapper.selectBoardfileByBoardId(board.getBoardId());
+		
+		if(boardfileList != null) {
+			for(Boardfile f : boardfileList) {
+				File temp = new File(""); // 프로젝트 폴더에 빈파일이 만들어진다
+				String path = temp.getAbsolutePath(); // 프로젝트 폴더
+				File file = new File(path+"\\src\\main\\webapp\\resource\\"+f.getBoardfileName());
+				file.delete();
+			}
+		}
+		
+		// 3) 파일 테이블 행삭제
+		int boardfileRow = boardfileMapper.deleteBoardfileByBoardId(board.getBoardId());
+		
+		// 나는 외래키 설정해놔서 가장 마지막에 삭제해야함
 		int boardRow = boardMapper.deleteBoard(board);
-		if(boardRow == 0) {//패스워드가 지정되어 있지 않으면 게시글은 삭제되지 않으면서 댓글을 삭제될 수 있다.
-			log.debug("삭제된 게시물이 없음");
+		if(boardRow == 0) {
 			return 0;
 		}
-		log.debug("게시물 삭제");
-		//1) 댓글삭제
-		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
-		log.debug("▶▶▶▶▶▶ remeveBoard() commentRow: " + commentRow);
-		
-		
-		
-		log.debug("▶▶▶▶▶▶ remeveBoard() boardRow: " + boardRow);
-		
+			
 		return boardRow;
 	}
 	
@@ -66,10 +74,9 @@ public class BoardService {
 		
 		// 1) board 분할
 		Board board = boardForm.getBoard(); // boardId값이 null
-		log.debug("board :"+board.getBoardId()); // 0
-		boardMapper.insertBoard(board); 
+		boardMapper.insertBoard(board);
 		// 입력시 만들어진 key값을 리턴받아야 한다. -> 리턴받을수 없다. -> 매개변수 board의 boardId값 변경해준다.
-		log.debug("board :"+board.getBoardId()); // auto increment로 입력된 값
+		log.debug("board_Id:"+board.getBoardId()); // auto increment로 입력된 값
 		
 		// 2) boardfile 분할
 		List<MultipartFile> list = boardForm.getBoardfile();
@@ -80,7 +87,7 @@ public class BoardService {
 				// test.txt -> newname.txt
 				String originalFilename = f.getOriginalFilename();
 				int p = originalFilename.lastIndexOf("."); // 4
-				String ext = originalFilename.substring(p).toLowerCase(); // .txt
+				String ext = originalFilename.substring(p).toLowerCase(); // 확장자 타입
 				String prename = UUID.randomUUID().toString().replace("-", "");
 				
 				String filename = prename+ext;
@@ -94,7 +101,9 @@ public class BoardService {
 				// 2-2)
 				// 파일을 저장
 				try {
-					f.transferTo(new File("C:\\Users\\김태훈\\Desktop\\sts-4.10.0.RELEASE\\upload\\sakila_file_Upload\\"+filename));
+					File temp = new File(""); // 프로젝트 폴더에 빈파일이 만들어진다
+					String path = temp.getAbsolutePath(); // 프로젝트 폴더
+					f.transferTo(new File(path+"\\src\\main\\webapp\\resource\\"+filename));
 				} catch (Exception e) {
 					throw new RuntimeException();
 				} 
@@ -105,22 +114,28 @@ public class BoardService {
 	
 	
 	//1)boardOne 상세보기 + 2)댓글목록, 수정폼
-	public Map<String,Object> getBoardOne(int boardId){
-		log.debug("▶▶▶▶▶▶ getBoardOne() param:"+boardId);
-		//1)상세보기
+	public Map<String, Object> getBoardOne(int boardId) {
+		log.debug("▶▶▶▶▶▶ modifyBoard() param: "+ boardId);
+		// 1) 상세보기
 		Map<String, Object> boardMap = boardMapper.selectBoardOne(boardId);
+		log.debug("▶▶▶▶▶▶ boardMap :"+boardMap);
 		
-		//2)댓글 목록
+		// 2) boardfile 목록
+		List<Boardfile> boardfileList = boardfileMapper.selectBoardfileByBoardId(boardId);
+		log.debug("▶▶▶▶▶▶ boardfileList size() :"+boardfileList.size());
+		
+		// 3) 댓글 목록
 		List<Comment> commentList = commentMapper.selectCommentListByBoard(boardId);
-		log.debug("commentList size():"+ commentList.size());
+		log.debug("▶▶▶▶▶▶ commentList size() :"+commentList.size());
 		
-		//3)리턴 값 정리
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardMap", boardMap);
+		map.put("boardfileList", boardfileList);
 		map.put("commentList", commentList);
 		
 		return map;
 	}
+	
 	//관리자 게시판 리스트
 	public Map<String, Object> getBoardList(int currentPage, int rowPerPage, String searchWord){
 		//1

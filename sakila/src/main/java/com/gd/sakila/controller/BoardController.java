@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
 import com.gd.sakila.vo.BoardForm;
+import com.gd.sakila.vo.Boardfile;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,6 +91,7 @@ public class BoardController {
 		
 		model.addAttribute("insertDate", insertDate);
 		model.addAttribute("boardMap",map.get("boardMap"));
+		model.addAttribute("boardfileList", map.get("boardfileList"));
 		model.addAttribute("commentList", map.get("commentList"));
 		return "getBoardOne";
 	}

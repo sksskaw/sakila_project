@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.BoardfileMapper"> <!-- package -->
+	
+	<delete id="deleteBoardfileByBoardId"
+			parameterType="int">
+		DELETE FROM boardfile
+		WHERE board_id = #{boardId}
+	</delete>
+	
+	<!-- 파일 데이터 가져오기 -->
+	<select id="selectBoardfileByBoardId"
+			parameterType="int"
+			resultType="com.gd.sakila.vo.Boardfile"> <!-- resultType : return type X, 리스트의 제네릭 타입 O -->
+		SELECT 
+			boardfile_name boardfileName,
+			boardfile_size boardfileSize
+		FROM boardfile
+		WHERE board_id = #{boardId}
+	</select>
+	
 	<insert id="insertBoardfile" parameterType="com.gd.sakila.vo.Boardfile">
 		INSERT INTO boardfile(
 			board_id,
