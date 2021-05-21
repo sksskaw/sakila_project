@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gd.sakila.service.BoardService;
 import com.gd.sakila.vo.Board;
 import com.gd.sakila.vo.BoardForm;
-import com.gd.sakila.vo.Boardfile;
 
 import lombok.extern.slf4j.Slf4j;
 

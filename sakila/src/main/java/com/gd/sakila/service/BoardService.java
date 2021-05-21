@@ -41,6 +41,7 @@ public class BoardService {
 		
 		// 1) 댓글삭제
 		int commentRow = commentMapper.deleteCommentByBoardId(board.getBoardId());
+		log.debug("▶▶▶▶▶▶ 글삭제로 인한 삭제된 댓글 수"+ commentRow);
 		
 		// 2) 물리적 파일 삭제(/resource/안에 파일)
 		List<Boardfile> boardfileList = boardfileMapper.selectBoardfileByBoardId(board.getBoardId());
@@ -56,6 +57,7 @@ public class BoardService {
 		
 		// 3) 파일 테이블 행삭제
 		int boardfileRow = boardfileMapper.deleteBoardfileByBoardId(board.getBoardId());
+		log.debug("▶▶▶▶▶▶ 글삭제로 인한 삭제된 파일 수"+ boardfileRow);
 		
 		// 나는 외래키 설정해놔서 가장 마지막에 삭제해야함
 		int boardRow = boardMapper.deleteBoard(board);
