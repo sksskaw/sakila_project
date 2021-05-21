@@ -47,7 +47,8 @@
 		</div>
 		<div>
 			<button type="button" id="btn">파일추가</button>
-		</div> 
+			<a href="${pageContext.request.contextPath}/admin/getBoardOne?boardId=${boardId}"><button type="button">취소</button></a>
+		</div>
 	</form>
 </body>
 </html>
