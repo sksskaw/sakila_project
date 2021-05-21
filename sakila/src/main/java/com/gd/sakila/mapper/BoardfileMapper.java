@@ -11,4 +11,5 @@ public interface BoardfileMapper {
 	int insertBoardfile(Boardfile boardfile);
 	List<Boardfile> selectBoardfileByBoardId(int boardId);
 	int deleteBoardfileByBoardId(int boardId);
+	int deleteBoardfileOne(int boardfileId);
 }

@@ -8,11 +8,18 @@
 		WHERE board_id = #{boardId}
 	</delete>
 	
+	<delete id="deleteBoardfileOne">
+		DELETE FROM boardfile
+		WHERE boardfile_id = #{boardfileId}
+	</delete>
+
 	<!-- 파일 데이터 가져오기 -->
 	<select id="selectBoardfileByBoardId"
 			parameterType="int"
 			resultType="com.gd.sakila.vo.Boardfile"> <!-- resultType : return type X, 리스트의 제네릭 타입 O -->
 		SELECT 
+			boardfile_id boardfileId,
+			board_id boardId,
 			boardfile_name boardfileName,
 			boardfile_size boardfileSize
 		FROM boardfile
