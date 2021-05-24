@@ -36,10 +36,19 @@ public class FilmController {
 			@RequestParam(value="searchWord", required = false)String searchWord,
 			@RequestParam(value="category", required = false)String category,
 			@RequestParam(value="price", required = false)String price) {
+
+		// null Param 처리, 값이 안들어왔을 경우 null이 아닌 공백으로 들어오기 때문
+		if(searchWord != null && searchWord.equals("")) { // searchWord가 null이면 equals을 사용할 수 없음...
+			searchWord = null;
+		}
+		
+		if(category != null && category.equals("")) {
+			category = null;
+		}
 		
 		double doublePrice = 0;
 		
-		if(price != null) {
+		if(price != null && !price.equals("")) {  // 공백이 아니면, price의 값이 들어오면 문자열 price 값을 double 형태로 형변환하여 처리
 			doublePrice = Double.parseDouble(price);
 		}
 		

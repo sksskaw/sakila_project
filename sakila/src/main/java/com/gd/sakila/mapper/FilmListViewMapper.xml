@@ -19,11 +19,17 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectFilmTotal" parameterType="String" resultType="Integer" ><!-- myBatis동적쿼리 -->
+	<select id="selectFilmTotal" parameterType="hashmap" resultType="Integer" ><!-- myBatis동적쿼리 -->
 		SELECT COUNT(*) FROM film_list
 		<where>
 			<if test="searchWord != null">
 				title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+			<if test="price != 0">
+				AND price = #{price}
 			</if>
 		</where>			
 	</select>
