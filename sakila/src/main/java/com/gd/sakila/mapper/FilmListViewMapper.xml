@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.FilmListViewMapper">
+	<select id="selectFilmList" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.FilmListView">
+		SELECT *
+		FROM film_list
+		<where>
+			<if test="searchWord != null">
+				title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+		</where>
+		ORDER BY title
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectFilmTotal" parameterType="String" resultType="Integer" ><!-- myBatis동적쿼리 -->
+		SELECT COUNT(*) FROM film_list
+		<where>
+			<if test="searchWord != null">
+				title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>			
+	</select>
+	
+	<select id="selectCategory" resultType="String">
+		SELECT DISTINCT category 
+		FROM film_list 
+		ORDER BY category
+	</select>
+	
+	<select id="selectPrice" resultType="double">
+		SELECT DISTINCT price 
+		FROM film_list 
+		ORDER BY price
+	</select>
+</mapper>

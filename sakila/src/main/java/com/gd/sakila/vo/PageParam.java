@@ -7,4 +7,5 @@ public class PageParam {
 	private int beginRow;
 	private int rowPerPage;
 	private String searchWord;
+	private String category;
 }

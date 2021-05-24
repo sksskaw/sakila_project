@@ -140,22 +140,15 @@ public class BoardService {
 	
 	//관리자 게시판 리스트
 	public Map<String, Object> getBoardList(int currentPage, int rowPerPage, String searchWord){
-		//1
+	
 		int boardTotal = boardMapper.selectBoardTotal(searchWord);//searchword
-
 		int lastPage = (int)Math.ceil((double)boardTotal / rowPerPage);
-		/*
-		 * int lastPage = boardTotal/rowPerPage;
-		if(lastPage%rowPerPage != 0) {
-			lastPage ++;
-		}
-		*/
-		//2.
+
 		PageParam page = new PageParam();
 		page.setBeginRow((currentPage-1)*rowPerPage); // 시작페이지
 		page.setRowPerPage(rowPerPage);
 		page.setSearchWord(searchWord);
-		//3.
+
 		List<Board> boardList = boardMapper.selectBoardList(page);//page
 		
 		//확장성 때문에 큰 타입으로 받음...

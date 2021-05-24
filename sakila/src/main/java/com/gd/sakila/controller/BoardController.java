@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.BoardService;
@@ -18,21 +19,22 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/admin")
 public class BoardController {
 	@Autowired
 	BoardService boardServcie;
 	//게시물 수정
-	@GetMapping("admin/modifyBoard")
+	@GetMapping("/modifyBoard")
 	public String modifyBoard(Model model, @RequestParam(value = "boardId", required = true)int boardId) {
 		log.debug("▶▶▶▶▶ modifyBoard() param: "+boardId);
 		
 		Map<String, Object> map = boardServcie.getBoardOne(boardId);
 		log.debug("▶▶▶▶▶ modifyBoard() map: "+map.get("boardMap"));
 		model.addAttribute("map", map.get("boardMap"));
-		return"modifyBoard";
+		return"/board/modifyBoard";
 	}
 	
-	@PostMapping("admin/modifyBoard")
+	@PostMapping("/modifyBoard")
 	public String modifyBoard(Board board) {
 		log.debug("▶▶▶▶▶ modifyBoard() param: " +board.toString());
 		int row = boardServcie.modifyBoard(board);
@@ -41,33 +43,34 @@ public class BoardController {
 	}
 	
 	//C -> M -> redirect
-	@PostMapping("admin/removeBoard")
+	@PostMapping("/removeBoard")
 	public String removeBoard(Board board) {
 		
 		int row = boardServcie.removeBoard(board);
 		log.debug("▶▶▶▶▶ removeBoard() param: "+row);
 		if(row == 0) {//실패
-			return "redirect:admin/getBoardOne?boardId="+board.getBoardId();
+			log.debug("▶▶▶▶▶ removeBoard() 실패 비밀번호가 틀립니다!!!");
+			return "redirect:getBoardOne?boardId="+board.getBoardId();
 		}
 		return"redirect:/admin/getBoardList";
 	}
 	
 	//게시물 삭제 c-> v
-	@GetMapping("admin/removeBoard")
+	@GetMapping("/removeBoard")
 	public String removeBoard(Model model, @RequestParam(value = "boardId", required = true)int boardId) {
 		log.debug("▶▶▶▶▶ param: "+boardId);
 		model.addAttribute("boardId", boardId);
-		return"removeBoard";//리턴타입 뷰이름 -> 문자열
+		return"/board/removeBoard";//리턴타입 뷰이름 -> 문자열
 	}
 	
 	//게시물 입력창
-	@GetMapping("admin/addBoard")
+	@GetMapping("/addBoard")
 	public String addBoard() {
-		return"addBoard";
+		return"/board/addBoard";
 	}
 	
 	//게시물 입력 후 올리기
-	@PostMapping("admin/addBoard")
+	@PostMapping("/addBoard")
 	public String addBoard(BoardForm boardForm) {
 		boardServcie.addBoard(boardForm);
 		return "redirect:/admin/getBoardList"; //forward가 아닌 redirect
@@ -75,7 +78,7 @@ public class BoardController {
 	}
 
 	//관리자 게시판 상세보기
-	@GetMapping("admin/getBoardOne")
+	@GetMapping("/getBoardOne")
 	public String getBoardOne(Model model, @RequestParam(value="boardId", required = true)int boardId) {
 		
 		//model servlet의 request.getattribute와 비슷한 역할
@@ -92,11 +95,11 @@ public class BoardController {
 		model.addAttribute("boardMap",map.get("boardMap"));
 		model.addAttribute("boardfileList", map.get("boardfileList"));
 		model.addAttribute("commentList", map.get("commentList"));
-		return "getBoardOne";
+		return "/board/getBoardOne";
 	}
 	
 	//관리자 게시판
-	@GetMapping("admin/getBoardList")
+	@GetMapping("/getBoardList")
 	public String getBoardList(Model model,
 								@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 								@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -113,6 +116,6 @@ public class BoardController {
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("boardList", map.get("boardList"));
 		
-		return "getBoardList";
+		return "/board/getBoardList";
 	}
 }

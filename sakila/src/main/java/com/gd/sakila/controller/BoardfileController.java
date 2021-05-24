@@ -30,7 +30,7 @@ public class BoardfileController {
 	@GetMapping("/addBoardfile")
 	public String addBoardfile(Model model, @RequestParam(value = "boardId", required = true) int boardId) {
 		model.addAttribute("boardId", boardId);
-		return "addBoardfile";
+		return "/board/addBoardfile";
 	}
 	@PostMapping("/addBoardfile")
 	public String addBoard(MultipartFile multipartFile, @RequestParam(value = "boardId", required = true) int boardId) {
