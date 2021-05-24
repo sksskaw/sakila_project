@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.FilmListViewMapper">
-	<select id="selectFilmList" parameterType="com.gd.sakila.vo.PageParam" resultType="com.gd.sakila.vo.FilmListView">
+	<select id="selectFilmList" parameterType="hashmap" resultType="com.gd.sakila.vo.FilmListView">
 		SELECT *
 		FROM film_list
 		<where>
@@ -10,6 +10,9 @@
 			</if>
 			<if test="category != null">
 				AND category = #{category}
+			</if>
+			<if test="price != 0">
+				AND price = #{price}
 			</if>
 		</where>
 		ORDER BY title

@@ -32,9 +32,9 @@
     
     <h4>가격별 검색</h4>
     <div>
-    		<a href="">전체 | </a>
+    		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${category}">전체 | </a>
 	    <c:forEach var="p" items="${priceList}">
-	    	<a href="">${p}$ |</a>
+	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${category}&price=${p}">${p}$ |</a>
 	    </c:forEach>
     </div>
     
@@ -71,10 +71,10 @@
     
     <ul class="pager">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}">이전</a></li>
+            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}&price=${price}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}">다음</a></li>
+            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}">다음</a></li>
         </c:if>
     </ul>
     

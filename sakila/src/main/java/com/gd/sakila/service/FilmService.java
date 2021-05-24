@@ -38,7 +38,7 @@ public class FilmService {
 		}
 		
 		// 영화 리스트 출력 film_list VIEW 사용
-		public Map<String, Object> getFilmList(int currentPage, int rowPerPage, String searchWord, String category){
+		public Map<String, Object> getFilmList(int currentPage, int rowPerPage, String searchWord, String category, double price){
 			
 			int filmTotal = filmListViewMapper.selectFilmTotal(searchWord);
 			int lastPage = (int)Math.ceil((double)filmTotal / rowPerPage);
@@ -47,9 +47,16 @@ public class FilmService {
 			page.setBeginRow((currentPage-1)*rowPerPage); // 시작페이지
 			page.setRowPerPage(rowPerPage);
 			page.setSearchWord(searchWord);
-			page.setCategory(category);
 			
-			List<FilmListView> filmList = filmListViewMapper.selectFilmList(page);
+			// 리스트 출력 쿼리 파라미터 전송을 위한 map
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("beginRow", page.getBeginRow());
+			paramMap.put("rowPerPage", page.getRowPerPage());
+			paramMap.put("searchWord", page.getSearchWord());
+			paramMap.put("category", category);
+			paramMap.put("price", price);
+			
+			List<FilmListView> filmList = filmListViewMapper.selectFilmList(paramMap);
 			
 			Map<String, Object> map = new HashMap<>(); // 영화 리스트와 마지막 페이지를 정보를 같이 보내기 위해 map사용
 			map.put("lastPage", lastPage);
