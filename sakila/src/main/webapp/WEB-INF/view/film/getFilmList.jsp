@@ -38,6 +38,14 @@
 	    </c:forEach>
     </div>
     
+    <h4>등급별 검색</h4>
+    <div>
+    		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${category}&price=${price}">전체 | </a>
+	    <c:forEach var="r" items="${ratingList}">
+	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${r}">${r} |</a>
+	    </c:forEach>
+    </div>
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -71,10 +79,10 @@
     
     <ul class="pager">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}&price=${price}">이전</a></li>
+            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}">다음</a></li>
+            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}">다음</a></li>
         </c:if>
     </ul>
     
@@ -87,10 +95,6 @@
 	    </form>
     </div>
 
-    <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addFilm">직원 등록하기</a>
-    </div>
-    
 </div>
 </body>
 </html>

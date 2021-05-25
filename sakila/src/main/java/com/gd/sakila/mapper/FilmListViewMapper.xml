@@ -14,6 +14,9 @@
 			<if test="price != 0">
 				AND price = #{price}
 			</if>
+			<if test="rating != null">
+				AND rating = #{rating}
+			</if>
 		</where>
 		ORDER BY title
 		LIMIT #{beginRow}, #{rowPerPage}
@@ -31,6 +34,9 @@
 			<if test="price != 0">
 				AND price = #{price}
 			</if>
+			<if test="rating != null">
+				AND rating = #{rating}
+			</if>
 		</where>			
 	</select>
 	
@@ -45,4 +51,11 @@
 		FROM film_list 
 		ORDER BY price
 	</select>
+	
+	<select id="selectRating" resultType="String">
+		SELECT DISTINCT rating 
+		FROM film_list
+		ORDER BY rating
+	</select>
+
 </mapper>
