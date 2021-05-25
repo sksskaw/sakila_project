@@ -21,7 +21,7 @@
 <body>
 <div class="container">
     <h1>getFilmList</h1>
-    
+   
     <h4>카테고리</h4>
     <div>
     		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}">전체 | </a>
@@ -29,22 +29,39 @@
 	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${c}">${c} |</a>
 	    </c:forEach>
     </div>
+    <br>
     
-    <h4>가격별 검색</h4>
-    <div>
-    		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${category}">전체 | </a>
-	    <c:forEach var="p" items="${priceList}">
-	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${category}&price=${p}">${p}$ |</a>
-	    </c:forEach>
-    </div>
-    
-    <h4>등급별 검색</h4>
-    <div>
-    		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${category}&price=${price}">전체 | </a>
-	    <c:forEach var="r" items="${ratingList}">
-	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${r}">${r} |</a>
-	    </c:forEach>
-    </div>
+    <form action="${pageContext.request.contextPath}/admin/getFilmList" method="get">
+    	<input type="hidden" name="category" value="${category}">
+	    <div>
+		    가격별
+		    	<select name="price">
+		    		<option value="" selected="selected">전체</option>
+		    		<c:forEach var="p" items="${priceList}">
+		    			<c:if test="${p == price}">
+		    				<option value="${p}" selected="selected">${p}</option>
+		    			</c:if>
+		    			<c:if test="${p != price}">
+		    				<option value="${p}">${p}</option>
+		    			</c:if>
+		    		</c:forEach>
+		    	</select>
+		    &nbsp;
+		    등급별
+		    	<select name="rating">
+		    		<option value="" selected="selected">전체</option>
+		    		<c:forEach var="r" items="${ratingList}">
+		    			<c:if test="${r == rating}">
+		    				<option value="${r}" selected="selected">${r}</option>
+		    			</c:if>
+		    			<c:if test="${r != rating}">
+		    				<option value="${r}">${r}</option>
+		    			</c:if>
+		    		</c:forEach>
+		    	</select>
+	    <button type="submit">검색</button>
+	    </div>
+    </form>
     
     <table class="table table-striped">
         <thead>
