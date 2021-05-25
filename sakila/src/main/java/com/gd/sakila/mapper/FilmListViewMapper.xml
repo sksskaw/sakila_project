@@ -4,14 +4,17 @@
 	<select id="selectFilmList" parameterType="hashmap" resultType="com.gd.sakila.vo.FilmListView">
 		SELECT *
 		FROM film_list
-		<where>
-			<if test="searchWord != null">
+		<where> <!-- 해당 방식은 if문마다 mubatis가 자동으로 AND를 넣어준다, 개발자가 넣어준 경우 AND를 알아서 지운다(맨 앞에 AND가 올 경우) -->
+			<if test="searchWord != null and searchKind == 'title'">
 				title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="searchWord != null and searchKind == 'actors'">
+				actors LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 			<if test="category != null">
 				AND category = #{category}
 			</if>
-			<if test="price != 0">
+			<if test="price != null">
 				AND price = #{price}
 			</if>
 			<if test="rating != null">
@@ -25,13 +28,16 @@
 	<select id="selectFilmTotal" parameterType="hashmap" resultType="Integer" ><!-- myBatis동적쿼리 -->
 		SELECT COUNT(*) FROM film_list
 		<where>
-			<if test="searchWord != null">
+			<if test="searchWord != null and searchKind == 'title'">
 				title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="searchWord != null and searchKind == 'actors'">
+				actors LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 			<if test="category != null">
 				AND category = #{category}
 			</if>
-			<if test="price != 0">
+			<if test="price != null">
 				AND price = #{price}
 			</if>
 			<if test="rating != null">

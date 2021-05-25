@@ -38,11 +38,12 @@ public class FilmService {
 		}
 		
 		// 영화 리스트 출력 film_list VIEW 사용
-		public Map<String, Object> getFilmList(int currentPage, int rowPerPage, String searchWord, String category, double price, String rating){
+		public Map<String, Object> getFilmList(int currentPage, int rowPerPage, String searchWord, String searchKind, String category, Double price, String rating){
 			
 			// 총 리스트 수를 알기위한 쿼리 파라미터 전송을 위한 map
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("searchWord", searchWord);
+			paramMap.put("searchKind", searchKind);
 			paramMap.put("category", category);
 			paramMap.put("price", price);
 			paramMap.put("rating", rating);
@@ -62,6 +63,7 @@ public class FilmService {
 			paramMap2.put("beginRow", page.getBeginRow());
 			paramMap2.put("rowPerPage", page.getRowPerPage());
 			paramMap2.put("searchWord", page.getSearchWord());
+			paramMap2.put("searchKind", searchKind);
 			paramMap2.put("category", category);
 			paramMap2.put("price", price);
 			paramMap2.put("rating", rating);

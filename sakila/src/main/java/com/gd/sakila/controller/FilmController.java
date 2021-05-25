@@ -32,8 +32,9 @@ public class FilmController {
 			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value="searchWord", required = false)String searchWord,
+			@RequestParam(value="searchKind", defaultValue = "title")String searchKind,
 			@RequestParam(value="category", required = false)String category,
-			@RequestParam(value="price", required = false)String price,
+			@RequestParam(value="price", required = false)Double price,
 			@RequestParam(value="rating", required = false)String rating) {
 		
 		// null Param 처리, 값이 안들어왔을 경우 null이 아닌 공백으로 들어오기 때문
@@ -44,11 +45,9 @@ public class FilmController {
 		if(category != null && category.equals("")) {
 			category = null;
 		}
-		
-		double doublePrice = 0;
-		
-		if(price != null && !price.equals("")) {  // 공백이 아니면, price의 값이 들어오면 문자열 price 값을 double 형태로 형변환하여 처리
-			doublePrice = Double.parseDouble(price);
+
+		if(price != null && price == 0) {
+			price = null;
 		}
 		
 		if(rating != null && rating.equals("")) {
@@ -58,12 +57,13 @@ public class FilmController {
 		log.debug("currentPage: "+ currentPage);
 		log.debug("rowPerPage: "+ rowPerPage);
 		log.debug("searchWord: "+ searchWord);
+		log.debug("searchKind: "+ searchKind);
 		log.debug("category: "+ category);
 		log.debug("price: "+ price);
 		log.debug("rating: "+ rating);
 		
 		// 영화 리스트 출력
-		Map<String, Object> map = filmService.getFilmList(currentPage, rowPerPage, searchWord, category, doublePrice, rating);
+		Map<String, Object> map = filmService.getFilmList(currentPage, rowPerPage, searchWord, searchKind, category, price, rating);
 		
 		// 영화 카테고리 출력
 		List<String> categoryList = filmService.getCategory();
@@ -76,6 +76,7 @@ public class FilmController {
 		
 		// 단일 변수 데이터
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("searchKind", searchKind);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("category", category);
 		model.addAttribute("price", price);
@@ -89,7 +90,7 @@ public class FilmController {
 		// map 데이터
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("filmList", map.get("filmList"));
-		log.debug("▶▶▶▶▶▶▶ FilmList Size : "+((List)map.get("filmList")).size());
+		//log.debug("▶▶▶▶▶▶▶ FilmList Size : "+((List)map.get("filmList")).size()); 리스트 수 디버그
 		
 		return "/film/getFilmList";
 	}

@@ -26,17 +26,18 @@
     <div>
     		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}">전체 | </a>
 	    <c:forEach var="c" items="${categoryList}">
-	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&searchWord=${searchWord}&category=${c}">${c} |</a>
+	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${c}">${c} |</a>
 	    </c:forEach>
     </div>
     <br>
     
+    <!-- 가격별, 등급별 검색 -->
     <form action="${pageContext.request.contextPath}/admin/getFilmList" method="get">
     	<input type="hidden" name="category" value="${category}">
 	    <div>
 		    가격별
 		    	<select name="price">
-		    		<option value="" selected="selected">전체</option>
+		    		<option value="0" selected="selected">전체</option>
 		    		<c:forEach var="p" items="${priceList}">
 		    			<c:if test="${p == price}">
 		    				<option value="${p}" selected="selected">${p}</option>
@@ -63,6 +64,7 @@
 	    </div>
     </form>
     
+    <!-- film 리스트 출력 -->
     <table class="table table-striped">
         <thead>
             <tr>
@@ -94,20 +96,36 @@
         </tbody>
     </table>
     
+    <!-- 페이징 처리 -->
     <ul class="pager">
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}">이전</a></li>
+            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage-1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}&searchKind=${searchKind}">이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}">다음</a></li>
+            <li class="next"><a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}&searchKind=${searchKind}">다음</a></li>
         </c:if>
     </ul>
     
     <!-- 검색어 입력창 -->
     <div class="text-center">
 	    <form action="${pageContext.request.contextPath}/admin/getFilmList" method="get">
-	        <label for="searchWord">검색어(제목) :</label> 
-	        <input name="searchWord" type="text">
+	        <label for="searchWord">검색어 :</label>
+	        <select name="searchKind">
+	        	<c:if test="${searchKind == 'title'}">
+		    		<option value="title" selected="selected">제목</option>
+				</c:if>
+				<c:if test="${searchKind != 'title'}">
+		    		<option value="title">제목</option>
+				</c:if>
+				
+				<c:if test="${searchKind == 'actors'}">
+		    		<option value="actors" selected="selected">배우</option>
+		    	</c:if>
+		    	<c:if test="${searchKind != 'actors'}">
+		    		<option value="actors">배우</option>
+		    	</c:if>
+	        </select>
+	        <input name="searchWord" type="text" value="${searchWord}">
 	        <button type="submit">검색</button>
 	    </form>
     </div>
