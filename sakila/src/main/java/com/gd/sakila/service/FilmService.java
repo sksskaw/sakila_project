@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.FilmListViewMapper;
 import com.gd.sakila.mapper.FilmMapper;
+import com.gd.sakila.vo.Film;
 import com.gd.sakila.vo.FilmListView;
 import com.gd.sakila.vo.PageParam;
 
@@ -22,8 +23,13 @@ public class FilmService {
 		@Autowired FilmMapper filmMapper;
 		@Autowired FilmListViewMapper filmListViewMapper;
 
+		// 영화 상세정보 가져오기
+		public Film getFilmOne(int filmId) {
+			return filmMapper.selectFilmOneByKey(filmId);
+		}
+		
 		// 매장별 영화 재고 검색
-		public Map<String, Object> getFilmOne(int filmId, int storeId) {
+		public Map<String, Object> getFilmOneStockInStore(int filmId, int storeId) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("filmId", filmId);
 			paramMap.put("storeId", storeId);
@@ -33,8 +39,7 @@ public class FilmService {
 			log.debug("★★★★★ filmCount :"+paramMap.get("filmCount"));
 			log.debug("★★★★★ x :"+list);
 			
-			Map<String, Object> returnMap = new HashMap<String, Object>();
-			return returnMap;
+			return paramMap;
 		}
 		
 		// 영화 리스트 출력 film_list VIEW 사용

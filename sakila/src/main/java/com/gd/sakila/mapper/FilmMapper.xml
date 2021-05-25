@@ -10,4 +10,23 @@
 			)
 		}
 	</select>
+	
+	<select id="selectFilmOneByKey" resultType="com.gd.sakila.vo.Film" parameterType="int">
+		SELECT 
+			film_id filmId,
+			title,
+			description,
+			release_year releaseYear,
+			language_id languageId,
+			original_language_id originalLanguageId,
+			rental_duration rentalDuration,
+			rental_rate rentalRate,
+			length,
+			replacement_cost replacementCost,
+			rating,
+			special_features specialFeatures,
+			last_update lastUpdate
+		FROM film 
+		WHERE film_id = #{filmId}
+	</select>
 </mapper>

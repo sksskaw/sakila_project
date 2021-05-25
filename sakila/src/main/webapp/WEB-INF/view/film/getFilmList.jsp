@@ -83,7 +83,7 @@
                 <tr>
                     <td class="col-sm-1 text-center">${f.FID}</td>
                     <td class="col-sm-2 text-center">
-                    	<a href="#">${f.title}</a>
+                    	<a href="${pageContext.request.contextPath}/admin/getFilmOne?filmId=${f.FID}">${f.title}</a>
                     </td>
                     <td class="col-sm-2 text-center">${f.description.substring(0,10)}...</td>
                     <td class="col-sm-1 text-center">${f.category}</td>

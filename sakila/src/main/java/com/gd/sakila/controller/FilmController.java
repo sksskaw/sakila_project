@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.FilmService;
+import com.gd.sakila.vo.Film;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,9 +22,20 @@ public class FilmController {
 	@Autowired FilmService filmService;
 	
 	@GetMapping("/getFilmOne")
-	public String getFilmOne() {
-		filmService.getFilmOne(1, 1);
-		return "getFilmOne";
+	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
+		
+		// 영화 상세정보 가져오기
+		Film film = filmService.getFilmOne(filmId);
+		
+		// 해당 영화의 매장별 재고량 가져오기
+		Map<String, Object> store1 = filmService.getFilmOneStockInStore(filmId, 1);
+		Map<String, Object> store2 = filmService.getFilmOneStockInStore(filmId, 2);
+		
+		// controller -> view 데이터 넘겨주기
+		model.addAttribute("film", film);
+		model.addAttribute("store1", store1);
+		model.addAttribute("store2", store2);
+		return "/film/getFilmOne";
 	}
 	
 	// 영화 리스트 출력
