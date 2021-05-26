@@ -18,7 +18,7 @@
 <div class="container">
     <h1>FilmOne</h1>
     <br>
-     <table class="table">
+     <table class="table table-striped">
          <tbody>
          	<tr>
 				<td class="col-sm-2">film_id :</td>
@@ -92,22 +92,29 @@
 
 	<form method="get" action="form-action.html">
 		<p>이 영화에 누가 출연했을까요??</p>
-	    <c:forEach var="a" items="${actorsCheckList}">
-	    	<c:set var="i" value="${i + 1}" />
-	    	
-	    	<c:if test="${a.ck == 'O' }">
-	    		<label><input type="checkbox" name="actorsCheck" value="${a}" checked="checked"> ${a.name}</label>
-	    	</c:if>
-	    	
-	    	<c:if test="${a.ck == 'X' }">
-	    		<label><input type="checkbox" name="actorsCheck" value="${a}"> ${a.name}</label>
-	    	</c:if>
-			
-			<c:if test="${i%5 == 0}">
-				<br>
-			</c:if>
+		<table class="table table-striped">
+			<tr>
+	     <c:forEach var="a" items="${actorsCheckList}">
+		 	<c:set var="i" value="${i + 1}" />
+	     		<c:if test="${a.ck == 'O' }">
+			    	<td>
+			    		<label><input type="checkbox" name="actorsCheck" value="${a}" checked="checked"> ${a.name}</label>
+			    	</td>
+		    	</c:if>
+		    	
+		    	<c:if test="${a.ck == 'X' }">
+		    		<td>
+			    		<label><input type="checkbox" name="actorsCheck" value="${a}"> ${a.name}</label>
+		    		</td>
+		    	</c:if>
+		    	
+		    	<c:if test="${i%5 == 0 }">
+		    		</tr><tr>
+		    	</c:if>
+	     </c:forEach>
+	     <tr>
+		</table>
 
-	    </c:forEach>
 	    <p><input type="submit" value="Submit"> <input type="reset" value="Reset"></p>
 	</form>
     
