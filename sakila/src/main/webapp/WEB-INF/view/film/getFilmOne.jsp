@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>BOARD VIEW(spring mvc 방식)</title>
+<title>FilmOne</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>BoardOnd</h1>
+    <h1>FilmOne</h1>
     <br>
      <table class="table">
          <tbody>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                    <td>release_year :</td>
-                   <td>${film.releaseYear}</td>
+                   <td>${film.releaseYear.substring(0,4)}</td>
             </tr>
             <tr>
                    <td>language_id :</td>
@@ -68,9 +68,15 @@
                    <td>special_features :</td>
                    <td>${film.specialFeatures}</td>
             </tr>
+            
+            <tr>
+                   <td>출연 배우 :</td>
+                   <td>${actors}</td>
+            </tr>
+            
             <tr>
                    <td>last_update :</td>
-                   <td>${film.lastUpdate}</td>
+                   <td>${film.lastUpdate.substring(0,10)}</td>
             </tr>
 
 			<tr>
@@ -84,6 +90,27 @@
         </tbody>
     </table>
 
+	<form method="get" action="form-action.html">
+		<p>이 영화에 누가 출연했을까요??</p>
+	    <c:forEach var="a" items="${actorsCheckList}">
+	    	<c:set var="i" value="${i + 1}" />
+	    	
+	    	<c:if test="${a.ck == 'O' }">
+	    		<label><input type="checkbox" name="actorsCheck" value="${a}" checked="checked"> ${a.name}</label>
+	    	</c:if>
+	    	
+	    	<c:if test="${a.ck == 'X' }">
+	    		<label><input type="checkbox" name="actorsCheck" value="${a}"> ${a.name}</label>
+	    	</c:if>
+			
+			<c:if test="${i%5 == 0}">
+				<br>
+			</c:if>
+
+	    </c:forEach>
+	    <p><input type="submit" value="Submit"> <input type="reset" value="Reset"></p>
+	</form>
+    
     <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList">영화목록</a>
 
    	

@@ -29,4 +29,14 @@
 		FROM film 
 		WHERE film_id = #{filmId}
 	</select>
+	
+	<!-- filmOne에서 배우 추가를 위한 리스트 출력 추가되어있는 배우는 O, 그렇지 않은 배우는 X-->
+	<select id="selectFilmActorInFilmByKey" resultType="map" parameterType="int">
+		SELECT a.actor_id, 
+			   CONCAT(a.first_name,' ', a.last_name) name,
+			   IF(t.actor_id IS NULL, 'X', 'O') ck
+		FROM actor a LEFT JOIN (SELECT * FROM film_actor WHERE film_id = #{filmId} ) t
+		ON a.actor_id = t.actor_id
+		ORDER BY name
+	</select>
 </mapper>

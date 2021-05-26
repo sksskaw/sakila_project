@@ -24,8 +24,16 @@ public class FilmService {
 		@Autowired FilmListViewMapper filmListViewMapper;
 
 		// 영화 상세정보 가져오기
-		public Film getFilmOne(int filmId) {
-			return filmMapper.selectFilmOneByKey(filmId);
+		public Map<String, Object> getFilmOne(int filmId) {
+
+			Film film = filmMapper.selectFilmOneByKey(filmId);
+			List<Map<String, Object>> actorsCheckList = filmMapper.selectFilmActorInFilmByKey(filmId);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("film", film);
+			map.put("actorsCheckList", actorsCheckList);
+			
+			return map;
 		}
 		
 		// 매장별 영화 재고 검색

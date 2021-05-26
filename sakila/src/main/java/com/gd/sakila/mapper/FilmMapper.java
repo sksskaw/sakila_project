@@ -11,4 +11,5 @@ import com.gd.sakila.vo.Film;
 public interface FilmMapper {
 	List<Integer> selectFilmInStock(Map<String, Object> map);
 	Film selectFilmOneByKey(int film_id);
+	List<Map<String, Object>> selectFilmActorInFilmByKey(int filmId);
 }

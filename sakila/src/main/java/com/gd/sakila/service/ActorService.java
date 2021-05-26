@@ -35,7 +35,7 @@ public class ActorService {
 		
 		List<Map<String, Object>> actorList = actorMapper.selectActorInfoList(paramMap2);
 		
-		Map<String, Object> map = new HashMap<>(); // 영화 리스트와 마지막 페이지를 정보를 같이 보내기 위해 map사용
+		Map<String, Object> map = new HashMap<>();
 		map.put("lastPage", lastPage);
 		map.put("actorList", actorList);
 		

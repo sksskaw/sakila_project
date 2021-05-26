@@ -27,17 +27,26 @@ public class FilmController {
 	}
 	
 	@GetMapping("/getFilmOne")
-	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
+	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId,
+										  @RequestParam(value="actors")String actors) { // filmOne에서 넘어온 actors 값
 		
 		// 영화 상세정보 가져오기
-		Film film = filmService.getFilmOne(filmId);
+		Map<String, Object> map = filmService.getFilmOne(filmId);
+		
+		// 기본 영화 상세정보
+		Film film = (Film)map.get("film");
+		
+		// 해당 영화의 배우 체크리스트 데이터
+		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
 		
 		// 해당 영화의 매장별 재고량 가져오기
 		Map<String, Object> store1 = filmService.getFilmOneStockInStore(filmId, 1);
 		Map<String, Object> store2 = filmService.getFilmOneStockInStore(filmId, 2);
-		
+
 		// controller -> view 데이터 넘겨주기
 		model.addAttribute("film", film);
+		model.addAttribute("actorsCheckList", actorsCheckList);
+		model.addAttribute("actors", actors);
 		model.addAttribute("store1", store1);
 		model.addAttribute("store2", store2);
 		return "/film/getFilmOne";
