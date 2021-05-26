@@ -132,7 +132,10 @@
 	        <button type="submit">검색</button>
 	    </form>
     </div>
-
+    
+	<div>
+        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addFilm">영화 추가</a>
+    </div>
 </div>
 </body>
 </html>

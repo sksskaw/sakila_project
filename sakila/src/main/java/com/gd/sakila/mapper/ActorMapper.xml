@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.ActorMapper">
+	<insert id="insertActor" parameterType="com.gd.sakila.vo.Actor">
+		INSERT INTO actor(
+			first_name,
+			last_name
+		) VALUES (
+			UPPER(#{firstName}),
+			UPPER(#{lastName})
+		)
+	</insert>
+	
+	<select id="selectActorInfoList" 
+			parameterType="com.gd.sakila.vo.PageParam"
+			resultType="java.util.Map">
+		SELECT
+			actor_id actorId,
+			CONCAT(first_name, ' ',last_name) name,
+			film_info filmInfo                                 <!-- actor_info VIEW 사용 -->
+		FROM actor_info
+	</select>
+</mapper>

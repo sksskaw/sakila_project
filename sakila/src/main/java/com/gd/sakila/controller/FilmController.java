@@ -21,6 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 public class FilmController {
 	@Autowired FilmService filmService;
 	
+	@GetMapping("/addFilm")
+	public String addFilm() {
+		return "film/addFilm";
+	}
+	
 	@GetMapping("/getFilmOne")
 	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
 		
