@@ -10,14 +10,34 @@
 			UPPER(#{lastName})
 		)
 	</insert>
-	
-	<select id="selectActorInfoList" 
-			parameterType="com.gd.sakila.vo.PageParam"
-			resultType="java.util.Map">
+	<!-- parameterType="com.gd.sakila.vo.PageParam"  -->
+	<select id="selectActorInfoList" parameterType="Map" resultType="Map">
 		SELECT
 			actor_id actorId,
 			CONCAT(first_name, ' ',last_name) name,
-			film_info filmInfo                                 <!-- actor_info VIEW 사용 -->
+			film_info filmInfo  <!-- actor_info VIEW 사용 -->
 		FROM actor_info
+		<where>
+			<if test="searchWord != null">
+				CONCAT(first_name, ' ',last_name) LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="category != null">
+				CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
+			</if>
+		</where>
+		ORDER BY name
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectActorInfoTotal" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(*) FROM actor_info
+		<where>
+			<if test="searchWord != null">
+				CONCAT(first_name, ' ',last_name) LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="category != null">
+				CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
+			</if>
+		</where>
 	</select>
 </mapper>
