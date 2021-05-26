@@ -109,6 +109,9 @@
     <!-- 검색어 입력창 -->
     <div class="text-center">
 	    <form action="${pageContext.request.contextPath}/admin/getFilmList" method="get">
+	    	<input type="hidden" name="category" value="${category}">
+	    	<input type="hidden" name="rating" value="${rating}">
+	    	<input type="hidden" name="price" value="${price}">
 	        <label for="searchWord">검색어 :</label>
 	        <select name="searchKind">
 	        	<c:if test="${searchKind == 'title'}">
