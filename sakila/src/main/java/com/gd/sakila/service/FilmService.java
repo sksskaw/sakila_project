@@ -22,7 +22,17 @@ import lombok.extern.slf4j.Slf4j;
 public class FilmService {
 		@Autowired FilmMapper filmMapper;
 		@Autowired FilmListViewMapper filmListViewMapper;
-
+		
+		public void modifyFilmActorInfo() {
+			
+		}
+		
+		
+		// 영화에 출연한 배우 정보
+		public String getActorsInfo(int filmId) {
+			return filmMapper.selectActorsInfo(filmId);
+		}
+		
 		// 영화 상세정보 가져오기
 		public Map<String, Object> getFilmOne(int filmId) {
 

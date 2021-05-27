@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.FilmMapper">
+
+	<insert id="insertFilmActorByKey" parameterType="int">
+		INSERT INTO film_actor (actor_id, film_id) VALUES (#{actorId}, #{filmId})
+	</insert>
+
+	<delete id="deleteActorsInfoByKey" parameterType="int">
+		DELETE FROM film_actor WHERE film_id = #{filmId}
+	</delete>
+
+	<select id="selectActorsInfo" parameterType="int" resultType="String">
+		SELECT actors FROM film_list WHERE FID = #{filmId}
+	</select>
+
 	<select id="selectFilmInStock" statementType="CALLABLE" parameterType="java.util.Map" resultType="int">
 		{
 			call film_in_stock(
@@ -32,9 +45,9 @@
 	
 	<!-- filmOne에서 배우 추가를 위한 리스트 출력 추가되어있는 배우는 O, 그렇지 않은 배우는 X-->
 	<select id="selectFilmActorInFilmByKey" resultType="map" parameterType="int">
-		SELECT a.actor_id, 
+		SELECT a.actor_id actorId, 
 			   CONCAT(a.first_name,' ', a.last_name) name,
-			   IF(t.actor_id IS NULL, 'X', 'O') ck
+			   IF(t.actor_id IS NULL, 'X', 'O') ck, film_id filmId
 		FROM actor a LEFT JOIN (SELECT * FROM film_actor WHERE film_id = #{filmId} ) t
 		ON a.actor_id = t.actor_id
 		ORDER BY name

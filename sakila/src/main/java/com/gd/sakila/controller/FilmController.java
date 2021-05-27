@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,12 +27,50 @@ public class FilmController {
 		return "film/addFilm";
 	}
 	
-	@GetMapping("/getFilmOne")
-	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId,
-										  @RequestParam(value="actors")String actors) { // filmOne에서 넘어온 actors 값
+	@GetMapping("/modifyFilmActorsInfo")
+	public String modifyFilmActorsInfo(Model model, @RequestParam(value="filmId", required = true)int filmId) {
 		
 		// 영화 상세정보 가져오기
 		Map<String, Object> map = filmService.getFilmOne(filmId);
+		
+		// 해당 영화의 배우 체크리스트 데이터
+		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
+		model.addAttribute("actorsCheckList", actorsCheckList);
+		model.addAttribute("filmId", filmId);
+		return"film/modifyFilmActorsInfo";
+	}
+	
+	@PostMapping("/modifyFilmActorsInfo")
+	public String updateActorsInfo(
+								   @RequestParam(value="filmId", required = true) int filmId,
+								   @RequestParam(value="ck") int[] ck) {
+		log.debug("filmId :"+filmId);
+		log.debug("ck length :"+ck.length);
+		// 1. 해당 영화와 관계된 actor 정보 모두 삭제
+		
+		// 2. 체크된 데이터의 actorId 만들 가져와 film_actor 테이블에 삽입    1-2 과정이 하나의 서비스 트랜젝션
+		
+		
+		// 3. 수정된 FilmOne가져오기 아 그냥 리 다이랙트 하면되겠다
+		
+		
+		return"redirect:/admin/getFilmOne?filmId="+filmId;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/getFilmOne")
+	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
+		
+		// 영화 상세정보 가져오기
+		Map<String, Object> map = filmService.getFilmOne(filmId);
+		
+		// 영화에 출연한 배우정보
+		String actors = filmService.getActorsInfo(filmId);
 		
 		// 기본 영화 상세정보
 		Film film = (Film)map.get("film");

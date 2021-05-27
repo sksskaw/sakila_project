@@ -12,4 +12,7 @@ public interface FilmMapper {
 	List<Integer> selectFilmInStock(Map<String, Object> map);
 	Film selectFilmOneByKey(int film_id);
 	List<Map<String, Object>> selectFilmActorInFilmByKey(int filmId);
+	String selectActorsInfo(int filmId); // 영화에 출연한 배우 정보 가져오기 VIEW테이블 이용
+	void deleteActorsInfoByKey(int filmId);
+	void insertFilmActorByKey(int actorId,int filmId);
 }

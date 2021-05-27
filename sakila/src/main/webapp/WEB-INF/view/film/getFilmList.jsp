@@ -75,7 +75,6 @@
                 <th>Price</th>
                 <th>Running time</th>
                 <th>Rating</th>
-                <th>Actors</th>
             </tr>
         </thead>
         <tbody>

@@ -13,6 +13,97 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style type="text/css">
+/* reset */
+button {
+  padding:0;
+  background:none;
+  border:0;
+  cursor:pointer;
+}
+
+/* 버튼 영역 */
+.btnBox {
+  text-align:center;
+}
+
+.popOpenBtnCmmn {
+  width:200px; 
+  height:60px; 
+  background:#000; 
+  color:#fff; 
+  font-size:16px;
+  opacity:0.7;
+  transition:all 0.3s;
+}
+
+.popOpenBtnCmmn:hover {
+  opacity:1;
+}
+
+/* 팝업 영역 */
+.popCmmn {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+.popBg {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+}
+
+.popInnerBox {
+  display:flex;
+  justify-content:space-between;
+  flex-direction:column;
+  position:absolute;
+  top:40%;
+  left:35%;
+  width:1000px;
+  height:400px;
+  margin:-125px 0 0 -200px;
+  text-align:center;
+  background:#fff;
+  border-radius:5px;
+}
+
+.popHead {
+  padding:15px;
+  background:#000;
+  color:#fff;
+  font-size:18px;
+}
+
+.popBody {
+  padding:10px;
+  box-sizing:border-box;
+  font-size:14px;
+}
+
+.popCloseBtnCmmn {
+  width:30%;
+  margin:10px;
+  padding:10px;
+  font-size:16px;
+  background:#999;
+  color:#fff;
+  transition:all 0.3s;
+}
+
+.popCloseBtnCmmn:hover {
+  background:#666;
+}
+</style>
+
 </head>
 <body>
 <div class="container">
@@ -21,7 +112,8 @@
      <table class="table table-striped">
          <tbody>
          	<tr>
-				<td class="col-sm-2">film_id :</td>
+         		<input type="hidden" id="filmId" value="${film.filmId}">
+				<td class="col-sm-2" >film_id :</td>
                 <td>${film.filmId}</td>
             </tr>
             <tr>
@@ -71,7 +163,7 @@
             
             <tr>
                    <td>출연 배우 :</td>
-                   <td>${actors}</td>
+                   <td>${actors} <a href="${pageContext.request.contextPath}/admin/modifyFilmActorsInfo?filmId=${film.filmId}"><button>수정</button></a>
             </tr>
             
             <tr>
@@ -90,37 +182,139 @@
         </tbody>
     </table>
 
-	<form method="get" action="form-action.html">
-		<p>이 영화에 누가 출연했을까요??</p>
-		<table class="table table-striped">
-			<tr>
-	     <c:forEach var="a" items="${actorsCheckList}">
-		 	<c:set var="i" value="${i + 1}" />
-	     		<c:if test="${a.ck == 'O' }">
-			    	<td>
-			    		<label><input type="checkbox" name="actorsCheck" value="${a}" checked="checked"> ${a.name}</label>
-			    	</td>
-		    	</c:if>
-		    	
-		    	<c:if test="${a.ck == 'X' }">
-		    		<td>
-			    		<label><input type="checkbox" name="actorsCheck" value="${a}"> ${a.name}</label>
-		    		</td>
-		    	</c:if>
-		    	
-		    	<c:if test="${i%5 == 0 }">
-		    		</tr><tr>
-		    	</c:if>
-	     </c:forEach>
-	     <tr>
-		</table>
 
-	    <p><input type="submit" value="Submit"> <input type="reset" value="Reset"></p>
-	</form>
-    
+	<div class="contentsWrap">
+	  <div class="btnBox">
+	    <button class="popOpenBtnCmmn" type="button" data-num="1">배우 수정</button>
+	  </div>
+	</div>
+	
+	<div id="popUp" class="popCmmn">
+	  <div class="popBg" data-num="1"></div>
+	  <div class="popInnerBox">
+	    <div class="popHead">배우 수정</div>
+	    <div class="popBody">
+	    	<form action="" method="get">
+	    	
+	    		<table class="table table-striped" id="table">
+					<tr id="cell"></tr>
+					<tr id="cell2"></tr>
+					<tr id="cell3"></tr>
+					<tr id="cell4"></tr>
+	    		</table>
+	    		
+	    		<p>
+	    			<input type="submit" class="btn btn-default" value="수정">&nbsp;
+	    		    <input type="reset" class="btn btn-default" value="초기화">
+	    		</p>
+	    	</form>
+	    </div>
+	    <div class="popFoot">
+	      <button class="popCloseBtnCmmn" type="button" data-num="1">확인</button>
+	    </div>
+	  </div>
+	</div>
+
     <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList">영화목록</a>
-
-   	
+ 	
 </div>
+
+<script>
+$(function(){
+	  setPop();
+	});
+
+	// 팝업 세팅
+	function setPop() {
+	  var popOpenBtn = $('.popOpenBtnCmmn');
+	  
+	  //팝업 열기
+	  popOpenBtn.on('click',function(){
+	    var clickNum = $(this).attr('data-num');
+
+	    console.log('actorCheckList');
+		$.ajax({
+			type:'get',
+			url:'/getActorsCheckList?filmId='+$('#filmId').val(),
+			data:{name : $('#name').val()},
+			success: function(jsonData) {
+				 console.log(jsonData);
+				$('#cell').empty();
+				$('#cell2').empty();
+				$('#cell3').empty();
+				$('#cell4').empty();
+
+				$(jsonData).each(function(index, item) {
+					
+					if(index < 5){
+						if(item.ck == "O"){
+							$('#cell').append(
+								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
+							);
+						}
+						if(item.ck == "X"){
+							$('#cell').append(
+									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
+							); 
+						}
+					}
+					
+					if(index < 10 && index >= 5){
+						if(item.ck == "O"){
+							$('#cell2').append(
+								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
+							);
+						}
+						if(item.ck == "X"){
+							$('#cell2').append(
+									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
+							); 
+						}
+					}
+					
+					if(index < 15 && index >= 10){
+						if(item.ck == "O"){
+							$('#cell3').append(
+								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
+							);
+						}
+						if(item.ck == "X"){
+							$('#cell3').append(
+									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
+							); 
+						}
+					}
+					
+					if(index < 20 && index >= 15){
+						if(item.ck == "O"){
+							$('#cell4').append(
+								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
+							);
+						}
+						if(item.ck == "X"){
+							$('#cell4').append(
+									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
+							); 
+						}
+					}
+
+					
+				});
+			}
+		});
+	    
+	    $('#popUp').fadeIn(200);
+
+	  })
+	  
+	  //팝업 닫기
+	  $('.popBg, .popCloseBtnCmmn').on('click',function(){
+	    var clickNum = $(this).attr('data-num');
+	    
+	    $('#popUp').fadeOut(200);
+	  })
+	}
+</script>
+
 </body>
 </html>
