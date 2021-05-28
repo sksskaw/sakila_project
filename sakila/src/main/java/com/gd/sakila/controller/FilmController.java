@@ -75,6 +75,8 @@ public class FilmController {
 		
 		// 기본 영화 상세정보
 		Film film = (Film)map.get("film");
+		log.debug("film Set :" + film.getSpecialFeatures());
+		
 		
 		// 해당 영화의 배우 체크리스트 데이터
 		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");

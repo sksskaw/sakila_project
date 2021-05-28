@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.FilmMapper">
 
+	<insert id="insertFilm" parameterType="com.gd.sakila.vo.Film">
+		INSERT INTO (title, description, release_year, language_id, original_language_id,
+					 rental_duration, rental_rate, length, replacement_cost, rating, special_features)
+			   VALUE(#{title}, #{description}, #{releaseYear}, #{languageId}, #{originalLanguageId}, #{rentalDuration},
+			   		 #{rentalRate}, #{length}, #{replacementCost}, #{rating}, #{specialFeatures})
+		<selectKey resultType="int" keyProperty="filmId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertFilmCategory" parameterType="int">
+		INSERT INTO film_category(film_id, category_id) VALUE (#{filmId}, #{categoryId})
+	</insert>
+
 	<insert id="insertFilmActorByKey" parameterType="int">
 		INSERT INTO film_actor (actor_id, film_id) VALUES (#{actorId}, #{filmId})
 	</insert>

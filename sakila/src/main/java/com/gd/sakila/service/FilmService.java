@@ -1,6 +1,5 @@
 package com.gd.sakila.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import com.gd.sakila.mapper.FilmListViewMapper;
 import com.gd.sakila.mapper.FilmMapper;
 import com.gd.sakila.vo.Film;
 import com.gd.sakila.vo.FilmListView;
-import com.gd.sakila.vo.PageParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +22,15 @@ public class FilmService {
 		@Autowired FilmMapper filmMapper;
 		@Autowired FilmListViewMapper filmListViewMapper;
 		
+		// 영화 추가
+		public void addFilm(Film film, int CategoryId) {
+			
+			filmMapper.insertFilm(film); // film 테이블에 입력
+			filmMapper.insertFilmCategory(film.getFilmId(), CategoryId); // film_category 테이블에 입력
+		}
+		
+		
+		// 해당 영화의 출연 배우 수정
 		public void modifyFilmActorInfo(List<Integer> actorId, int filmId) {
 
 			//본래 출연진 삭제
@@ -33,7 +40,8 @@ public class FilmService {
 			if(actorId == null) {
 				return ;
 			}
-	
+			
+			// 채크된 배우 수 만큼 반복문을 돌면서 insert
 			for(int i=0; i<actorId.size() ; i++) {
 				filmMapper.insertFilmActorByKey(actorId.get(i), filmId);
 			}
