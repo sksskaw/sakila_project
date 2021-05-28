@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gd.sakila.mapper.CategoryMapper;
 import com.gd.sakila.mapper.FilmListViewMapper;
 import com.gd.sakila.mapper.FilmMapper;
+import com.gd.sakila.mapper.LanguageMapper;
+import com.gd.sakila.vo.Category;
 import com.gd.sakila.vo.Film;
 import com.gd.sakila.vo.FilmListView;
+import com.gd.sakila.vo.Language;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,12 +25,16 @@ import lombok.extern.slf4j.Slf4j;
 public class FilmService {
 		@Autowired FilmMapper filmMapper;
 		@Autowired FilmListViewMapper filmListViewMapper;
+		@Autowired CategoryMapper categoryMapper;
+		@Autowired LanguageMapper languageMapper;
 		
 		// 영화 추가
-		public void addFilm(Film film, int CategoryId) {
+		public int addFilm(Film film, int CategoryId) {
 			
 			filmMapper.insertFilm(film); // film 테이블에 입력
 			filmMapper.insertFilmCategory(film.getFilmId(), CategoryId); // film_category 테이블에 입력
+			
+			return film.getFilmId(); // filmOne으로 리다이렉트 하기위한 리턴값
 		}
 		
 		
@@ -116,8 +124,13 @@ public class FilmService {
 		}
 		
 		// 영화 카테고리 리스트 출력
-		public List<String> getCategory(){
-			return filmListViewMapper.selectCategory();
+		public List<Category> getCategory(){
+			return categoryMapper.selectCategoryList();
+		}
+		
+		// 영화 카테고리 리스트 출력
+		public List<Language> getLanguage(){
+			return languageMapper.selectLanguageList();
 		}
 		
 		// 영화 가격 리스트 출력

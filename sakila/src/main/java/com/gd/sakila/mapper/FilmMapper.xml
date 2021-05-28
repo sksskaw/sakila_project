@@ -3,10 +3,9 @@
 <mapper namespace="com.gd.sakila.mapper.FilmMapper">
 
 	<insert id="insertFilm" parameterType="com.gd.sakila.vo.Film">
-		INSERT INTO (title, description, release_year, language_id, original_language_id,
-					 rental_duration, rental_rate, length, replacement_cost, rating, special_features)
-			   VALUE(#{title}, #{description}, #{releaseYear}, #{languageId}, #{originalLanguageId}, #{rentalDuration},
-			   		 #{rentalRate}, #{length}, #{replacementCost}, #{rating}, #{specialFeatures})
+		INSERT INTO film (title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features)
+					 
+			   VALUES(#{title}, #{description}, #{releaseYear}, #{languageId}, #{originalLanguageId}, #{rentalDuration}, #{rentalRate}, #{length}, #{replacementCost}, #{rating}, #{specialFeatures})
 		<selectKey resultType="int" keyProperty="filmId" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

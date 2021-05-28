@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.FilmService;
+import com.gd.sakila.vo.Category;
 import com.gd.sakila.vo.Film;
+import com.gd.sakila.vo.Language;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,8 +25,45 @@ public class FilmController {
 	@Autowired FilmService filmService;
 	
 	@GetMapping("/addFilm")
-	public String addFilm() {
+	public String addFilm(Model model) {
+		
+		// 랭귀지 리스트 넘기기
+		List<Language> languageList = filmService.getLanguage();
+		model.addAttribute("languageList", languageList);
+		
+		// 카테고리 리스트 넘기기
+		List<Category> categoryList = filmService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
 		return "film/addFilm";
+	}
+	
+	@PostMapping("/addFilm")
+	public String addFilm(Film film, @RequestParam(value="categoryId", required = true)int categoryId,
+									 @RequestParam(value="specialFeatures", required = true) List<String> specialFeatures) {
+					    // 위에 film은 vo와, 폼에서 넘길때 name을 같게 넘겨줘서 @RequestParam없이 바로 사용할 수 있고
+						// @RequestParam이넘은 폼에서 넘길때 name이름이 다를때 붙여주고 value를 정해줄 수 있음
+		
+		log.debug("@@@@@@@@@@@@@@ 채크된 specialFeatures 개수 :"+specialFeatures.size());
+		log.debug("@@@@@@@@@@@@@@ categoryId :"+categoryId);
+		
+		String specialFeaturesValue = "";
+		
+		for(int i=0; i<specialFeatures.size() ; i++) {
+			specialFeaturesValue = specialFeaturesValue + specialFeatures.get(i);
+			
+			if( (i+1) <specialFeatures.size()) {
+				specialFeaturesValue += ",";
+			}
+		}
+		
+		log.debug("@@@@@@@@@@@@@@ specialFeaturesValue :"+specialFeaturesValue);
+		film.setSpecialFeatures(specialFeaturesValue);
+		
+		log.debug("@@@@@@@@@@@@@@ film :"+film.toString());
+		
+		int filmId = filmService.addFilm(film, categoryId);
+		return "redirect:/admin/getFilmOne?filmId="+filmId;
 	}
 	
 	@GetMapping("/modifyFilmActorsInfo")
@@ -56,12 +95,6 @@ public class FilmController {
 		
 		return"redirect:/admin/getFilmOne?filmId="+filmId;
 	}
-	
-	
-	
-	
-	
-	
 	
 	@GetMapping("/getFilmOne")
 	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
@@ -134,7 +167,7 @@ public class FilmController {
 		Map<String, Object> map = filmService.getFilmList(currentPage, rowPerPage, searchWord, searchKind, category, price, rating);
 		
 		// 영화 카테고리 출력
-		List<String> categoryList = filmService.getCategory();
+		List<Category> categoryList = filmService.getCategory();
 		
 		// 가격별 출력
 		List<Double> priceList = filmService.getPrice();

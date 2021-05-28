@@ -26,7 +26,7 @@
     <div>
     		<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}">전체 | </a>
 	    <c:forEach var="c" items="${categoryList}">
-	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${c}">${c} |</a>
+	    	<a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${1}&category=${c.name}">${c.name} |</a>
 	    </c:forEach>
     </div>
     <br>

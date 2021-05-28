@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="selectCategory" resultType="String">
-		SELECT DISTINCT category 
+		SELECT DISTINCT category
 		FROM film_list 
 		ORDER BY category
 	</select>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.LanguageMapper">
 
-	<select id="getLanguageList" resultType="com.gd.sakila.vo.Language">
+	<select id="selectLanguageList" resultType="com.gd.sakila.vo.Language">
 		SELECT language_id languageId, name, last_update lastUpdate
 		  FROM language
 	</select>
