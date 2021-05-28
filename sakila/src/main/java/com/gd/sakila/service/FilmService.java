@@ -1,5 +1,6 @@
 package com.gd.sakila.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +24,21 @@ public class FilmService {
 		@Autowired FilmMapper filmMapper;
 		@Autowired FilmListViewMapper filmListViewMapper;
 		
-		public void modifyFilmActorInfo() {
-			
+		public void modifyFilmActorInfo(List<Integer> actorId, int filmId) {
+
+			//본래 출연진 삭제
+			filmMapper.deleteActorsInfoByKey(filmId);
+
+			//출연진 insert
+			if(actorId == null) {
+				return ;
+			}
+	
+			for(int i=0; i<actorId.size() ; i++) {
+				filmMapper.insertFilmActorByKey(actorId.get(i), filmId);
+			}
+
 		}
-		
 		
 		// 영화에 출연한 배우 정보
 		public String getActorsInfo(int filmId) {
