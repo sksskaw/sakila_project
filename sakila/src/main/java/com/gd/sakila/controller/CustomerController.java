@@ -38,9 +38,12 @@ public class CustomerController {
 		List<CustomerList> customerList = customerService.getCustomerList(map);
 		
 		// 블랙 리스트
-		List<Map<String, Object>> blackCustomerList = customerService.getBlackCustomerList();
+		List<Map<String, Object>> blackCustomerList = customerService.getBlackCustomerList(map);
 		
-		int lastPage = customerService.getCustomerListTotal(map);
+		int customerTotal = customerService.getCustomerListTotal(searchWord);
+		
+		// 동적 쿼리에 따른 마지막 페이지 계산
+		int lastPage = (int)Math.ceil((double)customerTotal / rowPerPage);
 		
 		// 리스트 response
 		model.addAttribute("customerList",customerList);

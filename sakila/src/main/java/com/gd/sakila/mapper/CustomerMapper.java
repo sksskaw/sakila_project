@@ -11,7 +11,7 @@ import com.gd.sakila.vo.CustomerList;
 public interface CustomerMapper {
 	int updateCustomerActiveByScheduler();
 	List<CustomerList> selectCustomerList(Map<String, Object> map);
-	int selectCustomerTotal(Map<String, Object> map);
+	int selectCustomerTotal(String searchWord);
 	
-	List<Map<String, Object>> selectBlackCustomerList(); // 블랙리스트
+	List<Map<String, Object>> selectBlackCustomerList(Map<String, Object> map); // 블랙리스트
 }

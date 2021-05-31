@@ -22,7 +22,7 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectCustomerTotal" parameterType="map" resultType="int">
+	<select id="selectCustomerTotal" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM customer_list
 		<where>

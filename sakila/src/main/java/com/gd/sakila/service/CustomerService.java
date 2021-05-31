@@ -30,12 +30,12 @@ public class CustomerService {
 	}
 	
 	// 블랙 리스트 출력
-	public List<Map<String, Object>> getBlackCustomerList(){
-		return customerMapper.selectBlackCustomerList();
+	public List<Map<String, Object>> getBlackCustomerList(Map<String,Object> map){
+		return customerMapper.selectBlackCustomerList(map);
 	}
 	
 	// 고객 리스트 페이징을 위한 total 수
-	public int getCustomerListTotal(Map<String,Object> map){
-		return customerMapper.selectCustomerTotal(map);
+	public int getCustomerListTotal(String searchWord){
+		return customerMapper.selectCustomerTotal(searchWord);
 	}
 }
