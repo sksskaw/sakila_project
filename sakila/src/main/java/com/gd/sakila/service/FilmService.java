@@ -53,7 +53,6 @@ public class FilmService {
 			for(int i=0; i<actorId.size() ; i++) {
 				filmMapper.insertFilmActorByKey(actorId.get(i), filmId);
 			}
-
 		}
 		
 		// 영화에 출연한 배우 정보

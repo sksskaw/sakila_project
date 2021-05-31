@@ -236,7 +236,6 @@ $(function(){
 		$.ajax({
 			type:'get',
 			url:'/getActorsCheckList?filmId='+$('#filmId').val(),
-			data:{name : $('#name').val()},
 			success: function(jsonData) {
 				 console.log(jsonData);
 				$('#cell').empty();

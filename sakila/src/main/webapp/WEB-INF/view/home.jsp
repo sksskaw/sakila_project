@@ -26,6 +26,7 @@
       <a href="${pageContext.request.contextPath}/admin/getStaffList">StaffList</a>
       <a href="${pageContext.request.contextPath}/admin/getFilmList">FilmList</a>
       <a href="${pageContext.request.contextPath}/admin/getActorList">ActorList</a>
+      <a href="${pageContext.request.contextPath}/admin/getCustomerList">CustomerList</a>
       <a href="${pageContext.request.contextPath}/admin/logout">Logout</a>
    </c:if>
    

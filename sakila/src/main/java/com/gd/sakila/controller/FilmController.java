@@ -90,9 +90,6 @@ public class FilmController {
 		// 2. 체크된 데이터의 actorId 만들 가져와 film_actor 테이블에 삽입    1-2 과정이 하나의 서비스 트랜젝션
 		filmService.modifyFilmActorInfo(ck, filmId);
 		
-		// 3. 수정된 FilmOne가져오기 아 그냥 리 다이랙트 하면되겠다
-		
-		
 		return"redirect:/admin/getFilmOne?filmId="+filmId;
 	}
 	
@@ -113,6 +110,7 @@ public class FilmController {
 		
 		// 해당 영화의 배우 체크리스트 데이터
 		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
+		log.debug("actorsCheckList Size :" + actorsCheckList.size());
 		
 		// 해당 영화의 매장별 재고량 가져오기
 		Map<String, Object> store1 = filmService.getFilmOneStockInStore(filmId, 1);
