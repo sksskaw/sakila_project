@@ -30,7 +30,7 @@
 			    	<option value="0" selected="selected">전체</option>
 		        	<c:if test="${storeId == 1}">
 			    		<option value="1" selected="selected">Store 1</option>
-					</c:if>
+					</c:if> 
 					<c:if test="${storeId != 1}">
 			    		<option value="1">Store 1</option>
 					</c:if>
