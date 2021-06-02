@@ -11,7 +11,16 @@
 	</update>
 	
 	<select id="selectCustomerList" parameterType="map" resultType="com.gd.sakila.vo.CustomerList">
-		SELECT *
+		SELECT 
+			 ID,
+	         name,
+	         address,
+	         `zip code` zipCode,
+	         phone,
+	         city,
+	         country,
+	         notes,
+	         SID
 		FROM customer_list
 		<where>
 			<if test="searchWord != null">
@@ -33,7 +42,7 @@
 	</select>
 	
 	<select id="selectBlackCustomerList" resultType="map">
-		SELECT c.customer_id ID, CONCAT(c.first_name,' ', c.last_name) name, COUNT(*)
+		SELECT c.customer_id ID, CONCAT(c.first_name,' ', c.last_name) name, COUNT(*) overdue
 		FROM customer c, rental r, inventory i, film f
 		WHERE 	c.customer_id = r.customer_id
 					AND r.inventory_id = i.inventory_id 

@@ -22,11 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomerController {
 	@Autowired CustomerService customerService;
 	
+	// 고객 정보 리스트 출력
 	@GetMapping("/getCustomerList")
 	public String getCustomerList(Model model,
 	         @RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 	         @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
-	         @RequestParam(value="searchWord", required = false)String searchWord) {
+	         @RequestParam(value="searchWord", required = false)String searchWord){
+		
+		if(searchWord != null && searchWord.equals("")) { // 파라미터 공백처리
+			searchWord = null;
+		}
 		
 		// 쿼리 파라미터 수집
 		Map<String, Object> map = new HashMap<>();
@@ -40,9 +45,8 @@ public class CustomerController {
 		// 블랙 리스트
 		List<Map<String, Object>> blackCustomerList = customerService.getBlackCustomerList(map);
 		
-		int customerTotal = customerService.getCustomerListTotal(searchWord);
-		
 		// 동적 쿼리에 따른 마지막 페이지 계산
+		int customerTotal = customerService.getCustomerListTotal(searchWord);
 		int lastPage = (int)Math.ceil((double)customerTotal / rowPerPage);
 		
 		// 리스트 response

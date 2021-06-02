@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.InventoryMapper">
+
+	<select id="selectInventoryList" parameterType="map" resultType="map">
+		SELECT i.store_id storeId, 
+		       f.title title, 
+		       COUNT(*) AS totalInventory,
+			   SUM(NOT inventory_in_stock(i.inventory_id)) AS rental, 
+			   SUM(inventory_in_stock(i.inventory_id)) AS stock
+		FROM film f, inventory i
+		WHERE f.film_id = i.film_id 
+			<if test="searchWord != null">
+				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="storeId != null">
+        		AND i.store_id = #{storeId}
+			</if>
+		GROUP BY i.film_id, i.store_id
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectInventoryListTotal" parameterType="map" resultType="int">
+
+		SELECT count(DISTINCT(i.film_id))
+		FROM film f, inventory i
+		WHERE f.film_id = i.film_id
+			<if test="searchWord != null">
+				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="storeId != null">
+        		AND i.store_id = #{storeId}
+			</if>
+	</select>
+	
+</mapper>

@@ -173,11 +173,11 @@ button {
 
 			<tr>
                    <td>store 1 재고량 :</td>
-                   <td>${store1.filmCount}개</td>
+                   <td>${store1Stock.filmCount}개</td>
             </tr>
             <tr>
                    <td>store 2 재고량 :</td>
-                   <td>${store2.filmCount}개</td>
+                   <td>${store2Stock.filmCount}개</td>
             </tr>
         </tbody>
     </table>

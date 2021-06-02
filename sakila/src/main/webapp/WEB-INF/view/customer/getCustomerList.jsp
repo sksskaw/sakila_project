@@ -26,15 +26,17 @@
             <tr>
                 <th>Customer ID</th>
 				<th>Customer Name</th>
+				<th>연체 횟수</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="bc" items="${blackCustomerList}">
                 <tr>
                     <td class="col-sm-1 text-center">${bc.ID}</td>
-                    <td class="col-sm-1 text-center">
+                    <td class="col-sm-2 text-center">
                     	<a href="#">${bc.name}</a>
                     </td>
+                    <td class="col-sm-4 text-center">${bc.count}</td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -49,6 +49,7 @@ public class FilmController {
 		
 		String specialFeaturesValue = "";
 		
+		// 체크박스에 선택된 데이터 하나의 문자열로 합치기
 		for(int i=0; i<specialFeatures.size() ; i++) {
 			specialFeaturesValue = specialFeaturesValue + specialFeatures.get(i);
 			
@@ -107,21 +108,20 @@ public class FilmController {
 		Film film = (Film)map.get("film");
 		log.debug("film Set :" + film.getSpecialFeatures());
 		
-		
 		// 해당 영화의 배우 체크리스트 데이터
 		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
 		log.debug("actorsCheckList Size :" + actorsCheckList.size());
 		
 		// 해당 영화의 매장별 재고량 가져오기
-		Map<String, Object> store1 = filmService.getFilmOneStockInStore(filmId, 1);
-		Map<String, Object> store2 = filmService.getFilmOneStockInStore(filmId, 2);
+		Map<String, Object> store1Stock = filmService.getFilmOneStockInStore(filmId, 1);
+		Map<String, Object> store2Stock = filmService.getFilmOneStockInStore(filmId, 2);
 
 		// controller -> view 데이터 넘겨주기
 		model.addAttribute("film", film);
 		model.addAttribute("actorsCheckList", actorsCheckList);
 		model.addAttribute("actors", actors);
-		model.addAttribute("store1", store1);
-		model.addAttribute("store2", store2);
+		model.addAttribute("store1Stock", store1Stock);
+		model.addAttribute("store2Stock", store2Stock);
 		return "/film/getFilmOne";
 	}
 	
