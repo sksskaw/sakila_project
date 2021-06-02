@@ -22,21 +22,21 @@
 				CONCAT(first_name, ' ',last_name) LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 			<if test="category != null">
-				CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
+				AND CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
 			</if>
 		</where>
 		ORDER BY name
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectActorInfoTotal" parameterType="hashmap" resultType="Integer">
+	<select id="selectActorInfoTotal" parameterType="map" resultType="Integer">
 		SELECT COUNT(*) FROM actor_info
 		<where>
 			<if test="searchWord != null">
 				CONCAT(first_name, ' ',last_name) LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 			<if test="category != null">
-				CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
+				AND CONCAT(first_name, ' ',last_name) LIKE CONCAT(#{category},'%')
 			</if>
 		</where>
 	</select>

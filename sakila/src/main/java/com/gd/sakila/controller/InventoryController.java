@@ -29,10 +29,10 @@ public class InventoryController {
 									@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 									@RequestParam(value="searchWord", required = false)String searchWord) {
 		
-		log.debug("getInventoryList요청 파라미터값 storeId :" + storeId);
-		log.debug("getInventoryList요청 파라미터값 currentPage :" + currentPage);
-		log.debug("getInventoryList요청 파라미터값 rowPerPage :" + rowPerPage);
-		log.debug("getInventoryList요청 파라미터값 searchWord :" + searchWord);
+		log.debug("InventoryController - getInventoryList storeId :" + storeId);
+		log.debug("InventoryController - getInventoryList currentPage :" + currentPage);
+		log.debug("InventoryController - getInventoryList rowPerPage :" + rowPerPage);
+		log.debug("InventoryController - getInventoryList searchWord :" + searchWord);
 		
 		if(searchWord != null && searchWord.equals("")) { 
 			searchWord = null;
@@ -54,7 +54,7 @@ public class InventoryController {
 		// 동적 쿼리에 따른 마지막 페이지 계산
 		int inventoryTotal = inventoryService.getInventoryListTotal(map);
 		int lastPage = (int)Math.ceil((double)inventoryTotal / rowPerPage);
-		log.debug("getInventoryList응답 데이터 lastPage :" + lastPage);
+		log.debug("InventoryController - getInventoryList lastPage :" + lastPage);
 		
 		// 리스트 데이터
 		model.addAttribute("inventoryList", inventoryList);

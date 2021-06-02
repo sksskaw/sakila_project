@@ -20,6 +20,8 @@
 </head>
 <body>
 <div class="container">
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
     <h1>getActorInfoList</h1>
     
 	<h4>카테고리</h4>
@@ -45,7 +47,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="actor" items="${actorList}">
+            <c:forEach var="actor" items="${actorInfoList}">
                 <tr>
                     <td class="col-sm-1 text-center">${actor.actorId}</td>
                     <td class="col-sm-1 text-center">${actor.name}</td>

@@ -20,6 +20,8 @@
 </head>
 <body>
 <div class="container">
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
     <h1>getInventoryList</h1>
    
     <h4>매장별 분류</h4>

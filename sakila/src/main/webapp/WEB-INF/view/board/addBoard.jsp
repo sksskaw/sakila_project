@@ -76,6 +76,8 @@
 <title>ADD BOARD</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
     <div class="container">
         <h1>BOARD ADD</h1>
         <form id="addForm" 

@@ -24,28 +24,31 @@ import lombok.extern.slf4j.Slf4j;
 public class FilmController {
 	@Autowired FilmService filmService;
 	
+	// 영화 추가 입력폼
 	@GetMapping("/addFilm")
 	public String addFilm(Model model) {
 		
-		// 랭귀지 리스트 넘기기
+		// 랭귀지 리스트
 		List<Language> languageList = filmService.getLanguage();
-		model.addAttribute("languageList", languageList);
 		
-		// 카테고리 리스트 넘기기
+		// 카테고리 리스트
 		List<Category> categoryList = filmService.getCategory();
+		
+		model.addAttribute("languageList", languageList);
 		model.addAttribute("categoryList", categoryList);
 		
 		return "film/addFilm";
 	}
 	
+	// 영화 추가 form데이터 action처리
 	@PostMapping("/addFilm")
 	public String addFilm(Film film, @RequestParam(value="categoryId", required = true)int categoryId,
 									 @RequestParam(value="specialFeatures", required = true) List<String> specialFeatures) {
 					    // 위에 film은 vo와, 폼에서 넘길때 name을 같게 넘겨줘서 @RequestParam없이 바로 사용할 수 있고
 						// @RequestParam이넘은 폼에서 넘길때 name이름이 다를때 붙여주고 value를 정해줄 수 있음
 		
-		log.debug("@@@@@@@@@@@@@@ 채크된 specialFeatures 개수 :"+specialFeatures.size());
-		log.debug("@@@@@@@@@@@@@@ categoryId :"+categoryId);
+		log.debug("FilmController-/addFilm 채크된 specialFeatures 개수 :"+specialFeatures.size());
+		log.debug("FilmController-/addFilm categoryId :"+categoryId);
 		
 		String specialFeaturesValue = "";
 		
@@ -57,16 +60,16 @@ public class FilmController {
 				specialFeaturesValue += ",";
 			}
 		}
+		log.debug("FilmController-/addFilm specialFeaturesValue :"+specialFeaturesValue);
 		
-		log.debug("@@@@@@@@@@@@@@ specialFeaturesValue :"+specialFeaturesValue);
 		film.setSpecialFeatures(specialFeaturesValue);
+		log.debug("FilmController-/addFilm film :"+film.toString());
 		
-		log.debug("@@@@@@@@@@@@@@ film :"+film.toString());
-		
-		int filmId = filmService.addFilm(film, categoryId);
+		int filmId = filmService.addFilm(film, categoryId); // 추가된 filmOne으로 가기위해 입력된 filmId를 가져온다.
 		return "redirect:/admin/getFilmOne?filmId="+filmId;
 	}
 	
+	// 영화에 출연한 배우 수정 폼으로 이동
 	@GetMapping("/modifyFilmActorsInfo")
 	public String modifyFilmActorsInfo(Model model, @RequestParam(value="filmId", required = true)int filmId) {
 		
@@ -74,26 +77,28 @@ public class FilmController {
 		Map<String, Object> map = filmService.getFilmOne(filmId);
 		
 		// 해당 영화의 배우 체크리스트 데이터
-		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
+		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList"); // 리스트로 형변환
+		
 		model.addAttribute("actorsCheckList", actorsCheckList);
 		model.addAttribute("filmId", filmId);
 		return"film/modifyFilmActorsInfo";
 	}
 	
+	// 영화에 출연한 배우 수정 action처리
 	@PostMapping("/modifyFilmActorsInfo")
 	public String updateActorsInfo(
 								   @RequestParam(value="filmId", required = true) int filmId,
 								   @RequestParam(value="ck") List<Integer> ck) {
-		log.debug("filmId :"+filmId);
-		log.debug("ck length :"+ck.size());
-		// 1. 해당 영화와 관계된 actor 정보 모두 삭제
 		
-		// 2. 체크된 데이터의 actorId 만들 가져와 film_actor 테이블에 삽입    1-2 과정이 하나의 서비스 트랜젝션
+		log.debug("FilmController-/modifyFilmActorsInfo filmId :"+filmId);
+		log.debug("FilmController-/modifyFilmActorsInfo ck length :"+ck.size());
+
 		filmService.modifyFilmActorInfo(ck, filmId);
 		
 		return"redirect:/admin/getFilmOne?filmId="+filmId;
 	}
 	
+	// 영화 상세정보 가져오기
 	@GetMapping("/getFilmOne")
 	public String getFilmOne(Model model, @RequestParam(value="filmId", required = true)int filmId) {
 		

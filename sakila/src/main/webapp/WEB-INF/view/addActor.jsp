@@ -31,6 +31,8 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
 	<h1>addActor</h1>
 	<form id="addActionForm"
 		action="${pageContext.request.contextPath}/admin/addActor"

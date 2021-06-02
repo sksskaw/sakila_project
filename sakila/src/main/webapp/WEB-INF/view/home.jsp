@@ -22,13 +22,7 @@
    
    <!-- 로그인 상태 -->
    <c:if test="${loginStaff != null}">
-      <a href="${pageContext.request.contextPath}/admin/getBoardList">BoardList</a>
-      <a href="${pageContext.request.contextPath}/admin/getStaffList">StaffList</a>
-      <a href="${pageContext.request.contextPath}/admin/getFilmList">FilmList</a>
-      <a href="${pageContext.request.contextPath}/admin/getActorList">ActorList</a>
-      <a href="${pageContext.request.contextPath}/admin/getCustomerList">CustomerList</a>
-      <a href="${pageContext.request.contextPath}/admin/getInventoryList">InventoryList</a>
-      <a href="${pageContext.request.contextPath}/admin/logout">Logout</a>
+      <jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
    </c:if>
    
 </body>

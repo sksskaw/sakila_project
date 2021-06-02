@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>modifyFilmActorsInfo</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
 	<h1>영화(filmId : ${filmId}) 출연자(actor) 수정</h1>
 	<form action="${pageContext.request.contextPath}/admin/modifyFilmActorsInfo" method="post">
 		<input type="hidden" name="filmId" value="${filmId}">

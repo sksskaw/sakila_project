@@ -20,6 +20,8 @@
 </head>
 <body>
 <div class="container">
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
     <h1>getFilmList</h1>
    
     <h4>카테고리</h4>

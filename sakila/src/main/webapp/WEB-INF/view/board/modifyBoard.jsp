@@ -28,6 +28,8 @@
 </head>
 	<body>
 	<div class="container">
+		<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+		
 		 <h1>modifyBoard</h1>
 		 <form id="modifyForm" action="${pageContext.request.contextPath}/admin/modifyBoard" method="post">
 			 <table class="table">

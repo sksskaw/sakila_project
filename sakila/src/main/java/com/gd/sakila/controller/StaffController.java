@@ -33,7 +33,7 @@ public class StaffController {
 		
 		List<StaffListView> StaffList = staffService.getStaffList(currentPage, rowPerPage, searchWord);
 		
-		log.debug("▶▶▶▶▶▶▶ StaffList Size : "+StaffList.size());
+		log.debug("StaffController - getStaffList StaffList Size : "+StaffList.size());
 		
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);

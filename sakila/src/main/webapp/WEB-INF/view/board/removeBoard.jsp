@@ -24,6 +24,8 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="container">
+		<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+		
 		<br>
 		<h3>removeBoard</h3>
 		<br>

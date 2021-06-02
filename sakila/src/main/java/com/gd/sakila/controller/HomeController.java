@@ -31,10 +31,10 @@ public class HomeController {
 	
 	@PostMapping("/login")
 	public String login(HttpSession session, Staff staff) { // servlet 세션을 직접 사용, 컨트롤러 메서드의 매개변수는 DI대상
-		log.debug("▶▶▶▶▶ login() param staff :"+staff);
+		log.debug("HomeController - login() param staff :"+staff);
 		
 		Staff loginStaff = staffService.login(staff);
-		log.debug("▶▶▶▶▶ login() return loginStaff :"+loginStaff);
+		log.debug("HomeController - login() return loginStaff :"+loginStaff);
 		
 		if(loginStaff != null) { // 로그인 실패
 			

@@ -18,10 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomerService {
 	@Autowired CustomerMapper customerMapper;
 	
+	// 휴먼계정 active 변경 스케줄러
 	public void modifyCustomerActiveByScheduler() {
-		log.debug("▶▶▶▶▶ modifyCustomerActiveByScheduler() 실행");
+		log.debug("CustomerService modifyCustomerActiveByScheduler() 실행");
 		int row = customerMapper.updateCustomerActiveByScheduler();
-		log.debug("▶▶▶▶▶ 휴먼고객 처리 행수 :"+row);
+		log.debug("CustomerService 휴먼고객 처리 행수 :"+row);
 	}
 	
 	// 고객 리스트 출력

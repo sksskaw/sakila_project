@@ -1,5 +1,7 @@
 package com.gd.sakila.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,16 +57,28 @@ public class ActorController {
 		log.debug("searchWord: "+ searchWord);
 		log.debug("category: "+ category);
 		
-		Map<String, Object> map = actorService.getActorInfoList(currentPage, rowPerPage, searchWord, category);
+		Map<String, Object> map = new HashMap<>();
+		map.put("beginRow", (currentPage-1)*rowPerPage);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		map.put("category", category);
+		
+		// 배우 정보 리스트
+		List<Map<String, Object>> actorInfoList = actorService.getActorInfoList(map);
+		
+		int actorInfoTotal = actorService.getActorInfoListTotal(map);
+		
+		// 동적 쿼리에 따른 마지막 페이지 계산
+		int lastPage = (int)Math.ceil((double)actorInfoTotal / rowPerPage);
 		
 		// 단일 변수 데이터
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("category", category);
 		
-		// map 데이터
-		model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("actorList", map.get("actorList"));
+		// List 데이터
+		model.addAttribute("actorInfoList", actorInfoList);
 		return "getActorList";
 	}
 }

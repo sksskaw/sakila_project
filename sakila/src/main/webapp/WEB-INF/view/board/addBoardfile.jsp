@@ -33,6 +33,8 @@
 </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
 	<h1>파일추가</h1>
 	<form 	id="addForm"
 			method="post"

@@ -17,7 +17,8 @@
 </head>
 <body>
    <div class="container">
-
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
       <h1>add Film</h1>
       <form method="post" action="${pageContext.request.contextPath}/admin/addFilm">
          <table class="table table-hover">

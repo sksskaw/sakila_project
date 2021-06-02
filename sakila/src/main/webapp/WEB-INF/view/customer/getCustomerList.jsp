@@ -20,6 +20,8 @@
 </head>
 <body>
 <div class="container">
+	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+	
 	<h1>블랙리스트</h1>
     <table class="table table-striped">
         <thead>
