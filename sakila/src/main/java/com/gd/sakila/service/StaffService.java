@@ -22,7 +22,7 @@ public class StaffService {
 	@Autowired StaffListViewMapper staffListViewMapper;
 	
 	public Staff login(Staff staff) {
-		log.debug("login() param staff :"+staff);
+		log.debug("StaffService - login() param staff :"+staff);
 		return staffMapper.selectStaffByLogin(staff); // null or staff객체
 	}
 

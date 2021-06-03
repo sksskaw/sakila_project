@@ -3,19 +3,20 @@
 <mapper namespace="com.gd.sakila.mapper.InventoryMapper">
 
 	<select id="selectInventoryList" parameterType="map" resultType="map">
-		SELECT i.store_id storeId, 
-		       f.title title, 
-		       COUNT(*) AS totalInventory,
-			   SUM(NOT inventory_in_stock(i.inventory_id)) AS rental, 
-			   SUM(inventory_in_stock(i.inventory_id)) AS stock
-		FROM film f, inventory i
-		WHERE f.film_id = i.film_id 
+		SELECT i.store_id, f.title, COUNT(DISTINCT i.inventory_id) AS totalInventory
+               ,COUNT(CASE WHEN (r.return_date IS NULL AND r.inventory_id IS NOT NULL) THEN 1 END) AS rental
+		       ,(COUNT(DISTINCT i.inventory_id) 
+		        - COUNT(CASE WHEN (r.return_date IS NULL AND r.inventory_id IS NOT NULL) THEN 1 END)) AS stock
+		FROM film f INNER JOIN inventory i ON f.film_id = i.film_id
+		            LEFT JOIN rental r ON i.inventory_id = r.inventory_id
+		<where>
 			<if test="searchWord != null">
-				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+				f.title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 			<if test="storeId != null">
         		AND i.store_id = #{storeId}
 			</if>
+		</where>
 		GROUP BY i.film_id, i.store_id
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
