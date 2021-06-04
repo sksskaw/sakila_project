@@ -1,14 +1,12 @@
 package com.gd.sakila.controller;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.sakila.service.SalesService;
 
@@ -17,21 +15,35 @@ import com.gd.sakila.service.SalesService;
 public class SalesController {
 	@Autowired SalesService salesService;
 	
+	// 매출 대시보드 데이터 출력
 	@GetMapping("/getSalesList")
-	public String getSalesList(Model model,
-						@RequestParam(value="storeId", required = false)Integer storeId) {
-		
-		if(storeId != null && storeId == 0) {
-			storeId = null;
-		}
+	public String getSalesList(Model model) {
 		
 		List<Map<String, Object>> bestSellerList = salesService.getBestSellerTop10();
 		
 		List<Map<String, Object>> salesByCategoryList = salesService.getSalesByCategoryList();
 		
-		List<Map<String, Object>> monthlySalesListList = salesService.getmonthlySalesList(storeId);
+		List<Map<String, Object>> monthlySalesListList = salesService.getmonthlySalesList();
+
+		HashSet<Integer> yearSet = new HashSet<>();
+		List<Integer> yearList = new ArrayList<>();
 		
+		// 년도 중복제거
+		for(Map<String, Object> m : monthlySalesListList) {
+			yearSet.add((Integer) m.get("YEAR"));
+		}
 		
+		// 리스트에 년도 정보 담기
+		Iterator<Integer> iterSet = yearSet.iterator();
+        while(iterSet.hasNext()) {
+        	yearList.add(iterSet.next());
+        }
+        
+        // 대시보드 기본 통계 자료
+        Map<String, Object> statisticsMap = salesService.getDashboardStatistics();
+
+        model.addAttribute("statisticsMap", statisticsMap);
+		model.addAttribute("yearList", yearList);
 		model.addAttribute("bestSellerList", bestSellerList);
 		model.addAttribute("salesByCategoryList", salesByCategoryList);
 		model.addAttribute("monthlySalesListList", monthlySalesListList);
