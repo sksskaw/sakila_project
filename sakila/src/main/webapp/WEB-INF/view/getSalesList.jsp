@@ -274,7 +274,7 @@
                     <div class="d-flex flex-column flex-lg-row">
                       <div class="data-wrapper d-flex mt-2 mt-lg-0">
                         <div class="wrapper pr-5">
-                          <h5 class="mb-0">Total Cost</h5>
+                          <h5 class="mb-0">Total Sales</h5>
                           <div class="d-flex align-items-center">
                             <h4 class="font-weight-semibold mb-0">${statisticsMap.totalSales}</h4>
                             <small class="ml-2 text-gray d-none d-lg-block"><b>89.5%</b> of 20,000 Total</small>
