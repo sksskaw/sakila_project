@@ -17,4 +17,5 @@ public interface CustomerMapper {
 	Map<String, Object> selectCustomerOne(int customerId);
 	double selectCustomerOneSales(int customerId);
 	int selectCustomerOneRentals(int customerId);
+	List<Map<String, Object>> selectCustomerOneOverDueList(int customerId);
 }

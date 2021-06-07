@@ -37,9 +37,8 @@ public class HomeController {
 		log.debug("HomeController - login() return loginStaff :"+loginStaff);
 		
 		if(loginStaff != null) { // 로그인 실패
-			
-			session.setAttribute("loginStaff", loginStaff); 
-		} 
-		return "redirect:/";
+			session.setAttribute("loginStaff", loginStaff);
+		}
+		return "redirect:/admin/getSalesList";
 	}
 }

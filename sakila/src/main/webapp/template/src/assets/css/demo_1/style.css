@@ -505,6 +505,7 @@
         .sidebar > .nav .nav-item.nav-profile .nav-link .designation {
           margin-bottom: 0;
           font-weight: 400;
+          font-size: 12px;
           color: #fff; }
     .sidebar > .nav .nav-item.nav-category {
       color: rgba(255, 255, 255, 0.7);

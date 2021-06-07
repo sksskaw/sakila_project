@@ -7,7 +7,9 @@
 		SELECT 
 			staff_id staffId,
 			email email,
-			username username
+			username username,
+			first_name firstName,
+			last_name lastName
 		FROM staff
 		WHERE email = #{email} <!-- getEmail() -->
 		AND password = PASSWORD(#{password}) <!-- getPassword() -->

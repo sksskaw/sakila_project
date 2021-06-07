@@ -26,9 +26,14 @@ public class CustomerController {
 	public String getCustomerOne(Model model,
 			 @RequestParam(value="customerId", required = true)int customerId) {
 		
+		// 고객 상세정보, 고객 총 결제금액, 총 대여 횟수
 		Map<String, Object> customerOneMap = customerService.getCustomerOne(customerId);
 		
+		// 해당 고객의 연체 중인 목록
+		List<Map<String, Object>> customerOverDueList = customerService.getCustomerOneOverDueList(customerId);
+		
 		model.addAttribute("customerOneMap",customerOneMap);
+		model.addAttribute("customerOverDueList",customerOverDueList);
 		
 		return "customer/getCustomerOne";
 	}
@@ -52,7 +57,7 @@ public class CustomerController {
 		
 		// 고객 정보 리스트
 		List<CustomerList> customerList = customerService.getCustomerList(map);
-		
+
 		// 블랙 리스트
 		List<Map<String, Object>> blackCustomerList = customerService.getBlackCustomerList(map);
 		

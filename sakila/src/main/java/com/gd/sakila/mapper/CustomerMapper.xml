@@ -78,4 +78,15 @@
 		FROM rental
 		WHERE customer_id = #{customerId}
 	</select>
+	
+	<select id="selectCustomerOneOverDueList" parameterType="int" resultType="map">
+		SELECT f.title, 
+			   r.rental_date rentalDate, 
+			   NOW() today, 
+			   DATEDIFF(NOW(), r.rental_date)-f.rental_duration overDue, 
+			   f.rental_duration duration
+		FROM rental r, inventory i, film f
+		WHERE r.inventory_id = i.inventory_id AND i.film_id = f.film_id
+				    AND r.return_date IS NULL AND r.customer_id = #{customerId}
+	</select>
 </mapper>

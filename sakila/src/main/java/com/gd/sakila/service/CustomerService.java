@@ -54,4 +54,9 @@ public class CustomerService {
 		
 		return customerOneMap;
 	}
+	
+	// 해당 고객이 연체중인 목록
+	public List<Map<String, Object>> getCustomerOneOverDueList(int customerId){
+		return customerMapper.selectCustomerOneOverDueList(customerId);
+	}
 }

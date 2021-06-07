@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/css/vendor.bundle.addons.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/font-awesome/css/font-awesome.min.css" />
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/css/shared/style.css">
@@ -30,88 +31,156 @@
  </style>
 </head>
 <body>
-<div class="container">
-	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
-	
-	<h1>블랙리스트</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Customer ID</th>
-				<th>Customer Name</th>
-				<th>연체 횟수</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="bc" items="${blackCustomerList}">
-                <tr>
-                    <td class="col-sm-1 text-center">${bc.ID}</td>
-                    <td class="col-sm-2 text-center">
-                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${bc.ID}">${bc.name}</a>
-                    </td>
-                    <td class="col-sm-4 text-center">${bc.count}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <br>
-    <h1>getCustomerList</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Customer ID</th>
-                <th>Customer Name</th>
-                <th>Address</th>
-                <th>zip code</th>
-                <th>phone</th>
-                <th>city</th>
-                <th>country</th>
-                <th>notes</th>
-                <th>SID</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="c" items="${customerList}">
-                <tr>
-                    <td class="col-sm-1 text-center">${c.ID}</td>
-                    <td class="col-sm-2 text-center">
-                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.ID}">${c.name}</a>
-                    </td>
-                    <td class="col-sm-2 text-center">${c.address}</td>
-                    <td class="col-sm-1 text-center">${c.zipCode}</td>
-                    <td class="col-sm-1 text-center">${c.phone}</td>
-                    <td class="col-sm-1 text-center">${c.city}</td>
-                    <td class="col-sm-1 text-center">${c.country}</td>
-                    <td class="col-sm-1 text-center">${c.notes}</td>
-                    <td class="col-sm-1 text-center">${c.SID}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    
-    <ul class="pager">
-        <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a></li>
-        </c:if>
-        <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a></li>
-        </c:if>
-    </ul>
-    
-    <!-- 검색어 입력창 -->
-    <div class="text-center">
-	    <form action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
-	        <label for="searchWord">검색어(제목) :</label> 
-	        <input name="searchWord" type="text">
-	        <button type="submit">검색</button>
-	    </form>
-    </div>
+	<div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
 
-    <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/addCustomer">고객 등록하기</a>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+        
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Page Title Header Starts-->
+            <div class="row page-title-header">
+              <div class="col-12">
+                <div class="page-header">
+                  <h4 class="page-title">Customer List</h4>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 블랙 리스트 출력 -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <h4 class="card-title mb-0">Black List</h4>
+                        </div>
+                        <p>Customers with more than 20 delinquency</p>
+                        <div class="table-responsive">
+	                        <table class="table table-striped table-hover">
+						        <thead>
+						            <tr>
+						                <th>Customer ID</th>
+										<th>Customer Name</th>
+										<th>연체 횟수</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            <c:forEach var="bc" items="${blackCustomerList}">
+						                <tr>
+						                    <td class="col-sm-1 text-center">${bc.ID}</td>
+						                    <td class="col-sm-2 text-center">
+						                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${bc.ID}">${bc.name}</a>
+						                    </td>
+						                    <td class="col-sm-4 text-center">${bc.overdue}</td>
+						                </tr>
+						            </c:forEach>
+						        </tbody>
+						    </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 베스트 셀러 출력 -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <h4 class="card-title mb-0">Customer List</h4>
+                        </div>
+                        <p>Order By Customer Name</p>
+                        <div class="table-responsive">
+	                        <table class="table table-striped table-hover">
+						        <thead>
+						            <tr>
+						                <th>Customer ID</th>
+						                <th>Customer Name</th>
+						                <th>Address</th>
+						                <th>zip code</th>
+						                <th>phone</th>
+						                <th>city</th>
+						                <th>country</th>
+						                <th>notes</th>
+						                <th>SID</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            <c:forEach var="c" items="${customerList}">
+						                <tr>
+						                    <td class="col-sm-1 text-center">${c.ID}</td>
+						                    <td class="col-sm-2 text-center">
+						                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.ID}">${c.name}</a>
+						                    </td>
+						                    <td class="col-sm-2 text-center">${c.address}</td>
+						                    <td class="col-sm-1 text-center">${c.zipCode}</td>
+						                    <td class="col-sm-1 text-center">${c.phone}</td>
+						                    <td class="col-sm-1 text-center">${c.city}</td>
+						                    <td class="col-sm-1 text-center">${c.country}</td>
+						                    <td class="col-sm-1 text-center">${c.notes}</td>
+						                    <td class="col-sm-1 text-center">${c.SID}</td>
+						                </tr>
+						            </c:forEach>
+						        </tbody>
+						    </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			
+			<!-- 페이징 -->
+			<div class="row">
+		        <c:if test="${currentPage > 1}">
+		            <a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage-1}&searchWord=${searchWord}">
+		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-left"></i></button>
+		            </a>
+		        </c:if>
+		        <c:if test="${currentPage < lastPage}">
+		            <a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage+1}&searchWord=${searchWord}">
+		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>
+		            </a>
+
+		        </c:if>
+				<form  class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
+					  <div>
+					  	<label>
+					  		<input type="text" id="form1" class="form-control" name="searchWord" placeholder="Search Name"/>
+					  	</label>
+					    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+					  </div>
+				</form>
+			</div>
+			
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Kim Tae Hoon 2021</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Git source <a href="https://github.com/sksskaw/sakila_project/" target="_blank">Sakila project</a></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
     </div>
-    
-</div>
 
     <!-- plugins:js -->
     <script src="${pageContext.request.contextPath}template/src/assets/vendors/js/vendor.bundle.base.js"></script>

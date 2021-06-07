@@ -10,8 +10,8 @@
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Allen Moreno</p>
-                  <p class="designation">Premium user</p>
+                  <p class="profile-name">${loginStaff.firstName} ${loginStaff.lastName}</p>
+                  <p class="designation">${loginStaff.email}</p>
                 </div>
               </a>
             </li>

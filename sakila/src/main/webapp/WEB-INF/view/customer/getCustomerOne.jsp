@@ -48,8 +48,9 @@
         	<div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Customer Details</h4>
-
+                      <div class="d-flex justify-content-between">
+                        <h4 class="card-title">Customer Details</h4>
+                      </div>
                       <p class="card-description">Customer ID ${customerOneMap.customerOne.customerId} Info </p>
                       <div class="row">
                         <div class="col-md-6">
@@ -178,19 +179,21 @@
                           <table class="table table-striped table-hover">
                             <thead>
                               <tr>
-                                <th>Film ID</th>
-                                <th>Title</th>
-                                <th>Rating</th>
-                                <th>Number of rentals</th>
+                                <th>Film Title</th>
+                                <th>Film Rental Duration</th>
+                                <th>Rental Date</th>
+                                <th>Today</th>
+                                <th>OverDue Date</th>
                               </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach var="bsl" items="${bestSellerList}">
+                            	<c:forEach var="codl" items="${customerOverDueList}">
 					                <tr>
-					                    <td>${bsl.filmId}</td>
-					                    <td><a href="${pageContext.request.contextPath}/admin/getFilmOne?filmId=${bsl.filmId}">${bsl.title}</a></td>
-					                    <td>${bsl.rating}</td>
-					                    <td>${bsl.cnt}</td>
+					                	<td>${codl.title}</td>
+					                	<td>${codl.duration}</td>
+					                    <td>${fn:substring(codl.rentalDate,0,10)}</td>
+					                    <td>${fn:substring(codl.today,0,10)}</td>
+					                    <td>${codl.overDue}</td>
 					                </tr>
 					            </c:forEach>
                             </tbody>
