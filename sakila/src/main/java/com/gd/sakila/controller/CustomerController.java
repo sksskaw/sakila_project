@@ -22,6 +22,17 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomerController {
 	@Autowired CustomerService customerService;
 	
+	@GetMapping("/getCustomerOne")
+	public String getCustomerOne(Model model,
+			 @RequestParam(value="customerId", required = true)int customerId) {
+		
+		Map<String, Object> customerOneMap = customerService.getCustomerOne(customerId);
+		
+		model.addAttribute("customerOneMap",customerOneMap);
+		
+		return "customer/getCustomerOne";
+	}
+	
 	// 고객 정보 리스트 출력
 	@GetMapping("/getCustomerList")
 	public String getCustomerList(Model model,

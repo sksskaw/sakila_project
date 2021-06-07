@@ -51,4 +51,31 @@
 		GROUP BY NAME
 		HAVING COUNT(*) > 20
 	</select>
+	
+	<select id="selectCustomerOne" parameterType="int" resultType="map">
+		SELECT c.customer_id customerId,
+	       c.first_name firstName,
+	       c.last_name lastName,
+	       c.email, c.create_date createDate,
+	       a.address, a.district, a.address2,
+	       a.postal_code postalCode,
+	       ct.city, cy.country
+		FROM customer c, address a, city ct, country cy
+		WHERE c.address_id = a.address_id 
+	          AND a.city_id = ct.city_id
+			  AND ct.country_id = cy.country_id 
+			  AND c.customer_id = #{customerId}
+	</select>
+	
+	<select id="selectCustomerOneSales" parameterType="int" resultType="double">
+		SELECT SUM(amount)
+		FROM payment
+		WHERE customer_id = #{customerId}
+	</select>
+	
+	<select id="selectCustomerOneRentals" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM rental
+		WHERE customer_id = #{customerId}
+	</select>
 </mapper>

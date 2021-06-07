@@ -1,5 +1,6 @@
 package com.gd.sakila.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,5 +39,19 @@ public class CustomerService {
 	// 고객 리스트 페이징을 위한 total 수
 	public int getCustomerListTotal(String searchWord){
 		return customerMapper.selectCustomerTotal(searchWord);
+	}
+	
+	// 고객 상세정보
+	public Map<String, Object> getCustomerOne(int customerId){
+		
+		Map<String, Object> customerOneMap = new HashMap<>();
+
+		String customerOneSales = Double.toString(customerMapper.selectCustomerOneSales(customerId));
+		log.debug("---------------------------------"+customerOneSales);
+		customerOneMap.put("customerOne", customerMapper.selectCustomerOne(customerId));
+		customerOneMap.put("customerOneSales", customerOneSales);
+		customerOneMap.put("customerOneRentals", customerMapper.selectCustomerOneRentals(customerId));
+		
+		return customerOneMap;
 	}
 }
