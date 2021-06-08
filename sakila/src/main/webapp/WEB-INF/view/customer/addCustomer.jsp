@@ -42,9 +42,9 @@
 			}else if($("#address").val() == ""){
 				alert("address 입력바람");
 				$("#address").focus();
+			}else{
+				$("form").submit();
 			}
-			
-			$("form").submit();
 		});
 		
 		
@@ -54,6 +54,9 @@
 			url:'/country',
 			success: function(jsonData) {
 				$('#country').empty();
+					$('#country').append(
+						'<option value="">Country</option>'
+					);
 				$(jsonData).each(function(index, item) {
 					$('#country').append(
 						'<option value="'+item.countryId+'">'+item.country+'</option>'
@@ -70,6 +73,9 @@
 				data:{countryId : $('#country').val()},
 				success: function(jsonData) {
 					$('#city').empty();
+						$('#city').append(
+							'<option value="">City</option>'
+						);
 					$(jsonData).each(function(index, item) {
 						$('#city').append(
 							'<option value="'+item.cityId+'">'+item.city+'</option>'
@@ -87,6 +93,9 @@
 				data:{cityId : $('#city').val()},
 				success: function(jsonData) {
 					$('#address').empty();
+						$('#address').append(
+							'<option value="">Address</option>'
+						);
 					$(jsonData).each(function(index, item) {
 						$('#address').append(
 							'<option value="'+item.addressId+'">'+item.address+'</option>'
@@ -180,7 +189,6 @@
                             <label class="col-sm-3 col-form-label">Country</label>
                             <div class="col-sm-9">
                               <select class="form-control" name="country" id="country">
-                              	<option value="">Country</option>
                               </select>
                             </div>
                           </div>
@@ -199,7 +207,6 @@
                             <label class="col-sm-3 col-form-label">City</label>
                             <div class="col-sm-9">
                               <select class="form-control" name="city" id="city">
-                                <option value="">City</option>
                               </select>
                             </div>
                           </div>
@@ -218,7 +225,6 @@
                             <label class="col-sm-3 col-form-label">Address</label>
                             <div class="col-sm-9">
                               <select class="form-control" name="addressId" id="address">
-                                <option value="">Address</option>
                               </select>
                             </div>
                           </div>
