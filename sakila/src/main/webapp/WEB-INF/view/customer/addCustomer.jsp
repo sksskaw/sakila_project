@@ -43,6 +43,8 @@
 				alert("address 입력바람");
 				$("#address").focus();
 			}
+			
+			$("form").submit();
 		});
 		
 		
@@ -122,7 +124,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Please fill in the information</h4>
-                    <form class="form-sample" name="form" action="${pageContext.request.contextPath}/admin/addCustomer" method="post">
+                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addCustomer" method="post">
                       <input type="hidden" name="storeId" value="${loginStaff.storeId}">
                       <p class="card-description"> Personal info </p>
                       <div class="row">
