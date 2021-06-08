@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.AddressMapper">
+	<select id="selectCountry"
+			resultType="com.gd.sakila.vo.Country">
+		SELECT
+			country_id countryId,
+			country
+		FROM country
+	</select>
+	
+	<select id="selectCity"
+			parameterType="int"
+			resultType="com.gd.sakila.vo.City">
+		SELECT
+			city_id cityId,
+			city
+		FROM city
+		WHERE country_id = #{countryId}	
+	</select>
+	
+	<select id="selectAddress"
+			parameterType="int"
+			resultType="com.gd.sakila.vo.Address">
+		SELECT
+			address_id addressId,
+			address
+		FROM address
+		WHERE city_id = #{citryId}	
+	</select>
+</mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.sakila.mapper.CustomerMapper;
+import com.gd.sakila.vo.Customer;
 import com.gd.sakila.vo.CustomerList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,5 +59,11 @@ public class CustomerService {
 	// 해당 고객이 연체중인 목록
 	public List<Map<String, Object>> getCustomerOneOverDueList(int customerId){
 		return customerMapper.selectCustomerOneOverDueList(customerId);
+	}
+	
+	// 고객 추가
+	public int addCustomer(Customer customer) {
+		customerMapper.insertCustomer(customer);
+		return customer.getCustomerId(); 
 	}
 }

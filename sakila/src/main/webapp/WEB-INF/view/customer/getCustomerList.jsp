@@ -74,11 +74,11 @@
 						        <tbody>
 						            <c:forEach var="bc" items="${blackCustomerList}">
 						                <tr>
-						                    <td class="col-sm-1 text-center">${bc.ID}</td>
-						                    <td class="col-sm-2 text-center">
+						                    <td class="text-center">${bc.ID}</td>
+						                    <td class="text-center">
 						                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${bc.ID}">${bc.name}</a>
 						                    </td>
-						                    <td class="col-sm-4 text-center">${bc.overdue}</td>
+						                    <td class="text-center">${bc.overdue}</td>
 						                </tr>
 						            </c:forEach>
 						        </tbody>
@@ -120,17 +120,17 @@
 						        <tbody>
 						            <c:forEach var="c" items="${customerList}">
 						                <tr>
-						                    <td class="col-sm-1 text-center">${c.ID}</td>
-						                    <td class="col-sm-2 text-center">
+						                    <td>${c.ID}</td>
+						                    <td>
 						                    	<a href="${pageContext.request.contextPath}/admin/getCustomerOne?customerId=${c.ID}">${c.name}</a>
 						                    </td>
-						                    <td class="col-sm-2 text-center">${c.address}</td>
-						                    <td class="col-sm-1 text-center">${c.zipCode}</td>
-						                    <td class="col-sm-1 text-center">${c.phone}</td>
-						                    <td class="col-sm-1 text-center">${c.city}</td>
-						                    <td class="col-sm-1 text-center">${c.country}</td>
-						                    <td class="col-sm-1 text-center">${c.notes}</td>
-						                    <td class="col-sm-1 text-center">${c.SID}</td>
+						                    <td class="text-center">${c.address}</td>
+						                    <td class="text-center">${c.zipCode}</td>
+						                    <td class="text-center">${c.phone}</td>
+						                    <td class="text-center">${c.city}</td>
+						                    <td class="text-center">${c.country}</td>
+						                    <td class="text-center">${c.notes}</td>
+						                    <td class="text-center">${c.SID}</td>
 						                </tr>
 						            </c:forEach>
 						        </tbody>
@@ -149,13 +149,14 @@
 		            <a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage-1}&searchWord=${searchWord}">
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-left"></i></button>
 		            </a>
-		        </c:if>
+		        </c:if>&nbsp;
 		        <c:if test="${currentPage < lastPage}">
 		            <a href="${pageContext.request.contextPath}/admin/getCustomerList?currentPage=${currentPage+1}&searchWord=${searchWord}">
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>
 		            </a>
-
-		        </c:if>
+		        </c:if> &nbsp;
+		        <a href="${pageContext.request.contextPath}/admin/addCustomer"><button type="button" class="btn btn-primary btn-sm">Add customer</button></a>
+		        
 				<form  class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
 					  <div>
 					  	<label>

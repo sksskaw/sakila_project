@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.sakila.vo.Customer;
 import com.gd.sakila.vo.CustomerList;
 
 @Mapper
@@ -18,4 +19,6 @@ public interface CustomerMapper {
 	double selectCustomerOneSales(int customerId);
 	int selectCustomerOneRentals(int customerId);
 	List<Map<String, Object>> selectCustomerOneOverDueList(int customerId);
+	
+	void insertCustomer(Customer customer);
 }

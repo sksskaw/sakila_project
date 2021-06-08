@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>Sales List</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -41,18 +41,6 @@
               <div class="col-12">
                 <div class="page-header">
                   <h4 class="page-title">Dashboard</h4>
-                  <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
-                    <ul class="quick-links">
-                      <li><a href="#">ICE Market data</a></li>
-                      <li><a href="#">Own analysis</a></li>
-                      <li><a href="#">Historic market data</a></li>
-                    </ul>
-                    <ul class="quick-links ml-auto">
-                      <li><a href="#">Settings</a></li>
-                      <li><a href="#">Analytics</a></li>
-                      <li><a href="#">Watchlist</a></li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

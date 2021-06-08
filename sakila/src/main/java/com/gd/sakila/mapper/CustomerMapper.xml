@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="selectCustomerOneSales" parameterType="int" resultType="double">
-		SELECT SUM(amount)
+		SELECT IFNULL(SUM(amount),0)
 		FROM payment
 		WHERE customer_id = #{customerId}
 	</select>
@@ -89,4 +89,13 @@
 		WHERE r.inventory_id = i.inventory_id AND i.film_id = f.film_id
 				    AND r.return_date IS NULL AND r.customer_id = #{customerId}
 	</select>
+	
+	<insert id="insertCustomer" parameterType="com.gd.sakila.vo.Customer">
+		INSERT INTO customer (store_id,first_name,last_name,email, address_id,create_date) 
+			 VALUES (#{storeId},#{firstName},#{lastName},#{email},#{addressId},NOW())
+			 
+		<selectKey resultType="int" keyProperty="customerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
 </mapper>

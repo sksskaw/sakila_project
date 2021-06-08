@@ -9,7 +9,8 @@
 			email email,
 			username username,
 			first_name firstName,
-			last_name lastName
+			last_name lastName,
+			store_id storeId
 		FROM staff
 		WHERE email = #{email} <!-- getEmail() -->
 		AND password = PASSWORD(#{password}) <!-- getPassword() -->
