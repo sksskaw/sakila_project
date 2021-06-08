@@ -27,8 +27,25 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/template/src/assets/images/favicon.ico" />
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-  
 	$(document).ready(function(){
+		
+		$("#formbutton").click(function(){
+			if($("#firstName").val() == ""){
+				alert("firstName 입력바람");
+				$("#firstName").focus();
+			} else if($("#lastName").val() == ""){
+				alert("lastName 입력바람");
+				$("#lastName").focus();
+			}else if($("#email").val() == ""){
+				alert("email 입력바람");
+				$("#email").focus();
+			}else if($("#address").val() == ""){
+				alert("address 입력바람");
+				$("#address").focus();
+			}
+		});
+		
+		
 		console.log('country 목록');
 		$.ajax({
 			type:'get',
@@ -113,7 +130,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">First Name</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="firstName"/>
+                              <input type="text" class="form-control" name="firstName" id="firstName"/>
                             </div>
                           </div>
                         </div>
@@ -121,7 +138,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Last Name</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="lastName"/>
+                              <input type="text" class="form-control" name="lastName" id="lastName"/>
                             </div>
                           </div>
                         </div>
@@ -131,7 +148,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">email</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" name="email"/>
+                              <input type="text" class="form-control" name="email" id="email"/>
                             </div>
                           </div>
                         </div>
@@ -160,7 +177,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Country</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="country" id="country"></select>
+                              <select class="form-control" name="country" id="country">
+                              	<option value="">Country</option>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -177,7 +196,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">City</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="city" id="city"></select>
+                              <select class="form-control" name="city" id="city">
+                                <option value="">City</option>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -194,7 +215,9 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Address</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="addressId" id="address"></select>
+                              <select class="form-control" name="addressId" id="address">
+                                <option value="">Address</option>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -208,7 +231,7 @@
                       </div>
                       <div>
                       	<a href="${pageContext.request.contextPath}/admin/getCustomerList"><button type="button" class="btn btn-primary">cancel</button></a>
-                      	<button type="submit" class="btn btn-primary">Add</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">Add</button>
                       </div>
                     </form>
                   </div>
