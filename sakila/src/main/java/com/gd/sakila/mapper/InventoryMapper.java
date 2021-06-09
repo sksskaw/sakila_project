@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface InventoryMapper {
-	List<Map<String, Object>>selectInventoryList(Map<String, Object> map);
+	List<Map<String, Object>> selectInventoryList(Map<String, Object> map);
 	int selectInventoryListTotal(Map<String, Object> map);
+	List<Map<String, Object>> selectCanRentalList(int filmId);
 }

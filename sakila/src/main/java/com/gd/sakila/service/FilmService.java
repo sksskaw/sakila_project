@@ -28,6 +28,11 @@ public class FilmService {
 		@Autowired CategoryMapper categoryMapper;
 		@Autowired LanguageMapper languageMapper;
 		
+		// 영화 제목 리스트
+		public List<Map<String, Object>> getFilmTitle(){
+			return filmMapper.selectFilmTitleList();
+		}
+		
 		// 영화 추가
 		public int addFilm(Film film, int CategoryId) {
 			

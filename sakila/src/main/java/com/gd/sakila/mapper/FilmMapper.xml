@@ -65,4 +65,9 @@
 		ON a.actor_id = t.actor_id
 		ORDER BY name
 	</select>
+	
+	<select id="selectFilmTitleList" resultType="map">
+		SELECT film_id, title
+		  FROM film
+	</select>
 </mapper>

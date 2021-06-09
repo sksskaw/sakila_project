@@ -43,7 +43,7 @@
 				alert("address 입력바람");
 				$("#address").focus();
 			}else{
-				$("form").submit();
+				$("#form").submit();
 			}
 		});
 		

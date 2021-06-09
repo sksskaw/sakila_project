@@ -34,4 +34,14 @@
 			</if>
 	</select>
 	
+	<select id="selectCanRentalList" parameterType="int" resultType="map">
+	SELECT i.inventory_id inventoryId, i.store_id storeId, f.title
+	  FROM inventory i INNER JOIN film f ON i.film_id = f.film_id
+	 WHERE inventory_id NOT IN(SELECT inventory_id
+									  FROM rental
+									  WHERE return_date IS NULL
+									  ORDER BY inventory_id)
+		   AND f.film_id = #{filmId}
+	
+	</select>
 </mapper>

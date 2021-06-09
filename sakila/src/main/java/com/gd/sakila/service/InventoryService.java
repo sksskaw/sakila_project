@@ -21,4 +21,9 @@ public class InventoryService {
 	public int getInventoryListTotal(Map<String, Object> map) {
 		return inventoryMapper.selectInventoryListTotal(map);
 	}
+	
+	// 대여 가능한 재고 리스트
+	public List<Map<String, Object>> getCanRentalList(int filmId){
+		return inventoryMapper.selectCanRentalList(filmId);
+	}
 }

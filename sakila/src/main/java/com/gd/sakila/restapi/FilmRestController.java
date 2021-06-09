@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gd.sakila.service.FilmService;
+import com.gd.sakila.vo.Film;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +19,7 @@ public class FilmRestController {
 	@Autowired FilmService filmService;
 	
 	@GetMapping("/getActorsCheckList")
-	public List<Map<String, Object>> getFilmOne(@RequestParam(value="filmId", required = true)int filmId) {
+	public List<Map<String, Object>> getActorsCheckList(@RequestParam(value="filmId", required = true)int filmId) {
 		
 		// 영화 상세정보 가져오기
 		Map<String, Object> map = filmService.getFilmOne(filmId);
@@ -27,5 +28,12 @@ public class FilmRestController {
 		List<Map<String, Object>> actorsCheckList = (List<Map<String, Object>>)map.get("actorsCheckList");
 
 		return actorsCheckList;
+	}
+	
+	// 영화 제목 리스트 가져오기
+	@GetMapping("/getFilmTitleList")
+	public List<Map<String, Object>> getFilmList() {
+		List<Map<String, Object>> filmTitleList= filmService.getFilmTitle();
+		return filmTitleList;
 	}
 }
