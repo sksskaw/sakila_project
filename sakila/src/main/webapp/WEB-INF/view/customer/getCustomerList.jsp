@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>Customer List</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -157,7 +157,7 @@
 		        </c:if> &nbsp;
 		        <a href="${pageContext.request.contextPath}/admin/addCustomer"><button type="button" class="btn btn-primary btn-sm">Add customer</button></a>
 		        
-				<form  class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
+				<form class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
 					  <div>
 					  	<label>
 					  		<input type="text" id="form1" class="form-control" name="searchWord" placeholder="Search Name"/>

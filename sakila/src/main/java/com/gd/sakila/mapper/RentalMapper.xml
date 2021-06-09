@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.sakila.mapper.RentalMapper">
+	<select id="selectReturnNullList" resultType="com.gd.sakila.vo.Rental" parameterType="Integer">
+		SELECT rental_id rentalId,
+			   rental_date rentalDate,
+			   inventory_id inventoryId,
+			   customer_id customerId,
+			   return_date returnDate,
+			   staff_id staffId,
+			   last_update lastUpdate
+		  FROM rental
+		 WHERE return_date IS NULL
+			<if test="searchNum != null">
+				AND customer_id LIKE #{searchNum}
+			</if>
+		 LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<select id="selectReturnNullTotal" resultType="int">
+		SELECT COUNT(*)
+		  FROM rental
+		 WHERE return_date IS NULL
+	</select>
+	
+	<update id="updateReturnDate" parameterType="int">
+		UPDATE rental
+		   SET return_date = NOW() 
+		 WHERE rental_id = #{rentalId}
+	</update>
+</mapper>
