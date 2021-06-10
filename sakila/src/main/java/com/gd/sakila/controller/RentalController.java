@@ -51,14 +51,12 @@ public class RentalController {
 	}
 	
 	// 반납처리 메소드
-	@PostMapping("/modifyReturn")
-	public String modifyReturn(Model model,
+	@PostMapping("/addReturn")
+	public String addReturn(Model model,
 			@RequestParam(value="returnArray", required = true) List<Integer> returnArray) {
-		
-		
-		
+
 		int cnt = rentalService.returnTransaction(returnArray);
-		log.debug("RentalController - modifyReturn 총 : " +cnt+ "건 반납 처리완료");
+		log.debug("RentalController - addReturn 총 : " +cnt+ "건 반납 처리완료");
 		
 		return "redirect:/admin/addReturn";
 	}

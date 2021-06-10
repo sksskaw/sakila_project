@@ -70,9 +70,9 @@ public class RentalService {
 			rentalMapper.updateAmountByKey(m);
 		}
 		
-		// 반나처리 4.
+		// 반납처리 4.
 		int cnt = 0;
-		log.debug("RentalService - modifyReturn returnArray SIZE : " + returnArray.size());
+		log.debug("RentalService - returnTransaction returnArray SIZE : " + returnArray.size());
 		for(Integer i : returnArray) {
 			rentalMapper.updateReturnDate(i);
 			log.debug("rentalId : " + i +" return complete");

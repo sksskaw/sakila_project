@@ -66,4 +66,9 @@ public class CustomerService {
 		customerMapper.insertCustomer(customer);
 		return customer.getCustomerId(); 
 	}
+	
+	// 고객 이름 검색
+	public List<Map<String, Object>> getCustomerSearchByName(String searchName) {
+		return customerMapper.selectCustomerSearchByName(searchName);
+	}
 }

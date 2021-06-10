@@ -21,4 +21,5 @@ public interface CustomerMapper {
 	List<Map<String, Object>> selectCustomerOneOverDueList(int customerId);
 	
 	void insertCustomer(Customer customer);
+	List<Map<String, Object>> selectCustomerSearchByName(String searchName);
 }

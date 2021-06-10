@@ -79,7 +79,7 @@
                         </div>
                         <p>Inventory Not Returned</p>
                         <div class="table-responsive">
-                        	<form class="ml-auto search-form d-none d-md-block" id="form" action="${pageContext.request.contextPath}/admin/modifyReturn" method="post">
+                        	<form class="ml-auto search-form d-none d-md-block" id="form" action="${pageContext.request.contextPath}/admin/addReturn" method="post">
 	                        <table class="table table-striped table-hover">
 						        <thead>
 						            <tr>
@@ -128,7 +128,7 @@
 		        <form class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/addReturn" method="get">
 				  <div>
 				  	<label>
-				  		<input type="text" id="form1" class="form-control" name="searchNum" placeholder="Search Name"/>
+				  		<input type="text" id="form1" class="form-control" name="searchNum" placeholder="Search Customer ID"/>
 				  	</label>
 				    <a href="${pageContext.request.contextPath}/admin/addReturn?currentPage=${currentPage}&searchNum=${searchNum}">
 						<button type="submit" id="searchButton" class="btn btn-primary"><i class="fa fa-search"></i></button>

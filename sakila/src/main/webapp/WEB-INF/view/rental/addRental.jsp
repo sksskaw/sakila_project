@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/css/vendor.bundle.addons.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/icheck/skins/all.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -57,6 +58,31 @@
 				});
 			}
 		});
+		
+		$("#searchNameBtn").click(function(){
+			console.log('searchNameBtn click!');
+			console.log($("#searchName").val());
+			
+			$.ajax({
+				type:'get',
+				url:'/searchCustomerName',
+				data:{searchName : $('#searchName').val()},
+				
+				success: function(jsonData) {
+					$('#tableBody').empty();
+					$(jsonData).each(function(index, item) {					
+						$('#filmTitle').append(
+							'<tr>'+
+							 '<td>'+ item.customerId +'</td>'+
+							'</tr>'
+							
+						);
+					});
+				}
+			});
+			
+		});
+		
 	});
 	</script>
   
@@ -92,10 +118,49 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Customer ID</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="customerId" id="customerId"/>
+                            <label class="col-sm-3 col-form-label">Customer Name</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" name="searchName" id="searchName" placeholder="Search Name"/>
+
                             </div>
+                            <div class="col-sm-1">
+                            	<button type="button" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-search"></i></button>
+                            </div>
+                            
+                            <div class="col-md-6">
+								<br>
+								<table class="table">
+			                      <thead>
+			                        <tr>
+			                          <th>Customer ID</th>
+			                          <th>Name</th>
+			                          <th>email</th>
+			                          <th>Active</th>
+			                          <th>Select</th>
+			                        </tr>
+			                      </thead>
+			                      <tbody id="tableBody">
+			                        <tr>
+			                          <td>Jacob</td>
+			                          <td>53275531</td>
+			                          <td>12 May 2017</td>
+			                          <td>
+			                            <label class="badge badge-danger">Pending</label>
+			                          </td>
+			                          <td>
+			                          	<div class="form-check">
+										  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+										  <label class="form-check-label" for="flexRadioDefault2">
+										    &nbsp;
+										  </label>
+										</div>
+			                          </td>
+			                        </tr>
+			                      </tbody>
+			                    </table>
+
+	                        </div>
+                            
                           </div>
                         </div>
                       </div>
