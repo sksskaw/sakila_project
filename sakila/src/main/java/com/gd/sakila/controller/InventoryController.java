@@ -68,4 +68,10 @@ public class InventoryController {
 		
 		return "inventory/getInventoryList";
 	}
+	
+	@GetMapping("/addInventory")
+	public String addInventory() {
+		
+		return "inventory/addInventory";
+	}
 }

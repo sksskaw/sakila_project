@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,13 +50,14 @@ public class RentalController {
 		return "rental/addReturn";
 	}
 	
+	// 반납처리 메소드
 	@PostMapping("/modifyReturn")
 	public String modifyReturn(Model model,
 			@RequestParam(value="returnArray", required = true) List<Integer> returnArray) {
 		
 		
 		
-		int cnt = rentalService.modifyReturn(returnArray);
+		int cnt = rentalService.returnTransaction(returnArray);
 		log.debug("RentalController - modifyReturn 총 : " +cnt+ "건 반납 처리완료");
 		
 		return "redirect:/admin/addReturn";

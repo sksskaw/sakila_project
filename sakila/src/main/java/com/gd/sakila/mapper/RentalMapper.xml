@@ -28,4 +28,17 @@
 		   SET return_date = NOW() 
 		 WHERE rental_id = #{rentalId}
 	</update>
+
+	<select id="selectOverdueFeeByKey" parameterType="int" resultType="int">
+		SELECT DATEDIFF(NOW(), r.rental_date) - f.rental_duration AS overdueFee
+		  FROM rental r, inventory i, film f
+		 WHERE r.inventory_id = i.inventory_id AND i.film_id = f.film_id
+			   AND r.rental_id = #{rentalId}
+	</select>
+	
+	<update id="updateAmountByKey" parameterType="map">
+		UPDATE payment 
+		   SET amount = amount + #{overdueFee} 
+		 WHERE rental_id = #{rentalId}
+	</update>
 </mapper>

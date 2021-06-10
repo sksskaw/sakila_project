@@ -86,7 +86,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Choose your customer number and movie to rent</h4>
-                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addCustomer" method="post">
+                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addRental" method="get">
                       <input type="hidden" name="storeId" value="${loginStaff.storeId}">
                       <p class="card-description"> Customer Info</p>
                       <div class="row">
@@ -107,7 +107,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Film Title</label>
                             <div class="col-sm-9">
-                              <select class="form-control" name="filmTitle" id="filmTitle">
+                              <select class="form-control" name="filmId" id="filmTitle">
                               </select>
                             </div>
                           </div>
