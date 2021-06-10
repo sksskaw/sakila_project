@@ -100,7 +100,7 @@
 	</insert>
 	
 	<select id="selectCustomerSearchByName" parameterType="String" resultType="map">
-		SELECT customer_id customerId, email, CONCAT(first_name, _utf8mb4' ', last_name) AS NAME
+		SELECT customer_id customerId, email, CONCAT(first_name, _utf8mb4' ', last_name) AS NAME, active
 		  FROM customer
 		 WHERE CONCAT(first_name, _utf8mb4' ', last_name) 
 				 LIKE CONCAT('%',#{searchName},'%')

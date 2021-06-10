@@ -59,6 +59,37 @@
 			}
 		});
 		
+		$('#filmTitle').change(function(){
+			console.log('Inventory 목록');
+			$.ajax({
+				type:'get',
+				url:'/getCanRentalList',
+				data:{filmId : $('#filmTitle').val()},
+				success: function(jsonData) {
+					$('#inventoryTableBody').empty();
+						
+					$(jsonData).each(function(index, item) {		
+						var html = '';
+						
+						html += '<tr>';
+						html += '<td>'+item.inventoryId+'</td>';
+						html += '<td>'+item.storeId+'</td>';
+						
+						html += '<td>';
+						html += '<div class="form-check">';
+						html += '<input class="form-check-input" type="radio" name="inventoryId" id="flexRadioDefault2" value="'+item.inventoryId+'">';
+						html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
+						html += '</div>';
+						html += '</td>';
+						
+						html += '</tr>';
+						
+						$('#inventoryTableBody').append(html);
+					});
+				}
+			}); // city 목록을 받아와서 city select 태그안에 option태그를 추가
+		});
+		
 		$("#searchNameBtn").click(function(){
 			console.log('searchNameBtn click!');
 			console.log($("#searchName").val());
@@ -69,14 +100,36 @@
 				data:{searchName : $('#searchName').val()},
 				
 				success: function(jsonData) {
-					$('#tableBody').empty();
-					$(jsonData).each(function(index, item) {					
-						$('#filmTitle').append(
-							'<tr>'+
-							 '<td>'+ item.customerId +'</td>'+
-							'</tr>'
-							
-						);
+					$('#customerTableBody').empty();
+	
+					$(jsonData).each(function(index, item) {		
+						var html = '';
+						
+						html += '<tr>';
+						html += '<td>'+item.customerId+'</td>';
+						html += '<td>'+item.NAME+'</td>';
+						html += '<td>'+item.email+'</td>';
+						if(item.active == true){
+							html += '<td><label class="badge badge-primary">Active</label></td>'
+							html += '<td>';
+							html += '<div class="form-check">';
+							html += '<input class="form-check-input" type="radio" name="customerId" id="flexRadioDefault2" value="'+item.customerId+'">';
+							html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
+							html += '</div>';
+							html += '</td>';
+							html += '</tr>';
+						} else{
+							html += '<td><label class="badge badge-danger">Dormant</label></td>'
+							html += '<td>';
+							html += '<div class="form-check">';
+							html += '<input class="form-check-input" type="radio" name="customerId" id="flexRadioDefault2" value="'+item.customerId+'" disabled>';
+							html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
+							html += '</div>';
+							html += '</td>';
+							html += '</tr>';
+						}
+						
+						$('#customerTableBody').append(html);
 					});
 				}
 			});
@@ -116,18 +169,19 @@
                       <input type="hidden" name="storeId" value="${loginStaff.storeId}">
                       <p class="card-description"> Customer Info</p>
                       <div class="row">
+                      
                         <div class="col-md-6">
+                        
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Customer Name</label>
                             <div class="col-sm-8">
                               <input type="text" class="form-control" name="searchName" id="searchName" placeholder="Search Name"/>
-
                             </div>
                             <div class="col-sm-1">
                             	<button type="button" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-search"></i></button>
                             </div>
                             
-                            <div class="col-md-6">
+                            <div class="col-md-12">
 								<br>
 								<table class="table">
 			                      <thead>
@@ -139,26 +193,9 @@
 			                          <th>Select</th>
 			                        </tr>
 			                      </thead>
-			                      <tbody id="tableBody">
-			                        <tr>
-			                          <td>Jacob</td>
-			                          <td>53275531</td>
-			                          <td>12 May 2017</td>
-			                          <td>
-			                            <label class="badge badge-danger">Pending</label>
-			                          </td>
-			                          <td>
-			                          	<div class="form-check">
-										  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-										  <label class="form-check-label" for="flexRadioDefault2">
-										    &nbsp;
-										  </label>
-										</div>
-			                          </td>
-			                        </tr>
+			                      <tbody id="customerTableBody">
 			                      </tbody>
 			                    </table>
-
 	                        </div>
                             
                           </div>
@@ -166,7 +203,7 @@
                       </div>
 					  
 					  <br>
-                      <p class="card-description">Film</p>
+                      <p class="card-description">Film Info</p>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group row">
@@ -176,15 +213,24 @@
                               </select>
                             </div>
                           </div>
-                        </div>
+
                         <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                            </div>
-                          </div>
-                        </div>
+						<table class="table">
+	                      <thead>
+	                        <tr>
+	                          <th>Inventory ID</th>
+	                          <th>Store ID</th>
+	                          <th>Select</th>
+	                        </tr>
+	                      </thead>
+	                      <tbody id="inventoryTableBody">
+	                      </tbody>
+	                    </table>
+                       </div>
+                       
+	                   </div>
                       </div>
+                      <br>
                       <div>
                       	<button type="button" class="btn btn-primary" id="formbutton">대여하기</button>
                       </div>
