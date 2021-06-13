@@ -76,12 +76,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/admin/getSalesList">
-                <i class="menu-icon typcn typcn-user-outline"></i>
-                <span class="menu-title">Sales</span>
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/admin/logout">
                 <i class="menu-icon typcn typcn-user-outline"></i>
                 <span class="menu-title">Logout</span>

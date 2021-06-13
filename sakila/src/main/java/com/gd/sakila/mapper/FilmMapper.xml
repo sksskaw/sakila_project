@@ -70,4 +70,10 @@
 		SELECT film_id, title
 		  FROM film
 	</select>
+	
+	<select id="selectRentalRate" parameterType="int" resultType="double">
+		SELECT rental_rate
+		FROM film f, inventory i
+		WHERE f.film_id = i.film_id AND i.inventory_id = #{inventoryId}
+	</select>
 </mapper>

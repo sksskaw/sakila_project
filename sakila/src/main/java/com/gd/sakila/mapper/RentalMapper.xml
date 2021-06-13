@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.RentalMapper">
+	<insert id="insertRental" parameterType="map">
+	INSERT INTO rental(rental_date,inventory_id,customer_id,staff_id)
+		 VALUES (NOW(), #{inventoryId}, #{customerId}, #{staffId})
+		 <selectKey resultType="int" keyProperty="rentalId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertPayment" parameterType="map">
+	INSERT INTO payment(customer_id,staff_id,rental_id,amount,payment_date)
+		 VALUES (#{customerId}, #{staffId}, #{rentalId}, #{amount}, NOW())
+	</insert>
+	
 	<select id="selectReturnNullList" resultType="com.gd.sakila.vo.Rental" parameterType="Integer">
 		SELECT rental_id rentalId,
 			   rental_date rentalDate,
@@ -30,7 +43,7 @@
 	</update>
 
 	<select id="selectOverdueFeeByKey" parameterType="int" resultType="int">
-		SELECT DATEDIFF(NOW(), r.rental_date) - f.rental_duration AS overdueFee
+		SELECT DATEDIFF(NOW(), r.rental_date) - CAST(f.rental_duration AS SIGNED) AS overdueFee
 		  FROM rental r, inventory i, film f
 		 WHERE r.inventory_id = i.inventory_id AND i.film_id = f.film_id
 			   AND r.rental_id = #{rentalId}

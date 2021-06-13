@@ -18,4 +18,5 @@ public interface FilmMapper {
 	void insertFilm (Film film);
 	void insertFilmCategory(int filmId, int categoryId);
 	List<Map<String, Object>> selectFilmTitleList();
+	double selectRentalRate(int filmId);
 }

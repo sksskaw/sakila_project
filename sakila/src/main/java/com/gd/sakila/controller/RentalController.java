@@ -1,10 +1,11 @@
 package com.gd.sakila.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,27 @@ public class RentalController {
 	
 	@GetMapping("/addRental")
 	public String addRental() {
-		
 		return "rental/addRental";
+	}
+	
+	@PostMapping("/addRental")
+	public String addRental(
+			 @RequestParam(value="customerId", required = true) int customerId,
+	         @RequestParam(value = "inventoryId", required = true) int inventoryId,
+	         @RequestParam(value="staffId", required = true)Integer staffId) {
+		
+		log.debug("RentalController - addRental customerId : " + customerId);
+		log.debug("RentalController - addRental inventoryId : " + inventoryId);
+		log.debug("RentalController - addRental staffId : " + staffId);
+		
+		Map<String, Object> map = new HashMap<>(); 
+		map.put("customerId", customerId);
+		map.put("inventoryId", inventoryId);
+		map.put("staffId", staffId);
+		
+		rentalService.addRental(map);
+		
+		return "redirect:/admin/getSalesList"; // 추후 rentalList로 이동해야함
 	}
 	
 	@GetMapping("/addReturn")

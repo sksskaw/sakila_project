@@ -38,7 +38,7 @@
 		FROM sales_by_store
 	</select>
 	
-	<select id="selectTodaySales" resultType="int">
+	<select id="selectTodaySales" resultType="double">
 		SELECT CASE WHEN SUM(amount) IS NULL THEN 0 ELSE SUM(amount) END as SUM
 		FROM payment
 		WHERE DATE(payment_date) = DATE(NOW())

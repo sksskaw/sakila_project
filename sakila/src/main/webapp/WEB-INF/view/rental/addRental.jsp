@@ -59,6 +59,7 @@
 			}
 		});
 		
+		// 영화 제목 선택 시 대여가능한 재고 출력 api
 		$('#filmTitle').change(function(){
 			console.log('Inventory 목록');
 			$.ajax({
@@ -87,9 +88,11 @@
 						$('#inventoryTableBody').append(html);
 					});
 				}
-			}); // city 목록을 받아와서 city select 태그안에 option태그를 추가
+			});
 		});
 		
+		
+		// customer 검색 처리 api
 		$("#searchNameBtn").click(function(){
 			console.log('searchNameBtn click!');
 			console.log($("#searchName").val());
@@ -109,6 +112,9 @@
 						html += '<td>'+item.customerId+'</td>';
 						html += '<td>'+item.NAME+'</td>';
 						html += '<td>'+item.email+'</td>';
+						
+						// active 속성값에 따라 출력 분기
+						
 						if(item.active == true){
 							html += '<td><label class="badge badge-primary">Active</label></td>'
 							html += '<td>';
@@ -165,8 +171,8 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Choose your customer number and movie to rent</h4>
-                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addRental" method="get">
-                      <input type="hidden" name="storeId" value="${loginStaff.storeId}">
+                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addRental" method="post">
+                      <input type="hidden" name="staffId" value="${loginStaff.staffId}">
                       <p class="card-description"> Customer Info</p>
                       <div class="row">
                       

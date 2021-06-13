@@ -1,15 +1,12 @@
 package com.gd.sakila.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gd.sakila.mapper.FilmMapper;
 import com.gd.sakila.mapper.RentalMapper;
 import com.gd.sakila.vo.Rental;
 
@@ -20,6 +17,27 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class RentalService {
 	@Autowired RentalMapper rentalMapper;
+	@Autowired FilmMapper filmMapper;
+	
+	/* 대여처리
+	 * 1. rental insert
+	 * 2. 해당 inventoryId에 대한 amount(rental_rate) 가져오기
+	 * 3. payment insert
+	*/
+	
+	
+	public void addRental(Map<String, Object> map) {
+		// 1. rental insert
+		rentalMapper.insertRental(map); // 실행 시 selectKey옵션으로 rentalId값이 map에 들어가게 된다.
+		
+		// 2. amount가져오기
+		int inventoryId = (int) map.get("inventoryId");
+		double amount = filmMapper.selectRentalRate(inventoryId);
+		map.put("amount", amount);
+		
+		// 3. payment insert
+		rentalMapper.insertPayment(map);
+	}
 	
 	// 미반납 리스트
 	public List<Rental> getReturnNullList(int beginRow, int rowperPage, Integer searchNum){

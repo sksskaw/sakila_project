@@ -10,7 +10,7 @@ public interface SalesMapper {
 	List<Map<String,Object>> selectBestSellerTop10();
 	List<Map<String,Object>> selectSalesByCategoryList();
 	List<Map<String,Object>> selectmonthlySalesList();
-	int selectTodaySales();
+	double selectTodaySales();
 	int selectTodayRental();
 	int selectRentalsCount();
 	int selectOverdueCount();
