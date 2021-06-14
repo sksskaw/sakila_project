@@ -29,9 +29,15 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
 	$(document).ready(function(){
+		
 		$("#formbutton").click(function(){
-			if($(':radio[name="customerId"]:checked').length < 1){
-				alert("customerId 입력해 주세요");
+			if($("#searchName").val() == ""){
+				alert("고객 검색을 해주세요");
+				$('#searchName').focus();
+			} else if($(':radio[name="customerId"]:checked').length < 1){
+				alert("customerId 선택해 주세요");
+			} else if($("#filmTitle").val() == ""){
+				alert("Film Title 선택해 주세요");
 			} else if($(':radio[name="inventoryId"]:checked').length < 1){
 				alert("inventoryId 선택해 주세요");
 			} else{
@@ -102,7 +108,7 @@
 				success: function(jsonData) {
 					$('#customerTableBody').empty();
 	
-					$(jsonData).each(function(index, item) {		
+					$(jsonData).each(function(index, item) {
 						var html = '';
 						
 						html += '<tr>';

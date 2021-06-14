@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.RentalMapper">
+	<select id="selectRentalList" parameterType="map" resultType="com.gd.sakila.vo.Rental">
+		SELECT rental_id rentalId, 
+			   rental_date rentalDate, 
+			   inventory_id inventoryId, 
+			   customer_id customerId, 
+			   return_date returnDate,
+			   staff_id staffId, 
+			   last_update lastUpdate
+		  FROM rental
+		  <where>
+			<if test="returnDateOption != 0">
+				return_date IS NULL
+			</if>
+			<if test="searchNum != null">
+				AND customer_id LIKE #{searchNum}
+			</if>
+		 </where>
+		 LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<select id="selectRentalListTotal" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		  FROM rental
+		  <where>
+			<if test="returnDateOption != 0">
+				return_date IS NULL
+			</if>
+			<if test="searchNum != null">
+				AND customer_id LIKE #{searchNum}
+			</if>
+		 </where>
+	</select>
+
 	<insert id="insertRental" parameterType="map">
 	INSERT INTO rental(rental_date,inventory_id,customer_id,staff_id)
 		 VALUES (NOW(), #{inventoryId}, #{customerId}, #{staffId})

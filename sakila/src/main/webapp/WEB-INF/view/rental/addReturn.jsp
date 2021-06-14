@@ -130,9 +130,7 @@
 				  	<label>
 				  		<input type="text" id="form1" class="form-control" name="searchNum" placeholder="Search Customer ID"/>
 				  	</label>
-				    <a href="${pageContext.request.contextPath}/admin/addReturn?currentPage=${currentPage}&searchNum=${searchNum}">
 						<button type="submit" id="searchButton" class="btn btn-primary"><i class="fa fa-search"></i></button>
-					</a>
 				  </div>
 				</form>
 			</div>

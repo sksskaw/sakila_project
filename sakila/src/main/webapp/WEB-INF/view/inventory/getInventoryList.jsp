@@ -25,7 +25,7 @@
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/template/src/assets/images/favicon.ico" />
  <style>
- th {
+ th, td {
    text-align:center
 }
  </style>
@@ -61,30 +61,28 @@
                         <div class="d-flex justify-content-between">
                           <h4 class="card-title mb-0">Inventory List</h4>
                         </div>
-                        <p>Order By Customer Name</p>
+                        <p>Order By Film Title</p>
                         
-                        
-                        <div class="col-md-6">
+                        <!-- 매장별 목록 출력 선택상자 -->
+                        <div class="col-md-9">
 						    <form action="${pageContext.request.contextPath}/admin/getInventoryList" method="get">
-							    <div class="col-md-9">
-								    <select class="form-control" name="storeId" style="width:300px;">
-								    	<option value="0" selected="selected">전체</option>
-							        	<c:if test="${storeId == 1}">
-								    		<option value="1" selected="selected">Store 1</option>
-										</c:if> 
-										<c:if test="${storeId != 1}">
-								    		<option value="1">Store 1</option>
-										</c:if>
-										
-										<c:if test="${storeId == 2}">
-								    		<option value="2" selected="selected">Store 2</option>
-								    	</c:if>
-								    	<c:if test="${storeId != 2}">
-								    		<option value="2">Store 2</option>
-								    	</c:if>
-							        </select>
-							    	<button type="submit" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-search"></i></button>
-							    </div>
+							    <select class="form-control" name="storeId" style="width:300px;">
+							    	<option value="0" selected="selected">전체</option>
+						        	<c:if test="${storeId == 1}">
+							    		<option value="1" selected="selected">Store 1</option>
+									</c:if> 
+									<c:if test="${storeId != 1}">
+							    		<option value="1">Store 1</option>
+									</c:if>
+									
+									<c:if test="${storeId == 2}">
+							    		<option value="2" selected="selected">Store 2</option>
+							    	</c:if>
+							    	<c:if test="${storeId != 2}">
+							    		<option value="2">Store 2</option>
+							    	</c:if>
+						        </select>
+						    	<button type="submit" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-search"></i></button>
 						    </form>
 					    </div>
                         

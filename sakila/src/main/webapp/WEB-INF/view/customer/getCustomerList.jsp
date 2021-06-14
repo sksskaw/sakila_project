@@ -25,7 +25,7 @@
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/template/src/assets/images/favicon.ico" />
  <style>
- th {
+ th, td{
    text-align:center
 }
  </style>

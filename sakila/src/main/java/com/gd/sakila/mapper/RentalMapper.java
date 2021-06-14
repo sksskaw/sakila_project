@@ -16,4 +16,6 @@ public interface RentalMapper {
 	void updateAmountByKey(Map<String,Object> map);
 	void insertRental(Map<String,Object> map);
 	void insertPayment(Map<String,Object> map);
+	List<Rental> selectRentalList(Map<String,Object> map);
+	int selectRentalListTotal(Map<String,Object> map);
 }

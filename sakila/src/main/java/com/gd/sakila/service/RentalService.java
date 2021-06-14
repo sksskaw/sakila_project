@@ -19,6 +19,16 @@ public class RentalService {
 	@Autowired RentalMapper rentalMapper;
 	@Autowired FilmMapper filmMapper;
 	
+	// 대여 목록 가져오기
+	public List<Rental> getRentalList(Map<String, Object> map){
+		return rentalMapper.selectRentalList(map);
+	}
+	
+	// 대여 목록 lastPage
+	public int getRentalListTotal(Map<String,Object> map) {
+		return rentalMapper.selectRentalListTotal(map);
+	}
+	
 	/* 대여처리
 	 * 1. rental insert
 	 * 2. 해당 inventoryId에 대한 amount(rental_rate) 가져오기

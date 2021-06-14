@@ -24,6 +24,35 @@ public class RentalController {
 
 	@Autowired RentalService rentalService;
 	
+	@GetMapping("/getRentalList")
+	public String getRentalList(Model model,
+			 @RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+	         @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
+	         @RequestParam(value = "returnDateOption", defaultValue = "0") int returnDateOption,
+	         @RequestParam(value="searchNum", required = false)Integer searchNum) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("beginRow", (currentPage-1)*rowPerPage);
+		map.put("rowPerPage", rowPerPage);
+		map.put("returnDateOption", returnDateOption);
+		map.put("searchNum", searchNum);
+		
+		List<Rental> rentalList = rentalService.getRentalList(map);
+		
+		int rentalTotal = rentalService.getRentalListTotal(map);
+		
+		int lastPage = (int)Math.ceil((double)rentalTotal / rowPerPage);
+		log.debug("RentalController - getRentalList lastPage : " + lastPage);
+		
+		model.addAttribute("rentalList",rentalList);
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("lastPage",lastPage);
+		model.addAttribute("returnDateOption",returnDateOption);
+		model.addAttribute("searchNum",searchNum);
+		
+		return "rental/getRentalList";
+	}
+	
 	@GetMapping("/addRental")
 	public String addRental() {
 		return "rental/addRental";
@@ -49,6 +78,7 @@ public class RentalController {
 		return "redirect:/admin/getSalesList"; // 추후 rentalList로 이동해야함
 	}
 	
+	// 반납 처리 목록, 현재 대여중인 목록
 	@GetMapping("/addReturn")
 	public String addReturn(Model model,
 			 @RequestParam(value="currentPage", defaultValue = "1") int currentPage,

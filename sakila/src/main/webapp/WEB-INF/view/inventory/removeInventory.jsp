@@ -31,12 +31,10 @@
 	$(document).ready(function(){
 		
 		$("#formbutton").click(function(){
-			if($("#customerId").val() == ""){
-				alert("customerId 입력해 주세요");
-				$("#customerId").focus();
-			} else if($("#filmTitle").val() == ""){
+			if($("#filmTitle").val() == ""){
 				alert("filmTitle 선택해 주세요");
-				$("#filmTitle").focus();
+			} else if($(':radio[name="customerId"]:checked').length < 1){
+				alert("customerId 선택해 주세요");
 			} else{
 				$("#form").submit();
 			}
@@ -150,7 +148,7 @@
                       </div>
                       <br>
                       <div>
-                      	<button type="button" class="btn btn-primary" id="formbutton">대여하기</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">삭제하기</button>
                       </div>
                     </form>
                   </div>
