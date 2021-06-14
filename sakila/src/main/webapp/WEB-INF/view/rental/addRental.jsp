@@ -29,14 +29,11 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
 	$(document).ready(function(){
-		
 		$("#formbutton").click(function(){
-			if($("#customerId").val() == ""){
+			if($(':radio[name="customerId"]:checked').length < 1){
 				alert("customerId 입력해 주세요");
-				$("#customerId").focus();
-			} else if($("#filmTitle").val() == ""){
-				alert("filmTitle 선택해 주세요");
-				$("#filmTitle").focus();
+			} else if($(':radio[name="inventoryId"]:checked').length < 1){
+				alert("inventoryId 선택해 주세요");
 			} else{
 				$("#form").submit();
 			}
@@ -78,7 +75,7 @@
 						
 						html += '<td>';
 						html += '<div class="form-check">';
-						html += '<input class="form-check-input" type="radio" name="inventoryId" id="flexRadioDefault2" value="'+item.inventoryId+'">';
+						html += '<input class="form-check-input" type="radio" name="inventoryId" id="inventoryId" value="'+item.inventoryId+'">';
 						html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
 						html += '</div>';
 						html += '</td>';
@@ -119,7 +116,7 @@
 							html += '<td><label class="badge badge-primary">Active</label></td>'
 							html += '<td>';
 							html += '<div class="form-check">';
-							html += '<input class="form-check-input" type="radio" name="customerId" id="flexRadioDefault2" value="'+item.customerId+'">';
+							html += '<input class="form-check-input" type="radio" name="customerId" id="customerId" value="'+item.customerId+'">';
 							html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
 							html += '</div>';
 							html += '</td>';
@@ -128,7 +125,7 @@
 							html += '<td><label class="badge badge-danger">Dormant</label></td>'
 							html += '<td>';
 							html += '<div class="form-check">';
-							html += '<input class="form-check-input" type="radio" name="customerId" id="flexRadioDefault2" value="'+item.customerId+'" disabled>';
+							html += '<input class="form-check-input" type="radio" name="customerId" id="customerId" value="'+item.customerId+'" disabled>';
 							html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
 							html += '</div>';
 							html += '</td>';

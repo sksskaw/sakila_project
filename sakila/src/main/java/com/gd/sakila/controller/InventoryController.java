@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,6 +23,7 @@ public class InventoryController {
 	
 	@Autowired InventoryService inventoryService;
 	
+	// 재고 목록
 	@GetMapping("/getInventoryList")
 	public String getInventoryList(Model model,
 									@RequestParam(value="storeId", required = false)Integer storeId, // 매장별 출력을 위한 파라미터
@@ -69,9 +71,45 @@ public class InventoryController {
 		return "inventory/getInventoryList";
 	}
 	
+	// 재고 추가 입력 폼
 	@GetMapping("/addInventory")
 	public String addInventory() {
-		
 		return "inventory/addInventory";
+	}
+	
+	// 재고 추가 액션
+	@PostMapping("/addInventory")
+	public String addInventory(
+			@RequestParam(value="storeId", required = true)int storeId,
+			@RequestParam(value="filmId", required = true)int filmId) {
+		
+		log.debug("InventoryController - addInventory storeId :" + storeId);
+		log.debug("InventoryController - addInventory filmId :" + filmId);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("storeId", storeId);
+		map.put("filmId", filmId);
+		
+		inventoryService.addInventory(map);
+		
+		return "redirect:/admin/getInventoryList";
+	}
+	
+	// 재고 삭제 입력 폼
+	@GetMapping("/removeInventory")
+	public String removeInventory() {
+		return "inventory/removeInventory";
+	}
+	
+	// 재고 삭제 액션
+	@PostMapping("/removeInventory")
+	public String removeInventory(
+			@RequestParam(value="inventoryId", required = true)int inventoryId) {
+		
+		log.debug("InventoryController - removeInventory inventoryId :" + inventoryId);
+		
+		inventoryService.removeInventory(inventoryId);
+		
+		return "redirect:/admin/getInventoryList";
 	}
 }

@@ -31,6 +31,9 @@
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getRentalList">Rental List</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/addRental">Rental</a>
                   </li>
                   <li class="nav-item">

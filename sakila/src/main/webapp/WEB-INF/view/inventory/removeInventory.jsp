@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add Inventory</title>
+    <title>Remove Inventory</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
@@ -31,10 +31,12 @@
 	$(document).ready(function(){
 		
 		$("#formbutton").click(function(){
-			if($("#storeId").val() == ""){
-				alert("store를 입력해 주세요");
+			if($("#customerId").val() == ""){
+				alert("customerId 입력해 주세요");
+				$("#customerId").focus();
 			} else if($("#filmTitle").val() == ""){
 				alert("filmTitle 선택해 주세요");
+				$("#filmTitle").focus();
 			} else{
 				$("#form").submit();
 			}
@@ -57,6 +59,37 @@
 			}
 		});
 		
+		// 영화 제목 선택 시 대여가능한 재고 출력 api
+		$('#filmTitle').change(function(){
+			console.log('Inventory 목록');
+			$.ajax({
+				type:'get',
+				url:'/getCanRentalList',
+				data:{filmId : $('#filmTitle').val()},
+				success: function(jsonData) {
+					$('#inventoryTableBody').empty();
+						
+					$(jsonData).each(function(index, item) {		
+						var html = '';
+						
+						html += '<tr>';
+						html += '<td>'+item.inventoryId+'</td>';
+						html += '<td>'+item.storeId+'</td>';
+						
+						html += '<td>';
+						html += '<div class="form-check">';
+						html += '<input class="form-check-input" type="radio" name="inventoryId" id="flexRadioDefault2" value="'+item.inventoryId+'">';
+						html += '<label class="form-check-label" for="flexRadioDefault2">&nbsp;</label>';
+						html += '</div>';
+						html += '</td>';
+						
+						html += '</tr>';
+						
+						$('#inventoryTableBody').append(html);
+					});
+				}
+			});
+		});
 	});
 	</script>
   
@@ -85,24 +118,8 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Select stores and movies in stock to add</h4>
-                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/addInventory" method="post">
-                      <p class="card-description">Store Info</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Store</label>
-                            <div class="col-sm-9">
-                              <select class="form-control" name="storeId" id="storeId">
-                                <option value="">Select Store</option>
-                                <option value="1">Store 1</option>
-  							    <option value="2">Store 2</option>
-                              </select>
-                            </div>
-                          </div>
-	                   </div>
-                      </div>
-					  
+                    <h4 class="card-title">Choose your customer number and movie to rent</h4>
+                    <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/removeInventory" method="post">
 					  <br>
                       <p class="card-description">Film Info</p>
                       <div class="row">
@@ -114,11 +131,26 @@
                               </select>
                             </div>
                           </div>
+
+                        <div class="col-md-6">
+						<table class="table">
+	                      <thead>
+	                        <tr>
+	                          <th>Inventory ID</th>
+	                          <th>Store ID</th>
+	                          <th>Select</th>
+	                        </tr>
+	                      </thead>
+	                      <tbody id="inventoryTableBody">
+	                      </tbody>
+	                    </table>
+                       </div>
+                       
 	                   </div>
                       </div>
                       <br>
                       <div>
-                      	<button type="button" class="btn btn-primary" id="formbutton">추가하기</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">대여하기</button>
                       </div>
                     </form>
                   </div>

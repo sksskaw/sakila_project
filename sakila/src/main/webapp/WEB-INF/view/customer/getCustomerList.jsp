@@ -91,7 +91,7 @@
               </div>
             </div>
             
-            <!-- 베스트 셀러 출력 -->
+            <!-- 고객 리스트 출력 -->
             <div class="row">
               <div class="col-md-12">
                 <div class="row">

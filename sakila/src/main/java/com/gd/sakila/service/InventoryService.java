@@ -26,4 +26,14 @@ public class InventoryService {
 	public List<Map<String, Object>> getCanRentalList(int filmId){
 		return inventoryMapper.selectCanRentalList(filmId);
 	}
+	
+	// 재고 추가
+	public void addInventory(Map<String, Object> map) {
+		inventoryMapper.insertInventory(map);
+	}
+	
+	// 재고 추가
+	public void removeInventory(int inventoryId) {
+		inventoryMapper.deleteInventory(inventoryId);
+	}
 }

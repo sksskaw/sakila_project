@@ -2,8 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.sakila.mapper.InventoryMapper">
 
+	<delete id="deleteInventory" parameterType="int">
+		DELETE FROM inventory WHERE inventory_id = #{inventoryId}
+	</delete>
+
+	<insert id="insertInventory" parameterType="map">
+		INSERT INTO inventory(film_id,store_id) 
+			 VALUES(#{filmId}, #{storeId})
+	</insert>
+
 	<select id="selectInventoryList" parameterType="map" resultType="map">
-		SELECT i.store_id, f.title, COUNT(DISTINCT i.inventory_id) AS totalInventory
+		SELECT i.store_id storeId, f.title, f.film_id filmId,  COUNT(DISTINCT i.inventory_id) AS totalInventory
                ,COUNT(CASE WHEN (r.return_date IS NULL AND r.inventory_id IS NOT NULL) THEN 1 END) AS rental
 		       ,(COUNT(DISTINCT i.inventory_id) 
 		        - COUNT(CASE WHEN (r.return_date IS NULL AND r.inventory_id IS NOT NULL) THEN 1 END)) AS stock
