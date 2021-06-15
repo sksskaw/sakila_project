@@ -87,4 +87,10 @@
 		   SET amount = amount + #{overdueFee} 
 		 WHERE rental_id = #{rentalId}
 	</update>
+	
+	<update id="updatePaymentDateByKey" parameterType="map">
+		UPDATE payment 
+		   SET payment_date = NOW()
+		 WHERE rental_id = #{rentalId}
+	</update>
 </mapper>

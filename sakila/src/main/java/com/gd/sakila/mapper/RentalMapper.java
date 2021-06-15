@@ -14,6 +14,7 @@ public interface RentalMapper {
 	void updateReturnDate(int rentalId);
 	int selectOverdueFeeByKey(int rentalId); // 반납시 연체료 계산을 위한 쿼리
 	void updateAmountByKey(Map<String,Object> map);
+	void updatePaymentDateByKey(Map<String,Object> map);
 	void insertRental(Map<String,Object> map);
 	void insertPayment(Map<String,Object> map);
 	List<Rental> selectRentalList(Map<String,Object> map);

@@ -31,14 +31,14 @@ public class StaffController {
 		log.debug("searchWord: "+ searchWord);
 		
 		
-		List<StaffListView> StaffList = staffService.getStaffList(currentPage, rowPerPage, searchWord);
+		List<StaffListView> staffList = staffService.getStaffList(currentPage, rowPerPage, searchWord);
 		
-		log.debug("StaffController - getStaffList StaffList Size : "+StaffList.size());
+		log.debug("StaffController - getStaffList StaffList Size : "+staffList.size());
 		
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
 		//model.addAttribute("lastPage", map.get("lastPage"));
-		model.addAttribute("StaffList", StaffList);
+		model.addAttribute("staffList", staffList);
 		
 		return "getStaffList";
 	}

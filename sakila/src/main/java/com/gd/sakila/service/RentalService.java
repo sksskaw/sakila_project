@@ -94,9 +94,13 @@ public class RentalService {
 		}
 		
 		// 반납처리 3.
-		for(Map<String, Object> m : overdueFeeList) {
-			rentalMapper.updateAmountByKey(m);
+		if(overdueFee != 0) { // 연채료 발생시
+			for(Map<String, Object> m : overdueFeeList) {
+			rentalMapper.updateAmountByKey(m);			// 결제금액 수정
+			rentalMapper.updatePaymentDateByKey(m);     // 결제날짜 수정
+			}
 		}
+		
 		
 		// 반납처리 4.
 		int cnt = 0;

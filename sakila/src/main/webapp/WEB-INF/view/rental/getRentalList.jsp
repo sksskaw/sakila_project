@@ -28,11 +28,6 @@
  th, td {
    text-align:center
 }
-
- form {
- 	display:inline
- }
-
  </style>
 </head>
 <body>
@@ -68,11 +63,11 @@
                         </div>
                         <p>You can view a list by overdue, return, and search for customers.</p>
 						
-						<div class="col-md-9">
+						<div class="col-md-12">
 							<!-- 연체, 반납별 출력 선택상자 -->
-						    <form action="${pageContext.request.contextPath}/admin/getRentalList" method="get">
+						    <form style="display:inline-block" action="${pageContext.request.contextPath}/admin/getRentalList" method="get">
 						    <input type="hidden" name="searchNum" value="${searchNum}">
-							    <select class="form-control" name="returnDateOption" style="width:300px;">
+							    <select class="form-control" name="returnDateOption" style="width:270px;">
 							    	<option value="0" selected="selected">전체</option>
 						        	<c:if test="${returnDateOption == 1}">
 							    		<option value="1" selected="selected">미반납 리스트</option>
@@ -85,11 +80,11 @@
 						    </form>
 						    
 						    <!-- 고객 ID 검색 -->
-						    <form class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getRentalList" method="get">
+						    <form style="display:inline-block" action="${pageContext.request.contextPath}/admin/getRentalList" method="get">
 							  <input type="hidden" name="returnDateOption" value="${returnDateOption}">
 							  <div>
 							  	<label>
-							  		<input type="text" class="form-control" name="searchNum" value="${searchNum}" placeholder="Search Customer ID"/>
+							  		<input type="text" style="width:270px;" class="form-control" name="searchNum" value="${searchNum}" placeholder="Search Customer ID"/>
 							  	</label>
 									<button type="submit" id="searchButton" class="btn btn-primary"><i class="fa fa-search"></i></button>
 							  </div>

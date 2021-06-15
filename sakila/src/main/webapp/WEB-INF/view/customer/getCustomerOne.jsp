@@ -45,6 +45,7 @@
               </div>
             </div>
             
+            <div class="row">
         	<div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
@@ -56,17 +57,13 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">First Name</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.firstName}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.firstName}</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Last Name</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.lastName}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.lastName}</label>
                           </div>
                         </div>
                       </div>
@@ -74,15 +71,13 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">email</label>
-                            <div class="col-sm-9">
-                            	${customerOneMap.customerOne.email}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.email}</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Create Date</label>
-                            	${fn:substring(customerOneMap.customerOne.createDate,0,10)}
+                            <label class="col-sm-3 col-form-label">${fn:substring(customerOneMap.customerOne.createDate,0,10)}</label>
                           </div>
                         </div>
                       </div>
@@ -91,17 +86,13 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Address 1</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.address}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.address}</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">District</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.district}
-                            </div>
+                            <label class="col-sm-3 col-form-label"> ${customerOneMap.customerOne.district}</label>
                           </div>
                         </div>
                       </div>
@@ -109,17 +100,13 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Address 2</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.address2}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.address2}</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Postal Code</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.postalCode}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.postalCode}</label>
                           </div>
                         </div>
                       </div>
@@ -127,17 +114,13 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">City</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.city}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.city}</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Country</label>
-                            <div class="col-sm-9">
-                              ${customerOneMap.customerOne.country}
-                            </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOne.country}</label>
                           </div>
                         </div>
                       </div>
@@ -146,22 +129,19 @@
                         <div class="col-md-6">
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Total Sales</label>
-                          <div class="col-sm-9">
-                            ${customerOneMap.customerOneSales}
-                          </div>
+                            <label class="col-sm-3 col-form-label">${customerOneMap.customerOneSales}</label>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Rentals</label>
-                          <div class="col-sm-9">
-                            ${customerOneMap.customerOneRentals}
-                          </div>
+                          <label class="col-sm-3 col-form-label">${customerOneMap.customerOneRentals}</label>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
               
               <!-- 연체 리스트 출력 -->
