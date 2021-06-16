@@ -107,7 +107,7 @@
           	<div class="row page-title-header">
               <div class="col-12">
                 <div class="page-header">
-                  <h4 class="page-title">Add Rental</h4>
+                  <h4 class="page-title">Remove Inventory</h4>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Choose your customer number and movie to rent</h4>
+                    <h4 class="card-title">Please select the movies and inventory you want to delete.</h4>
                     <form class="form-sample" id="form" action="${pageContext.request.contextPath}/admin/removeInventory" method="post">
 					  <br>
                       <p class="card-description">Film Info</p>
@@ -148,7 +148,8 @@
                       </div>
                       <br>
                       <div>
-                      	<button type="button" class="btn btn-primary" id="formbutton">삭제하기</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">Remove</button>
+                      	<a href="${pageContext.request.contextPath}/admin/getInventoryList"><button type="button" class="btn btn-primary">Cancel</button></a>
                       </div>
                     </form>
                   </div>

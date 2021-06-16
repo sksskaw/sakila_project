@@ -238,8 +238,8 @@
                         </div>
                       </div>
                       <div>
-                      	<a href="${pageContext.request.contextPath}/admin/getCustomerList"><button type="button" class="btn btn-primary">cancel</button></a>
                       	<button type="button" class="btn btn-primary" id="formbutton">Add</button>
+                      	<a href="${pageContext.request.contextPath}/admin/getCustomerList"><button type="button" class="btn btn-primary">Cancel</button></a>
                       </div>
                     </form>
                   </div>

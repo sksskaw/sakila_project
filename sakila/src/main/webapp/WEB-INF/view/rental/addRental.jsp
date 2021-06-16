@@ -241,7 +241,8 @@
                       </div>
                       <br>
                       <div>
-                      	<button type="button" class="btn btn-primary" id="formbutton">대여하기</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">Rental</button>
+                      	<a href="${pageContext.request.contextPath}/admin/getRentalList"><button type="button" class="btn btn-primary">Cancel</button></a>
                       </div>
                     </form>
                   </div>

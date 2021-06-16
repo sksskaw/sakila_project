@@ -76,7 +76,7 @@
           	<div class="row page-title-header">
               <div class="col-12">
                 <div class="page-header">
-                  <h4 class="page-title">Add Rental</h4>
+                  <h4 class="page-title">Add Inventory</h4>
                 </div>
               </div>
             </div>
@@ -118,7 +118,10 @@
                       </div>
                       <br>
                       <div>
-                      	<button type="button" class="btn btn-primary" id="formbutton">추가하기</button>
+                      	<button type="button" class="btn btn-primary" id="formbutton">Add</button>
+                      	<a href="${pageContext.request.contextPath}/admin/getInventoryList">
+                      		<button type="button" class="btn btn-primary" id="formbutton">Cancel</button>
+                      	</a>
                       </div>
                     </form>
                   </div>
