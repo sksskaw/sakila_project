@@ -39,10 +39,12 @@
       // store 1
       var data_1_1 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2005
       var data_1_2 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2006
+      var data_1_3 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2021
 	  
 	  // store 2
       var data_2_1 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2005
       var data_2_2 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2006
+      var data_2_3 = [0,0,0,0,0,0,0,0,0,0,0,0]; //2021
 
       var areaData = {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
@@ -143,6 +145,9 @@
 					if((item.YEAR == 2006) && (item.storeId == 1) ){
 						data_1_2.splice(item.MONTH-1, 1, item.total_sales);
 					}
+					if((item.YEAR == 2021) && (item.storeId == 1) ){
+						data_1_3.splice(item.MONTH-1, 1, item.total_sales);
+					}
 					
 					if((item.YEAR == 2005) && (item.storeId == 2) ){
 						data_2_1.splice(item.MONTH-1, 1, item.total_sales);
@@ -150,13 +155,18 @@
 					if((item.YEAR == 2006) && (item.storeId == 2) ){
 						data_2_2.splice(item.MONTH-1, 1, item.total_sales);
 					}
+					if((item.YEAR == 2021) && (item.storeId == 2) ){
+						data_2_3.splice(item.MONTH-1, 1, item.total_sales);
+					}
 				});
 				
 				console.log(data_1_1);
       			console.log(data_1_2);
+      			console.log(data_1_3);
       			
       			console.log(data_2_1);
       			console.log(data_2_2);
+      			console.log(data_2_3);
 				
 				 salesChart = new Chart(salesChartCanvas, {
 			      type: 'bar',
@@ -179,6 +189,12 @@
         var data = salesChart.data;
         data.datasets[0].data = data_1_2;
         data.datasets[1].data = data_2_2;
+        salesChart.update();
+      });
+      $("#sales-statistics_switch_3").click(function () {
+        var data = salesChart.data;
+        data.datasets[0].data = data_1_3;
+        data.datasets[1].data = data_2_3;
         salesChart.update();
       });
     }

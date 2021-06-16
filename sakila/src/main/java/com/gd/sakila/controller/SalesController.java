@@ -23,13 +23,13 @@ public class SalesController {
 		
 		List<Map<String, Object>> salesByCategoryList = salesService.getSalesByCategoryList();
 		
-		List<Map<String, Object>> monthlySalesListList = salesService.getmonthlySalesList();
+		List<Map<String, Object>> monthlySalesList = salesService.getmonthlySalesList();
 
 		HashSet<Integer> yearSet = new HashSet<>();
 		List<Integer> yearList = new ArrayList<>();
 		
 		// 년도 중복제거
-		for(Map<String, Object> m : monthlySalesListList) {
+		for(Map<String, Object> m : monthlySalesList) {
 			yearSet.add((Integer) m.get("YEAR"));
 		}
 		
@@ -39,6 +39,9 @@ public class SalesController {
         	yearList.add(iterSet.next());
         }
         
+        // 년도 오름차순 정렬
+        Collections.sort(yearList);
+        
         // 대시보드 기본 통계 자료
         Map<String, Object> statisticsMap = salesService.getDashboardStatistics();
 
@@ -46,7 +49,7 @@ public class SalesController {
 		model.addAttribute("yearList", yearList);
 		model.addAttribute("bestSellerList", bestSellerList);
 		model.addAttribute("salesByCategoryList", salesByCategoryList);
-		model.addAttribute("monthlySalesListList", monthlySalesListList);
+		model.addAttribute("monthlySalesList", monthlySalesList);
 		
 		return "getSalesList";
 	}
