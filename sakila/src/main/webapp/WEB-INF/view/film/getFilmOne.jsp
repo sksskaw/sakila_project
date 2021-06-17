@@ -1,321 +1,201 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>FilmOne</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Film One</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/ionicons/dist/css/ionicons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/css/shared/style.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/template/src/assets/css/demo_1/style.css">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/template/src/assets/images/favicon.ico" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
 
-<style type="text/css">
-/* reset */
-button {
-  padding:0;
-  background:none;
-  border:0;
-  cursor:pointer;
-}
-
-/* 버튼 영역 */
-.btnBox {
-  text-align:center;
-}
-
-.popOpenBtnCmmn {
-  width:200px; 
-  height:60px; 
-  background:#000; 
-  color:#fff; 
-  font-size:16px;
-  opacity:0.7;
-  transition:all 0.3s;
-}
-
-.popOpenBtnCmmn:hover {
-  opacity:1;
-}
-
-/* 팝업 영역 */
-.popCmmn {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
-
-.popBg {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-}
-
-.popInnerBox {
-  display:flex;
-  justify-content:space-between;
-  flex-direction:column;
-  position:absolute;
-  top:40%;
-  left:35%;
-  width:1000px;
-  height:400px;
-  margin:-125px 0 0 -200px;
-  text-align:center;
-  background:#fff;
-  border-radius:5px;
-}
-
-.popHead {
-  padding:15px;
-  background:#000;
-  color:#fff;
-  font-size:18px;
-}
-
-.popBody {
-  padding:10px;
-  box-sizing:border-box;
-  font-size:14px;
-}
-
-.popCloseBtnCmmn {
-  width:30%;
-  margin:10px;
-  padding:10px;
-  font-size:16px;
-  background:#999;
-  color:#fff;
-  transition:all 0.3s;
-}
-
-.popCloseBtnCmmn:hover {
-  background:#666;
-}
-</style>
-
-</head>
-<body>
-<div class="container">
-	<jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
-	
-    <h1>FilmOne</h1>
-    <br>
-     <table class="table table-striped">
-         <tbody>
-         	<tr>
-         		<input type="hidden" id="filmId" value="${film.filmId}">
-				<td class="col-sm-2" >film_id :</td>
-                <td>${film.filmId}</td>
-            </tr>
-            <tr>
-                   <td>Title :</td>
-                   <td>${film.title}</td>
-            </tr>
-            <tr>
-                   <td>description :</td>
-                   <td>${film.description}</td>
-            </tr>
-            <tr>
-                   <td>release_year :</td>
-                   <td>${film.releaseYear.substring(0,4)}</td>
-            </tr>
-            <tr>
-                   <td>language_id :</td>
-                   <td>${film.languageId}</td>
-            </tr>
-            <tr>
-                   <td>original_language_id :</td>
-                   <td>${film.originalLanguageId}</td>
-            </tr>
-            <tr>
-                   <td>rental_duration :</td>
-                   <td>${film.rentalDuration}</td>
-            </tr>
-            <tr>
-                   <td>rental_rate :</td>
-                   <td>${film.rentalRate}</td>
-            </tr>
-            <tr>
-                   <td>Runing Time :</td>
-                   <td>${film.length}</td>
-            </tr>
-            <tr>
-                   <td>replacement_cost :</td>
-                   <td>${film.replacementCost}</td>
-            </tr>
-            <tr>
-                   <td>rating :</td>
-                   <td>${film.rating}</td>
-            </tr>
-            <tr>
-                   <td>special_features :</td>
-                   <td>${film.specialFeatures}</td>
-            </tr>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <jsp:include page="/WEB-INF/view/navBar.jsp"></jsp:include>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+	        <div class="row page-title-header">
+              <div class="col-12">
+                <div class="page-header">
+                  <h4 class="page-title">Film&nbsp;One</h4>
+                </div>
+              </div>
+            </div>
             
-            <tr>
-                   <td>출연 배우 :</td>
-                   <td>${actors} <a href="${pageContext.request.contextPath}/admin/modifyFilmActorsInfo?filmId=${film.filmId}"><button>수정</button></a>
-            </tr>
-            
-            <tr>
-                   <td>last_update :</td>
-                   <td>${film.lastUpdate.substring(0,10)}</td>
-            </tr>
-
-			<tr>
-                   <td>store 1 재고량 :</td>
-                   <td>${store1Stock.filmCount}개</td>
-            </tr>
-            <tr>
-                   <td>store 2 재고량 :</td>
-                   <td>${store2Stock.filmCount}개</td>
-            </tr>
-        </tbody>
-    </table>
-
-
-	<div class="contentsWrap">
-	  <div class="btnBox">
-	    <button class="popOpenBtnCmmn" type="button" data-num="1">배우 수정</button>
-	  </div>
-	</div>
-	
-	<div id="popUp" class="popCmmn">
-	  <div class="popBg" data-num="1"></div>
-	  <div class="popInnerBox">
-	    <div class="popHead">배우 수정</div>
-	    <div class="popBody">
-	    	<form action="" method="get">
-	    	
-	    		<table class="table table-striped" id="table">
-					<tr id="cell"></tr>
-					<tr id="cell2"></tr>
-					<tr id="cell3"></tr>
-					<tr id="cell4"></tr>
-	    		</table>
-	    		
-	    		<p>
-	    			<input type="submit" class="btn btn-default" value="수정">&nbsp;
-	    		    <input type="reset" class="btn btn-default" value="초기화">
-	    		</p>
-	    	</form>
-	    </div>
-	    <div class="popFoot">
-	      <button class="popCloseBtnCmmn" type="button" data-num="1">확인</button>
-	    </div>
-	  </div>
-	</div>
-
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/getFilmList">영화목록</a>
- 	
-</div>
-
-<script>
-$(function(){
-	  setPop();
-	});
-
-	// 팝업 세팅
-	function setPop() {
-	  var popOpenBtn = $('.popOpenBtnCmmn');
-	  
-	  //팝업 열기
-	  popOpenBtn.on('click',function(){
-	    var clickNum = $(this).attr('data-num');
-
-	    console.log('actorCheckList');
-		$.ajax({
-			type:'get',
-			url:'/getActorsCheckList?filmId='+$('#filmId').val(),
-			success: function(jsonData) {
-				 console.log(jsonData);
-				$('#cell').empty();
-				$('#cell2').empty();
-				$('#cell3').empty();
-				$('#cell4').empty();
-
-				$(jsonData).each(function(index, item) {
-					
-					if(index < 5){
-						if(item.ck == "O"){
-							$('#cell').append(
-								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
-							);
-						}
-						if(item.ck == "X"){
-							$('#cell').append(
-									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
-							); 
-						}
-					}
-					
-					if(index < 10 && index >= 5){
-						if(item.ck == "O"){
-							$('#cell2').append(
-								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
-							);
-						}
-						if(item.ck == "X"){
-							$('#cell2').append(
-									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
-							); 
-						}
-					}
-					
-					if(index < 15 && index >= 10){
-						if(item.ck == "O"){
-							$('#cell3').append(
-								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
-							);
-						}
-						if(item.ck == "X"){
-							$('#cell3').append(
-									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
-							); 
-						}
-					}
-					
-					if(index < 20 && index >= 15){
-						if(item.ck == "O"){
-							$('#cell4').append(
-								'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'" checked="checked">'+item.name+'</label></td>'	
-							);
-						}
-						if(item.ck == "X"){
-							$('#cell4').append(
-									'<td><label><input type="checkbox" name="actorsCheck" value="'+item.ck+'">'+item.name+'</label></td>'
-							); 
-						}
-					}
-
-					
-				});
-			}
-		});
-	    
-	    $('#popUp').fadeIn(200);
-
-	  })
-	  
-	  //팝업 닫기
-	  $('.popBg, .popCloseBtnCmmn').on('click',function(){
-	    var clickNum = $(this).attr('data-num');
-	    
-	    $('#popUp').fadeOut(200);
-	  })
-	}
-</script>
-
-</body>
+            <div class="row">
+        	<div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                        <h4 class="card-title">Film Details</h4>
+                      </div>
+                      <p class="card-description">Film ID ${film.filmId} Info </p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Title</label>
+                            <label class="col-sm-6 col-form-label">${film.title}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Release Year</label>
+                            <label class="col-sm-6 col-form-label">${film.releaseYear.substring(0,4)}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Language</label>
+                            <label class="col-sm-6 col-form-label">${film.languageId}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Original Language</label>
+                            <label class="col-sm-6 col-form-label">${film.originalLanguageId}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Rental Duration</label>
+                            <label class="col-sm-6 col-form-label">${film.rentalDuration}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Rental Rate</label>
+                            <label class="col-sm-6 col-form-label">${film.rentalRate}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Runing Time</label>
+                            <label class="col-sm-6 col-form-label">${film.length}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Replacement Cost</label>
+                            <label class="col-sm-6 col-form-label">${film.replacementCost}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Rating</label>
+                            <label class="col-sm-6 col-form-label">${film.rating}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Special Features</label>
+                            <label class="col-sm-6 col-form-label">${film.specialFeatures}</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <br><br>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <label class="col-sm-10 col-form-label">${film.description}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Actors</label>
+                            <label class="col-sm-8 col-form-label">${actors}</label>
+                            <label class="col-sm-2 col-form-label">
+                            	<a href="${pageContext.request.contextPath}/admin/modifyFilmActorsInfo?filmId=${film.filmId}"><button type="button" class="btn btn-primary">배우수정</button></a>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <br><br>
+                      <p class="card-description">Stock</p>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">store 1 Stock</label>
+                            <label class="col-sm-1 col-form-label">${store1Stock.filmCount}</label>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">store 2 Stock</label>
+                            <label class="col-sm-1 col-form-label">${store2Stock.filmCount}</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Kim Tae Hoon 2021</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Git source <a href="https://github.com/sksskaw/sakila_project/" target="_blank">Sakila project</a></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+        </div>
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="${pageContext.request.contextPath}template/src/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="${pageContext.request.contextPath}/template/src/assets/vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="${pageContext.request.contextPath}template/src/assets/js/shared/off-canvas.js"></script>
+    <script src="${pageContext.request.contextPath}/template/src/assets/js/shared/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="${pageContext.request.contextPath}/template/src/assets/js/demo_1/dashboard.js"></script>
+    <!-- End custom js for this page-->
+    <script src="${pageContext.request.contextPath}/template/src/assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
+  </body>
 </html>

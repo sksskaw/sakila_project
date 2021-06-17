@@ -157,6 +157,7 @@
 		        </c:if> &nbsp;
 		        <a href="${pageContext.request.contextPath}/admin/addCustomer"><button type="button" class="btn btn-primary btn-sm">Add customer</button></a>
 		        
+		        <!-- 고객 검색 -->
 				<form class="ml-auto search-form d-none d-md-block" action="${pageContext.request.contextPath}/admin/getCustomerList" method="get">
 					  <div>
 					  	<label>
