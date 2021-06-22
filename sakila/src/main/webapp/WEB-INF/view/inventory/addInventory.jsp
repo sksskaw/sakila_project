@@ -43,7 +43,7 @@
 		console.log('Film 목록');
 		$.ajax({
 			type:'get',
-			url:'/getFilmTitleList',
+			url:'${pageContext.request.contextPath}/getFilmTitleList',
 			success: function(jsonData) {
 				$('#filmTitle').empty();
 					$('#filmTitle').append(

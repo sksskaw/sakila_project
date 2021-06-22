@@ -43,7 +43,7 @@
 		console.log('Film 목록');
 		$.ajax({
 			type:'get',
-			url:'/getFilmTitleList',
+			url:'${pageContext.request.contextPath}/getFilmTitleList',
 			success: function(jsonData) {
 				$('#filmTitle').empty();
 					$('#filmTitle').append(
@@ -62,7 +62,7 @@
 			console.log('Inventory 목록');
 			$.ajax({
 				type:'get',
-				url:'/getCanRentalList',
+				url:'${pageContext.request.contextPath}/getCanRentalList',
 				data:{filmId : $('#filmTitle').val()},
 				success: function(jsonData) {
 					$('#inventoryTableBody').empty();

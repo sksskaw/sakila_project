@@ -1,7 +1,7 @@
 (function ($) {
   'use strict';
   $(function () {
-    
+ 
     var lineStatsOptions = {
       scales: {
         yAxes: [{
@@ -133,7 +133,7 @@
 	    options: areaOptions
 	  });
       
-      console.log('getSalesByCategoryList RestApi request');
+      console.log('getmonthlySalesList RestApi request');
 		$.ajax({
 			type:'get',
 			url:'/getmonthlySalesList',

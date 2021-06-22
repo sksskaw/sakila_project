@@ -225,7 +225,7 @@ $(function(){
 	    console.log('actorCheckList');
 		$.ajax({
 			type:'get',
-			url:'/getActorsCheckList?filmId='+$('#filmId').val(),
+			url:'${pageContext.request.contextPath}/getActorsCheckList?filmId='+$('#filmId').val(),
 			success: function(jsonData) {
 				 console.log(jsonData);
 				$('#cell').empty();

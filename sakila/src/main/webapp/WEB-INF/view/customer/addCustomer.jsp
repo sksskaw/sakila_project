@@ -51,7 +51,7 @@
 		console.log('country 목록');
 		$.ajax({
 			type:'get',
-			url:'/country',
+			url:'${pageContext.request.contextPath}/country',
 			success: function(jsonData) {
 				$('#country').empty();
 					$('#country').append(
@@ -69,7 +69,7 @@
 			console.log('city 목록');
 			$.ajax({
 				type:'get',
-				url:'/city',
+				url:'${pageContext.request.contextPath}/city',
 				data:{countryId : $('#country').val()},
 				success: function(jsonData) {
 					$('#city').empty();
@@ -89,7 +89,7 @@
 			console.log('address 목록');
 			$.ajax({
 				type:'get',
-				url:'/address',
+				url:'${pageContext.request.contextPath}/address',
 				data:{cityId : $('#city').val()},
 				success: function(jsonData) {
 					$('#address').empty();
