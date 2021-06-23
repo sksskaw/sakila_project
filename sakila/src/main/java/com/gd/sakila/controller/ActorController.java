@@ -25,7 +25,7 @@ public class ActorController {
 	
 	@GetMapping("/addActor")
 	public String addActor() {
-		return "addActor";
+		return "actor/addActor";
 	}
 
 	@PostMapping("/addActor")
@@ -79,6 +79,6 @@ public class ActorController {
 		
 		// List 데이터
 		model.addAttribute("actorInfoList", actorInfoList);
-		return "getActorList";
+		return "actor/getActorList";
 	}
 }

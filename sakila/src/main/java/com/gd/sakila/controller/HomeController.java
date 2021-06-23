@@ -18,9 +18,13 @@ public class HomeController {
 	@Autowired StaffService staffService;
 	
 	@GetMapping({"/", "/home", "/index"})
-	public String home() {
-		log.debug("test");
-		return "home"; // 로그인
+	public String home(HttpSession session) {
+		
+		if(session.getAttribute("loginStaff") == null) {
+			return "home";
+		}
+		// 로그인이 되어있으면 Dashboard 페이지로 이동
+		return "getSalesList";
 	}
 	
 	@GetMapping("/admin/logout")
