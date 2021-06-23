@@ -49,6 +49,7 @@ public class InventoryController {
 		map.put("beginRow", (currentPage-1)*rowPerPage);
 		map.put("rowPerPage", rowPerPage);
 		map.put("searchWord", searchWord);
+		int pageSet = (currentPage-1)/10;
 		
 		// 재고 리스트
 		List<Map<String, Object>> inventoryList	 = inventoryService.getInventoryList(map);
@@ -64,6 +65,7 @@ public class InventoryController {
 		// 단일 변수 데이터
 		model.addAttribute("storeId", storeId);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSet", pageSet);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("searchWord", searchWord);

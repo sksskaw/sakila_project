@@ -65,7 +65,7 @@
                         
                         <!-- 매장별 목록 출력 선택상자 -->
                         <div class="col-md-9">
-						    <form action="${pageContext.request.contextPath}/admin/getInventoryList" method="get">
+						    <form style="display:inline-block" action="${pageContext.request.contextPath}/admin/getInventoryList" method="get">
 							    <select class="form-control" name="storeId" style="width:300px;">
 							    	<option value="0" selected="selected">전체</option>
 						        	<c:if test="${storeId == 1}">
@@ -84,6 +84,13 @@
 						        </select>
 						    	<button type="submit" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-search"></i></button>
 						    </form>
+						    
+						    <a href="${pageContext.request.contextPath}/admin/addInventory">
+					        	<button type="button" class="btn btn-primary btn-sm">Add Inventory</button>
+					        </a>
+					        <a href="${pageContext.request.contextPath}/admin/removeInventory">
+					        	<button type="button" class="btn btn-primary btn-sm">Remove Inventory</button>
+					        </a>
 					    </div>
                         
                         
@@ -127,13 +134,20 @@
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-left"></i></button>
 		            </a>
 		        </c:if>&nbsp;
+		        
+		        <c:forEach var="i" begin="1" end="10">
+					<c:if test="${(pageSet*10)+i < lastPage+1}">
+			            <a href="${pageContext.request.contextPath}/admin/getRentalList?currentPage=${(pageSet*10)+i}">
+							<button type="button" class="btn btn-primary">${(pageSet*10)+i}</button>
+						</a>&nbsp;
+					</c:if>
+				</c:forEach>
+				
 		        <c:if test="${currentPage < lastPage}">
 		            <a href="${pageContext.request.contextPath}/admin/getInventoryList?currentPage=${currentPage+1}&searchWord=${searchWord}&storeId=${storeId}">
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>
 		            </a>
-		        </c:if> &nbsp;
-		        <a href="${pageContext.request.contextPath}/admin/addInventory"><button type="button" class="btn btn-primary btn-sm">Add Inventory</button></a>&nbsp;
-		        <a href="${pageContext.request.contextPath}/admin/removeInventory"><button type="button" class="btn btn-primary btn-sm">Remove Inventory</button></a>
+		        </c:if>
 			</div>
 			
           </div>

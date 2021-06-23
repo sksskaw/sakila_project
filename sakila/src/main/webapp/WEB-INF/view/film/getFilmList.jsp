@@ -108,7 +108,9 @@
 						    	<button type="button" class="btn btn-primary" id="searchNameBtn"><i class="fa fa-refresh"></i></button>
 						    </a>
 						    </form>
-						    
+						    <a href="${pageContext.request.contextPath}/admin/addFilm">
+								<button type="button" class="btn btn-primary btn-sm">Add Film</button>
+							</a>
 					    </div>
 						
 						<!-- 영화 목록 출력 -->
@@ -156,6 +158,15 @@
 		            	<button type="button" class="btn btn-primary"><i class="fa fa-angle-left"></i></button>
 		            </a>
 		        </c:if>&nbsp;
+		        
+		        <c:forEach var="i" begin="1" end="10">
+					<c:if test="${(pageSet*10)+i < lastPage+1}">
+			            <a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${(pageSet*10)+i}">
+							<button type="button" class="btn btn-primary">${(pageSet*10)+i}</button>
+						</a>&nbsp;
+					</c:if>
+				</c:forEach>
+
 		        <c:if test="${currentPage < lastPage}">
 		            <a href="${pageContext.request.contextPath}/admin/getFilmList?currentPage=${currentPage+1}&searchWord=${searchWord}&category=${category}&price=${price}&rating=${rating}&searchKind=${searchKind}">
 		            	<button type="button" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>

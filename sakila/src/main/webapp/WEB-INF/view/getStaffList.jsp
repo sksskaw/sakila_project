@@ -65,7 +65,7 @@
 						
 						<div class="col-md-12">
 						    <!-- 직원 이름 검색 -->
-						    <form action="${pageContext.request.contextPath}/admin/getStaffList" method="get">
+						    <form style="display:inline-block" action="${pageContext.request.contextPath}/admin/getStaffList" method="get">
 							  <div>
 							  	<label>
 							  		<input type="text" style="width:270px;" class="form-control" name="searchWord" value="${searchWord}" placeholder="Search Name"/>
@@ -73,6 +73,9 @@
 									<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 							  </div>
 							</form>
+							<a href="${pageContext.request.contextPath}/admin/addStaff">
+					        	<button type="button" class="btn btn-primary btn-sm">Add Staff</button>
+					        </a>
 					    </div>
 						
                         <div class="table-responsive">
@@ -126,8 +129,6 @@
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>
 		            </a>
 		        </c:if>
-		        &nbsp;
-		        <a href="${pageContext.request.contextPath}/admin/addStaff"><button type="button" class="btn btn-primary btn-sm">Add Staff</button></a>&nbsp;
 			</div>
 			
           </div>

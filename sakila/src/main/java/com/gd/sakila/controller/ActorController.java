@@ -52,6 +52,8 @@ public class ActorController {
 			category = null;
 		}
 		
+		int pageSet = (currentPage-1)/10;
+		
 		log.debug("currentPage: "+ currentPage);
 		log.debug("rowPerPage: "+ rowPerPage);
 		log.debug("searchWord: "+ searchWord);
@@ -74,6 +76,7 @@ public class ActorController {
 		// 단일 변수 데이터
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSet", pageSet);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("category", category);
 		

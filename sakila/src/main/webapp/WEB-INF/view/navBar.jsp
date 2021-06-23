@@ -37,7 +37,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/addRental">Rental</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addReturn">Return</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/getReturnList">Return</a>
                   </li>
                 </ul>
               </div>

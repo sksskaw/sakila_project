@@ -31,6 +31,8 @@ public class RentalController {
 	         @RequestParam(value = "returnDateOption", defaultValue = "0") int returnDateOption,
 	         @RequestParam(value="searchNum", required = false)Integer searchNum) {
 		
+		int pageSet = (currentPage-1)/10;
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", (currentPage-1)*rowPerPage);
 		map.put("rowPerPage", rowPerPage);
@@ -46,6 +48,7 @@ public class RentalController {
 		
 		model.addAttribute("rentalList",rentalList);
 		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("pageSet",pageSet);
 		model.addAttribute("lastPage",lastPage);
 		model.addAttribute("returnDateOption",returnDateOption);
 		model.addAttribute("searchNum",searchNum);
@@ -79,7 +82,7 @@ public class RentalController {
 	}
 	
 	// 반납 처리 목록, 현재 대여중인 목록
-	@GetMapping("/addReturn")
+	@GetMapping("/getReturnList")
 	public String addReturn(Model model,
 			 @RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 	         @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -89,15 +92,20 @@ public class RentalController {
 			searchNum = null;
 		}
 		
+		// 페이징 변수
+		int pageSet = (currentPage-1)/10;
 		int beginRow = (currentPage-1)*rowPerPage;
+		int returnTotal = rentalService.getReturnNullTotal();
+		int lastPage = (int)Math.ceil((double)returnTotal / rowPerPage);
+		
 		List<Rental> returnNullList = rentalService.getReturnNullList(beginRow, rowPerPage, searchNum);
-		
-		int lastPage = rentalService.getReturnNullTotal();
-		
+
 		model.addAttribute("returnNullList",returnNullList);
 		model.addAttribute("lastPage",lastPage);
 		model.addAttribute("currentPage",currentPage);
-		return "rental/addReturn";
+		model.addAttribute("pageSet",pageSet);
+		
+		return "rental/getReturnList";
 	}
 	
 	// 반납처리 메소드

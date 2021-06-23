@@ -82,6 +82,7 @@ public class CustomerController {
 		// 동적 쿼리에 따른 마지막 페이지 계산
 		int customerTotal = customerService.getCustomerListTotal(searchWord);
 		int lastPage = (int)Math.ceil((double)customerTotal / rowPerPage);
+		int pageSet = (currentPage-1)/10;
 		
 		// 리스트 response
 		model.addAttribute("customerList",customerList);
@@ -91,6 +92,7 @@ public class CustomerController {
 		model.addAttribute("searchWord",searchWord);
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("lastPage",lastPage);
+		model.addAttribute("pageSet",pageSet);
 		
 		return "customer/getCustomerList";
 	}

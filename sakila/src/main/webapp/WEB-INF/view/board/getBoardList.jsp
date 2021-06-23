@@ -62,10 +62,9 @@
                           <h4 class="card-title mb-0">Board List </h4>
                         </div>
                         <p>You can create new notice and comment on notice.</p>
-						
 						<div class="col-md-12">
 						    <!-- 고객 ID 검색 -->
-						    <form action="${pageContext.request.contextPath}/admin/getBoardList" method="get">
+						    <form style="display:inline-block" action="${pageContext.request.contextPath}/admin/getBoardList" method="get">
 							  <div>
 							  	<label>
 							  		<input type="text" style="width:270px;" class="form-control" name="searchWord" value="${searchWord}" placeholder="Search Name"/>
@@ -73,6 +72,9 @@
 									<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 							  </div>
 							</form>
+							<a href="${pageContext.request.contextPath}/admin/addBoard">
+					        	<button type="button" class="btn btn-primary btn-sm">Add Board</button>
+					        </a>
 					    </div>
 						
                         <div class="table-responsive">
@@ -111,13 +113,20 @@
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-left"></i></button>
 		            </a>
 		        </c:if>&nbsp;
+		        
+		        <c:forEach var="i" begin="1" end="10">
+					<c:if test="${(pageSet*10)+i < lastPage+1}">
+			            <a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${(pageSet*10)+i}">
+							<button type="button" class="btn btn-primary">${(pageSet*10)+i}</button>
+						</a>&nbsp;
+					</c:if>
+				</c:forEach>
+				
 		        <c:if test="${currentPage < lastPage}">
 		            <a href="${pageContext.request.contextPath}/admin/getBoardList?currentPage=${currentPage+1}&searchWord=${searchWord}">
 		            	<button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i></button>
 		            </a>
 		        </c:if>
-		        &nbsp;
-		        <a href="${pageContext.request.contextPath}/admin/addBoard"><button type="button" class="btn btn-primary btn-sm">Add Board</button></a>&nbsp;
 			</div>
 			
           </div>

@@ -109,10 +109,13 @@ public class BoardController {
 		log.debug("rowPerPage: "+ rowPerPage);
 		log.debug("searchWord: "+ searchWord);
 		
+		int pageSet = (currentPage-1)/10;
+		
 		Map<String, Object> map = boardServcie.getBoardList(currentPage, rowPerPage, searchWord);
 		//model.addAttribute("map", map);
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSet", pageSet);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("boardList", map.get("boardList"));
 		

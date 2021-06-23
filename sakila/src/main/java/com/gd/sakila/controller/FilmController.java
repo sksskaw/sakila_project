@@ -158,6 +158,8 @@ public class FilmController {
 			rating = null;
 		}
 		
+		int pageSet = (currentPage-1)/10;
+		
 		log.debug("currentPage: "+ currentPage);
 		log.debug("rowPerPage: "+ rowPerPage);
 		log.debug("searchWord: "+ searchWord);
@@ -182,6 +184,7 @@ public class FilmController {
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("searchKind", searchKind);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSet", pageSet);
 		model.addAttribute("category", category);
 		model.addAttribute("price", price);
 		model.addAttribute("rating", rating);
