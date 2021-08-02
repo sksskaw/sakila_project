@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	@Autowired StaffService staffService;
 	
-	@GetMapping({"/", "/home", "/index"})
+	@GetMapping({"/home", "/index"})
 	public String home(HttpSession session) {
 		
 		if(session.getAttribute("loginStaff") == null) {
