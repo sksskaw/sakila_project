@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	@Autowired StaffService staffService;
 	
-	@GetMapping({"/home", "/index"})
+	@GetMapping({"home", "index"})
 	public String home(HttpSession session) {
 		
 		if(session.getAttribute("loginStaff") == null) {
@@ -30,7 +30,7 @@ public class HomeController {
 	@GetMapping("/admin/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/index";
 	}
 	
 	@PostMapping("/login")
